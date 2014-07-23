@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:background="#463565">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edit_shelf"
+                android:id="@+id/textView" />
+        <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/new_item"
+                    android:id="@+id/addInput"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionDone" android:singleLine="true"
+                    />
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp" android:background="@drawable/drop_shadow">
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="match_parent">
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_shelf_list" />
+    </LinearLayout>
+</LinearLayout>

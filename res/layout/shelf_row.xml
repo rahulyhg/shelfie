@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:weightSum="1" android:orientation="horizontal">
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/upButton"
+            android:src="@drawable/menu_arrow_up"
+            android:contentDescription="@string/move_up"
+            android:paddingTop="30dp" android:paddingBottom="31dp"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.925"
+                    android:id="@+id/itemName"
+                    android:singleLine="true"
+                    style="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:text="@string/test"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    />
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:id="@+id/itemDesiredAmt"
+                    android:text="@string/example"
+                    style="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.075"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+            <Space
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.6"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu_minus"
+                    android:padding="15dp"
+                    android:id="@+id/minAmt"
+                    android:contentDescription="@string/increase_desired_amt"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu_plus"
+                    android:padding="15dp"
+                    android:id="@+id/plusAmt"
+                    android:contentDescription="@string/decrease_desired_amt"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/downButton"
+            android:src="@drawable/menu_arrow_down"
+            android:contentDescription="@string/move_up"
+            android:paddingTop="30dp" android:paddingBottom="31dp"/>
+</LinearLayout>
