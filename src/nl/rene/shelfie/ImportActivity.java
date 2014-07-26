@@ -30,7 +30,9 @@ public class ImportActivity extends BaseActivity {
     public void respondWith(String response) {
         if(response != null) {
             try {
-                shelf = Shelf.fromJSON(new JSONObject(response));
+                JSONObject obj = new JSONObject(response);
+                if(obj.has("not") && obj.getString("not").equals("found")) { throw new JSONException("object not found"); }
+                shelf = Shelf.fromJSON(obj);
                 shelf.save(this);
                 Toast.makeText(this, getString(R.string.import_ok) , Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
