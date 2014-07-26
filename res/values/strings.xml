@@ -22,5 +22,7 @@
     <string name="importing">Bezig met importeren</string>
     <string name="import_failed">Importeren mislukt</string>
     <string name="import_ok">Importeren gelukt</string>
+    <string name="export_shelf">Voorraad delen</string>
+    <string name="export_failed">Delen is mislukt</string>
 
 </resources>

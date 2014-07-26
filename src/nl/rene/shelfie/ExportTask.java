@@ -2,23 +2,23 @@ package nl.rene.shelfie;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+import org.json.JSONException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImportTask extends AsyncTask<String, Integer, String> {
+public class ExportTask extends AsyncTask<String, Integer, String> {
     Responder responder;
+    Shelf shelf;
 
-    public ImportTask(Responder responder) {
-        super();
+    public ExportTask(Responder responder, Shelf shelf) {
+        this.shelf = shelf;
         this.responder = responder;
     }
 
     @Override
-    protected String doInBackground(String... id) {
-        if(id.length == 0) { return null; }
+    protected String doInBackground(String... params) {
         String response = null;
         HttpURLConnection connection = null;
         InputStream is = null;
@@ -27,7 +27,7 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
 
         try {
             URL url = new URL(Remoting.SERVICE_URL);
-            String sendData = "{\"action\": \"fetch\", \"id\": \"" + id[0] + "\" }";
+            String sendData = "{\"action\": \"add\", \"data\": " + shelf.toJSON().toString() + "}";
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -44,6 +44,8 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
             response = sb.toString();
         } catch (IOException e) {
             Log.w("SHELFIE", "Failed to open service");
+        } catch (JSONException e) {
+            Log.w("SHELFIE", "Failed generate JSON");
         } finally {
             if(reader != null) { try { reader.close(); } catch (IOException ignored) { /* ignore */ } }
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }
