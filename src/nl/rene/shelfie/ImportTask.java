@@ -27,7 +27,7 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
 
 
         try {
-            URL url = new URL("FOO");
+            URL url = new URL("http://porkfront.herokuapp.com/shizz");
             String sendData = "{\"action\": \"fetch\", \"id\": \"" + id[0] + "\" }";
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
