@@ -7,10 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
-public class ImportActivity extends Activity implements Responder {
+public class ImportActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Uri uri = getIntent().getData();
@@ -27,13 +29,19 @@ public class ImportActivity extends Activity implements Responder {
     @Override
     public void respondWith(String response) {
         if(response != null) {
-            Toast.makeText(this, getString(R.string.import_ok) , Toast.LENGTH_LONG).show();
+            try {
+                shelf = Shelf.fromJSON(new JSONObject(response));
+                shelf.save(this);
+                Toast.makeText(this, getString(R.string.import_ok) , Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_LONG).show();
+                shelf = Shelf.getInstance(this);
+            }
+
         } else {
             Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_LONG).show();
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
-
     }
 }

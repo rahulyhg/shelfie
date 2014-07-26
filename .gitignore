@@ -45,3 +45,4 @@ ant.properties
 build.xml
 gen
 out
+src/nl/rene/shelfie/Remoting.java

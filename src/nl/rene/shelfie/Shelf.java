@@ -24,6 +24,30 @@ public class Shelf {
     private static Shelf instance = null;
     private int currentItem = 0;
 
+    private Shelf(JSONObject me) {
+        this.items = new ArrayList<ShelfItem>();
+        this.groceries = new ArrayList<ShelfItem>();
+        try {
+            JSONArray jsonItems = me.getJSONArray("items");
+            for (int i = 0; i < jsonItems.length(); i++) {
+                JSONObject jsonItem = jsonItems.getJSONObject(i);
+                ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
+                items.add(item);
+            }
+            long updatedAt = me.getLong("updatedAt");
+            if (System.currentTimeMillis() < DAY_DURATION + updatedAt) {
+                JSONArray jsonGroceries = me.getJSONArray("groceries");
+                for (int i = 0; i < jsonGroceries.length(); i++) {
+                    JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
+                    ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
+                    groceries.add(grocery);
+                }
+            }
+        } catch (JSONException e) {
+
+        }
+    }
+
     private Shelf(String filename, Context context) {
         FileInputStream is;
         this.items = new ArrayList<ShelfItem>();
@@ -56,9 +80,7 @@ public class Shelf {
             }
             is.close();
         } catch(IOException e) {
-            e.printStackTrace();
         } catch(JSONException e) {
-            e.printStackTrace();
         }
     }
 
@@ -67,6 +89,10 @@ public class Shelf {
         return instance;
     }
 
+    public static Shelf fromJSON(JSONObject json) {
+        instance = new Shelf(json);
+        return instance;
+    }
 
     public List<ShelfItem> getItems() {
         return this.items;
