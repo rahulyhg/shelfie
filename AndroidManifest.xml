@@ -15,6 +15,12 @@
         </activity>
         <activity android:name=".ImportActivity">
             <intent-filter>
+                <data android:scheme="http" android:host="porkfront.herokuapp.com" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <intent-filter>
                 <data android:scheme="nl.shelfie" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -24,6 +30,5 @@
         <activity android:name=".EditShelfActivity"/>
         <activity android:name=".BaseActivity"/>
         <activity android:name=".GroceryListActivity"/>
-        <activity android:name=".ImportActivity"/>
     </application>
 </manifest>
