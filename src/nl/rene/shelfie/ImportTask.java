@@ -4,14 +4,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImportTask extends AsyncTask<URL, Integer, String> {
+public class ImportTask extends AsyncTask<String, Integer, String> {
 
     Responder responder;
 
@@ -21,14 +18,25 @@ public class ImportTask extends AsyncTask<URL, Integer, String> {
     }
 
     @Override
-    protected String doInBackground(URL... urls) {
+    protected String doInBackground(String... id) {
+        if(id.length == 0) { return null; }
         String response = null;
         HttpURLConnection connection = null;
         InputStream is = null;
         BufferedReader reader = null;
-        if(urls.length == 0) { return null; }
+
+
         try {
-            connection = (HttpURLConnection) urls[0].openConnection();
+            URL url = new URL("http://porkfront.herokuapp.com/shizz");
+            String sendData = "{\"action\": \"fetch\", \"id\": \"" + id[0] + "\" }";
+            Log.d("SHELFIE", sendData);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+            dos.writeBytes(sendData);
+            dos.flush();
+            dos.close();
             is = connection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
@@ -36,7 +44,7 @@ public class ImportTask extends AsyncTask<URL, Integer, String> {
             while((ln = reader.readLine()) != null) { sb.append(ln); }
             response = sb.toString();
         } catch (IOException e) {
-            Log.w("SHELFIE", "Failed to open URL: " + urls[0]);
+            Log.w("SHELFIE", "Failed to open service");
         } finally {
             if(reader != null) { try { reader.close(); } catch (IOException ignored) { /* ignore */ } }
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }

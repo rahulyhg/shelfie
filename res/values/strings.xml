@@ -19,4 +19,8 @@
     <string name="shelf_is_empty">Uw gewenste voorraad is nog niet opgesteld, maak eerst een gewenste voorraad aan
     </string>
     <string name="delete_grocery_confirm">Uit de boodschappenlijst verwijderen?</string>
+    <string name="importing">Bezig met importeren</string>
+    <string name="import_failed">Importeren mislukt</string>
+    <string name="import_ok">Importeren gelukt</string>
+
 </resources>
