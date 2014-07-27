@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +14,7 @@ import org.json.JSONObject;
 
 public class BaseActivity extends Activity implements Responder {
     protected Shelf shelf;
+    private View exportButton = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,10 @@ public class BaseActivity extends Activity implements Responder {
     @SuppressWarnings("unused")
     public void startShelfExport(View view) {
         if(shelf == null) { shelf = Shelf.getInstance(this); }
+        Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
+        exportButton = view;
+        exportButton.setEnabled(false);
+
         new ExportTask(this, shelf).execute("");
     }
 
@@ -51,7 +58,7 @@ public class BaseActivity extends Activity implements Responder {
             Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
-            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "http://porkfront.herokuapp.com/" + id);
+            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "http://getshelfie.herokuapp.com/" + id);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
 
         } catch (JSONException e) {
@@ -62,6 +69,7 @@ public class BaseActivity extends Activity implements Responder {
 
     @Override
     public void respondWith(String response) {
+        if(exportButton != null) { exportButton.setEnabled(true); }
         if(response != null) {
             parseAndShareExport(response);
         } else {

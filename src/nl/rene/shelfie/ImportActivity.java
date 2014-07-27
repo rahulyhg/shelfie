@@ -20,8 +20,13 @@ public class ImportActivity extends BaseActivity {
         List<String> params = uri.getPathSegments();
         Toast.makeText(this, getString(R.string.importing), Toast.LENGTH_LONG).show();
 
-
-        new ImportTask(this).execute(params.get(0));
+        if(params.size() == 0) {
+            Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            new ImportTask(this).execute(params.get(0));
+        }
 
 
     }

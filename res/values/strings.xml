@@ -26,5 +26,6 @@
     <string name="export_failed">Delen is mislukt</string>
     <string name="share_subject">Ik wil een Shelfie met je delen</string>
     <string name="share_title">Shelfie delen</string>
+    <string name="exporting">Delen starten</string>
 
 </resources>
