@@ -3,6 +3,7 @@ package nl.rene.shelfie;
 import android.os.AsyncTask;
 import android.util.Log;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,6 +18,20 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
         this.responder = responder;
     }
 
+    private JSONObject buildQuery() throws JSONException {
+        JSONObject query = new JSONObject();
+        JSONObject data = new JSONObject(shelf.toJSON().toString());
+        if(shelf.getExportId() == null) {
+            query.put("action", "add");
+        } else {
+            if(data.has("_id")) { data.remove("_id"); }
+            query.put("action", "update");
+            query.put("id", shelf.getExportId());
+        }
+        query.put("data", data);
+        return query;
+    }
+
     @Override
     protected String doInBackground(String... params) {
         String response = null;
@@ -27,7 +42,7 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
 
         try {
             URL url = new URL(Remoting.SERVICE_URL);
-            String sendData = "{\"action\": \"add\", \"data\": " + shelf.toJSON().toString() + "}";
+            String sendData = buildQuery().toString();
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

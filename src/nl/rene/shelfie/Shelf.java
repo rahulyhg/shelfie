@@ -23,6 +23,7 @@ public class Shelf {
     private boolean changed = false;
     private static Shelf instance = null;
     private int currentItem = 0;
+    private String exportId = null;
 
     private Shelf(JSONObject me) {
         this.items = new ArrayList<ShelfItem>();
@@ -34,6 +35,7 @@ public class Shelf {
                 ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
                 items.add(item);
             }
+            if(me.has("_id")) { exportId = me.getString("_id"); }
             long updatedAt = me.getLong("updatedAt");
             if (System.currentTimeMillis() < DAY_DURATION + updatedAt) {
                 JSONArray jsonGroceries = me.getJSONArray("groceries");
@@ -69,6 +71,7 @@ public class Shelf {
                 ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
                 items.add(item);
             }
+            if(me.has("_id")) { exportId = me.getString("_id"); }
             long updatedAt = me.getLong("updatedAt");
             if(System.currentTimeMillis() < DAY_DURATION + updatedAt) {
                 JSONArray jsonGroceries = me.getJSONArray("groceries");
@@ -106,6 +109,7 @@ public class Shelf {
         for(ShelfItem item : items) {
             jsonItems.put(item.toJSON());
         }
+        if(exportId != null) { me.put("_id", exportId); }
         me.put("items", jsonItems);
         for(ShelfItem grocery : groceries) {
             jsonGroceries.put(grocery.toJSON());
@@ -195,5 +199,9 @@ public class Shelf {
 
     public void prevItem() {
         if(currentItem > 0) { currentItem--; }
+    }
+
+    public String getExportId() {
+        return exportId;
     }
 }
