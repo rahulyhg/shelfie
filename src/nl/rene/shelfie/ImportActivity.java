@@ -50,5 +50,6 @@ public class ImportActivity extends BaseActivity {
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }
