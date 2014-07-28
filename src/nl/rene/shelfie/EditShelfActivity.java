@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -125,6 +126,7 @@ public class EditShelfActivity extends BaseActivity {
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         adapter = new ShelfListAdapter(this, shelf.getItems());
         shelfLayout.setAdapter(adapter);
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         EditText newItem = (EditText) findViewById(R.id.addInput);
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

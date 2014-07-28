@@ -35,6 +35,7 @@ public class BaseActivity extends Activity implements Responder {
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
         return true;
     }
@@ -43,12 +44,14 @@ public class BaseActivity extends Activity implements Responder {
     public void startGroceryListActivity(View view) {
         Intent intent = new Intent(this, GroceryListActivity.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @SuppressWarnings("unused")
     public void startEditShelfActivity(View view) {
         Intent intent = new Intent(this, EditShelfActivity.class);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @SuppressWarnings("unused")
@@ -70,7 +73,7 @@ public class BaseActivity extends Activity implements Responder {
             shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
             shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "http://getshelfie.herokuapp.com/" + id);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
-
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } catch (JSONException e) {
             Log.w("SHELFIE", "failed to parse response: " + jsonStr);
             Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();

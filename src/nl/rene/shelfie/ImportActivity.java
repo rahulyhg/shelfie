@@ -1,11 +1,9 @@
 package nl.rene.shelfie;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +22,7 @@ public class ImportActivity extends BaseActivity {
             Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else {
             new ImportTask(this).execute(params.get(0));
         }
@@ -50,6 +49,7 @@ public class ImportActivity extends BaseActivity {
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(0, 0);
         finish();
     }
 }

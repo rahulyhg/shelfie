@@ -161,6 +161,8 @@ public class GroceryListActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grocery_list);
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+
         getActionBar().setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));
         if(shelf.getItems().size() == 0) {
             Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG);

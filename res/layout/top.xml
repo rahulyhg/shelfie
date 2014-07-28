@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+        >
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/make_list"
+            android:id="@+id/make_list" android:onClick="startGroceryListActivity" android:layout_weight="0.5"
+            android:background="@color/shelfie_blue" android:layout_marginRight="1dip"
+            android:layout_marginTop="2dp"/>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_shelf"
+            android:id="@+id/edit_shelf" android:onClick="startEditShelfActivity" android:layout_weight="0.5"
+            android:background="@color/shelfie_blue" android:layout_marginTop="2dp"/>
+</LinearLayout>
