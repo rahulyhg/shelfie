@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 public class BaseActivity extends Activity implements Responder {
     protected Shelf shelf;
+    protected GroceryList groceryList;
     private View exportButton = null;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -19,12 +20,15 @@ public class BaseActivity extends Activity implements Responder {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         shelf = Shelf.getInstance(this);
+        groceryList = GroceryList.getInstance(this);
     }
 
     public void onPause() {
         super.onPause();
-        Shelf shelf = Shelf.getInstance(this);
+        shelf = Shelf.getInstance(this);
+        groceryList = GroceryList.getInstance(this);
         if(shelf != null) { shelf.save(this); }
+        if(groceryList != null) { groceryList.save(this); }
     }
 
     @Override

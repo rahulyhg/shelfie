@@ -16,9 +16,7 @@ import java.util.List;
 
 public class Shelf {
     private static final String FILENAME = "theshelf.json";
-    private static final long DAY_DURATION = 86400000;
     private List<ShelfItem> items;
-    private List<ShelfItem> groceries;
 
     private boolean changed = false;
     private static Shelf instance = null;
@@ -27,7 +25,6 @@ public class Shelf {
 
     private Shelf(JSONObject me) {
         this.items = new ArrayList<ShelfItem>();
-        this.groceries = new ArrayList<ShelfItem>();
         try {
             JSONArray jsonItems = me.getJSONArray("items");
             for (int i = 0; i < jsonItems.length(); i++) {
@@ -36,16 +33,7 @@ public class Shelf {
                 items.add(item);
             }
             if(me.has("_id")) { exportId = me.getString("_id"); }
-            long updatedAt = me.getLong("updatedAt");
-            if (System.currentTimeMillis() < DAY_DURATION + updatedAt) {
-                JSONArray jsonGroceries = me.getJSONArray("groceries");
-                for (int i = 0; i < jsonGroceries.length(); i++) {
-                    JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
-                    ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
-                    groceries.add(grocery);
-                }
-            }
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
 
         }
     }
@@ -53,7 +41,6 @@ public class Shelf {
     private Shelf(String filename, Context context) {
         FileInputStream is;
         this.items = new ArrayList<ShelfItem>();
-        this.groceries = new ArrayList<ShelfItem>();
         try {
             is = context.openFileInput(filename);
 
@@ -72,18 +59,9 @@ public class Shelf {
                 items.add(item);
             }
             if(me.has("_id")) { exportId = me.getString("_id"); }
-            long updatedAt = me.getLong("updatedAt");
-            if(System.currentTimeMillis() < DAY_DURATION + updatedAt) {
-                JSONArray jsonGroceries = me.getJSONArray("groceries");
-                for(int i = 0; i < jsonGroceries.length(); i++) {
-                    JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
-                    ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
-                    groceries.add(grocery);
-                }
-            }
             is.close();
-        } catch(IOException e) {
-        } catch(JSONException e) {
+        } catch(IOException ignored) {
+        } catch(JSONException ignored) {
         }
     }
 
@@ -104,18 +82,12 @@ public class Shelf {
     public JSONObject toJSON() throws JSONException {
         JSONObject me = new JSONObject();
         JSONArray jsonItems = new JSONArray();
-        JSONArray jsonGroceries = new JSONArray();
         me.put("name", "standard_shelf");
         for(ShelfItem item : items) {
             jsonItems.put(item.toJSON());
         }
-        if(exportId != null) { me.put("_id", exportId); }
         me.put("items", jsonItems);
-        for(ShelfItem grocery : groceries) {
-            jsonGroceries.put(grocery.toJSON());
-        }
-        me.put("groceries", jsonGroceries);
-        me.put("updatedAt", System.currentTimeMillis());
+        if(exportId != null) { me.put("_id", exportId); }
         return me;
     }
 
@@ -129,7 +101,7 @@ public class Shelf {
         FileOutputStream os;
         try {
             os = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            Log.d("SHELFIE", "Writing JSON: " + toJSON().toString());
+            Log.d("SHELFIE", "Saving Shelf: " + toJSON().toString());
             os.write(toJSON().toString().getBytes());
             changed = false;
             os.close();
@@ -151,7 +123,7 @@ public class Shelf {
     }
 
     public void setChanged(boolean changed) {
-        if(changed) { Log.d("SHELFIE", "Change registered"); }
+        if(changed) { Log.d("SHELFIE", "Change in Shelf registered"); }
         this.changed = changed;
     }
 
@@ -177,19 +149,6 @@ public class Shelf {
         return items.get(currentItem);
     }
 
-    public void removeGrocery(int position) {
-        if(groceries.get(position) != null) { groceries.remove(position); setChanged(true);}
-    }
-
-    public List<ShelfItem> getGroceries() {
-        return groceries;
-    }
-
-    public void addGrocery(ShelfItem item, int amount) {
-        ShelfItem grocery = new ShelfItem(item.getName(), amount);
-        groceries.add(grocery);
-        setChanged(true);
-    }
 
     public void nextItem() {
         if(currentItem < items.size() - 1) {

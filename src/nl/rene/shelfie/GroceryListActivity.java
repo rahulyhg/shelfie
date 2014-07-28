@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +29,13 @@ public class GroceryListActivity extends BaseActivity {
 
         private class ClickListener implements View.OnLongClickListener {
             private GroceryListAdapter adapter;
-            private ClickOperation clickOperation;
             private ShelfItem item;
             private int position;
-            private TextView textView;
 
-            public ClickListener(ShelfItem item, TextView view, int position, GroceryListAdapter adapter, ClickOperation operation) {
+            public ClickListener(ShelfItem item, int position, GroceryListAdapter adapter) {
                 this.item = item;
                 this.position = position;
                 this.adapter = adapter;
-                this.clickOperation = operation;
-                this.textView = view;
             }
 
             @Override
@@ -52,7 +47,7 @@ public class GroceryListActivity extends BaseActivity {
                         .setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                shelf.removeGrocery(position);
+                                groceryList.removeGrocery(position);
                                 adapter.notifyDataSetChanged();
                             }
                         })
@@ -69,6 +64,7 @@ public class GroceryListActivity extends BaseActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO: implement viewholder pattern
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.grocery, parent,false);
 
@@ -78,7 +74,7 @@ public class GroceryListActivity extends BaseActivity {
             nameInput.setText(objects.get(position).getName());
             desiredAmount.setText("" + objects.get(position).getDesiredAmount());
 
-            layout.setOnLongClickListener(new ClickListener(objects.get(position), desiredAmount, position, this, ClickOperation.DELETE));
+            layout.setOnLongClickListener(new ClickListener(objects.get(position), position, this));
 
 
             return layout;
@@ -118,7 +114,7 @@ public class GroceryListActivity extends BaseActivity {
                     break;
 
                 case ADD:
-                    shelf.addGrocery(shelf.getCurrentItem(), Integer.parseInt(amount.getText().toString()));
+                    groceryList.addGrocery(shelf.getCurrentItem(), Integer.parseInt(amount.getText().toString()));
                     groceryListAdapter.notifyDataSetChanged();
                 case NEXT:
                     shelf.nextItem();
@@ -142,7 +138,7 @@ public class GroceryListActivity extends BaseActivity {
         ImageButton minusButton = (ImageButton) findViewById(R.id.minusButton);
         ImageButton nextButton = (ImageButton) findViewById(R.id.nextButt);
         ImageButton prevButton = (ImageButton) findViewById(R.id.prevButt);
-        groceryListAdapter = new GroceryListAdapter(this, shelf.getGroceries());
+        groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
         groceryListLayout.setAdapter(groceryListAdapter);
 
         itemName.setText(currentItem.getName());
@@ -165,7 +161,7 @@ public class GroceryListActivity extends BaseActivity {
 
         getActionBar().setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));
         if(shelf.getItems().size() == 0) {
-            Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
             startEditShelfActivity(null);
         } else {
             init();
