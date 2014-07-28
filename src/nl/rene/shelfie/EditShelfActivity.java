@@ -89,30 +89,26 @@ public class EditShelfActivity extends BaseActivity {
         }
 
 
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO: implement viewholder pattern
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.shelf_row, parent,false);
+            ShelfItemRowLayout shelfItemRowLayout;
+            if(convertView == null) {
+                shelfItemRowLayout = new ShelfItemRowLayout(context);
+            } else {
+                shelfItemRowLayout = (ShelfItemRowLayout) convertView;
+            }
 
-            TextView nameInput = (TextView) layout.findViewById(R.id.itemName);
+            shelfItemRowLayout.setName(objects.get(position).getName());
+            shelfItemRowLayout.setDesiredAmount("" + objects.get(position).getDesiredAmount());
+            TextView desiredAmountView = shelfItemRowLayout.getDesiredAmountView();
+            shelfItemRowLayout.getDecrementButton().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.DECREASE_AMOUNT));
+            shelfItemRowLayout.getIncrementButton().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.INCREASE_AMOUNT));
+            shelfItemRowLayout.getUpArrow().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.SWAP_UP));
+            shelfItemRowLayout.getDownArrow().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.SWAP_DOWN));
 
-            TextView desiredAmountInput = (TextView) layout.findViewById(R.id.itemDesiredAmt);
-            nameInput.setText(objects.get(position).getName());
-            desiredAmountInput.setText("" + objects.get(position).getDesiredAmount());
-
-            ImageButton decrementButton = (ImageButton) layout.findViewById(R.id.minAmt);
-            ImageButton incrementButton = (ImageButton) layout.findViewById(R.id.plusAmt);
-            ImageButton upArrow = (ImageButton) layout.findViewById(R.id.upButton);
-            ImageButton downArrow = (ImageButton) layout.findViewById(R.id.downButton);
-            decrementButton.setOnClickListener(new ClickListener(objects.get(position), desiredAmountInput, position, this, ClickOperation.DECREASE_AMOUNT));
-            incrementButton.setOnClickListener(new ClickListener(objects.get(position), desiredAmountInput, position,  this, ClickOperation.INCREASE_AMOUNT));
-            upArrow.setOnClickListener(new ClickListener(objects.get(position), desiredAmountInput, position, this, ClickOperation.SWAP_UP));
-            downArrow.setOnClickListener(new ClickListener(objects.get(position), desiredAmountInput, position, this, ClickOperation.SWAP_DOWN));
-
-            layout.setOnLongClickListener(new ClickListener(objects.get(position), desiredAmountInput, position, this, ClickOperation.DELETE));
-
-
-            return layout;
+            shelfItemRowLayout.setOnLongClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.DELETE));
+            return shelfItemRowLayout;
         }
     }
 
