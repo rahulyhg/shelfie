@@ -1,18 +1,16 @@
 package nl.rene.shelfie;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -91,7 +89,6 @@ public class EditShelfActivity extends BaseActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO: implement viewholder pattern
             ShelfItemRowLayout shelfItemRowLayout;
             if(convertView == null) {
                 shelfItemRowLayout = new ShelfItemRowLayout(context);
@@ -115,7 +112,10 @@ public class EditShelfActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_shelf);
-        getActionBar().setTitle(getString(R.string.app_name) + " - " + getString(R.string.edit_shelf_title));
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.edit_shelf_title));
+        }
 
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         adapter = new ShelfListAdapter(this, shelf.getItems());

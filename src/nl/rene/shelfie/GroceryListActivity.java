@@ -1,5 +1,6 @@
 package nl.rene.shelfie;
 
+import android.app.ActionBar;
 import android.widget.ImageButton;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -63,14 +64,20 @@ public class GroceryListActivity extends BaseActivity {
             this.objects = objects;
         }
 
+
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO: implement viewholder pattern
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.grocery, parent,false);
+            LinearLayout layout;
+
+            if(convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                layout = (LinearLayout) inflater.inflate(R.layout.grocery, parent,false);
+            } else {
+                layout = (LinearLayout) convertView;
+            }
 
             TextView nameInput = (TextView) layout.findViewById(R.id.groceryName);
-
             TextView desiredAmount = (TextView) layout.findViewById(R.id.groceryAmount);
+
             nameInput.setText(objects.get(position).getName());
             desiredAmount.setText("" + objects.get(position).getDesiredAmount());
 
@@ -158,8 +165,11 @@ public class GroceryListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grocery_list);
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));
+        }
 
-        getActionBar().setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));
         if(shelf.getItems().size() == 0) {
             Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
             startEditShelfActivity(null);

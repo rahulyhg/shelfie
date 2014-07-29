@@ -1,5 +1,6 @@
 package nl.rene.shelfie;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
 public class MainActivity extends BaseActivity  {
@@ -7,10 +8,12 @@ public class MainActivity extends BaseActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(false);
-        getActionBar().setHomeButtonEnabled(false);
-
-        getActionBar().setTitle(getString(R.string.app_name));
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setTitle(getString(R.string.app_name));
+        }
 
         setContentView(R.layout.main);
     }
