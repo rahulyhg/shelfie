@@ -79,7 +79,6 @@ public class BaseActivity extends Activity implements Responder {
             shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_subject) + " " +
                     getString(R.string.via) + ": http://getshelfie.herokuapp.com/" + id);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } catch (JSONException e) {
             Log.w("SHELFIE", "failed to parse response: " + jsonStr);
             Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
