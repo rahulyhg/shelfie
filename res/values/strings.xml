@@ -27,5 +27,6 @@
     <string name="share_subject">Ik wil een Shelfie met je delen</string>
     <string name="share_title">Shelfie delen</string>
     <string name="exporting">Delen starten</string>
+    <string name="via">via</string>
 
 </resources>
