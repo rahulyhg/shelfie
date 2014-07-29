@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -35,12 +37,28 @@ public class BaseActivity extends Activity implements Responder {
         if(groceryList != null) { groceryList.save(this); }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Intent intent;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+            case R.id.add_shelf:
+                intent = new Intent(this, AddShelfActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
         return true;
     }
@@ -48,6 +66,8 @@ public class BaseActivity extends Activity implements Responder {
     @SuppressWarnings("unused")
     public void startGroceryListActivity(View view) {
         Intent intent = new Intent(this, GroceryListActivity.class);
+        view.setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
@@ -55,6 +75,8 @@ public class BaseActivity extends Activity implements Responder {
     @SuppressWarnings("unused")
     public void startEditShelfActivity(View view) {
         Intent intent = new Intent(this, EditShelfActivity.class);
+        view.setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
@@ -65,6 +87,8 @@ public class BaseActivity extends Activity implements Responder {
         Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
         exportButton = view;
         exportButton.setEnabled(false);
+        exportButton.setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+
 
         new ExportTask(this, shelf).execute("");
     }
@@ -87,7 +111,10 @@ public class BaseActivity extends Activity implements Responder {
 
     @Override
     public void respondWith(String response) {
-        if(exportButton != null) { exportButton.setEnabled(true); }
+        if(exportButton != null) {
+            exportButton.setEnabled(true);
+            exportButton.setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        }
         if(response != null) {
             parseAndShareExport(response);
         } else {

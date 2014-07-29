@@ -28,5 +28,8 @@
     <string name="share_title">Shelfie delen</string>
     <string name="exporting">Delen starten</string>
     <string name="via">via</string>
+    <string name="add_shelf">Voorraad toevoegen</string>
+    <string name="save">Opslaan</string>
+    <string name="shelf_name">Naam voor voorraad</string>
 
 </resources>
