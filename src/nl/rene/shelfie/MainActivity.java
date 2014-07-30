@@ -6,6 +6,14 @@ import android.os.Bundle;
 public class MainActivity extends BaseActivity  {
 
     @Override
+    public void onResume() {
+        super.onResume();
+        findViewById(R.id.export_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
@@ -16,6 +24,10 @@ public class MainActivity extends BaseActivity  {
         }
 
         setContentView(R.layout.main);
+        findViewById(R.id.export_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+
     }
 
 

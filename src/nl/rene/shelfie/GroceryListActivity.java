@@ -160,11 +160,21 @@ public class GroceryListActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+    }
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.grocery_list);
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {
             actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));

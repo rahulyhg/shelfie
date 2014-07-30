@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
-                android:id="@+id/export_shelf" android:onClick="addShelf" android:layout_weight="0.5"
+                android:id="@+id/add_shelf_button" android:onClick="addShelf" android:layout_weight="0.5"
                 android:background="@color/shelfie_blue" android:layout_marginTop="2dp"/>
 
     </LinearLayout>

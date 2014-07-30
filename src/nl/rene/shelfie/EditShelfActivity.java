@@ -109,6 +109,15 @@ public class EditShelfActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+    }
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_shelf);
@@ -121,6 +130,8 @@ public class EditShelfActivity extends BaseActivity {
         adapter = new ShelfListAdapter(this, shelf.getItems());
         shelfLayout.setAdapter(adapter);
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+
         EditText newItem = (EditText) findViewById(R.id.addInput);
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

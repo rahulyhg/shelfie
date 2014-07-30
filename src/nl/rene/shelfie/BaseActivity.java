@@ -18,6 +18,7 @@ public class BaseActivity extends Activity implements Responder {
     protected GroceryList groceryList;
     private View exportButton = null;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
@@ -29,6 +30,7 @@ public class BaseActivity extends Activity implements Responder {
         groceryList = GroceryList.getInstance(this);
     }
 
+    @Override
     public void onPause() {
         super.onPause();
         shelf = Shelf.getInstance(this);
@@ -62,6 +64,14 @@ public class BaseActivity extends Activity implements Responder {
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+
 
     @SuppressWarnings("unused")
     public void startGroceryListActivity(View view) {
