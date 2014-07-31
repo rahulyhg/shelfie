@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shelfie</string>
-    <string name="edit_shelf">Voorraad</string>
-    <string name="make_list">Boodschappen</string>
-    <string name="new_item">Toevoegen</string>
-    <string name="move_up">Omhoog in lijst</string>
-    <string name="move_down">Omlaag in lijst</string>
-    <string name="test">Voorbeeld</string>
+    <string name="edit_shelf">Stock</string>
+    <string name="make_list">Groceries</string>
+    <string name="new_item">Add</string>
+    <string name="move_up">Move up</string>
+    <string name="move_down">Move down</string>
+    <string name="test">Example</string>
     <string name="example">3</string>
-    <string name="increase_desired_amt">Gewenste voorraaad verhogen</string>
-    <string name="decrease_desired_amt">Gewenste voorraad verlagen</string>
-    <string name="delete_item_confirm">Uit de gewenste voorraad verwijderen?</string>
-    <string name="yes">Ja</string>
-    <string name="no">Nee</string>
-    <string name="make_grocery_list">Boodschappenlijst</string>
-    <string name="edit_shelf_title">Voorraad bewerken</string>
-    <string name="do_we_still_have">Hebben we dit nog nodig?</string>
-    <string name="shelf_is_empty">Uw gewenste voorraad is nog niet opgesteld, maak eerst een gewenste voorraad aan
+    <string name="increase_desired_amt">Increase desired amount</string>
+    <string name="decrease_desired_amt">Decrease desired amount</string>
+    <string name="delete_item_confirm">Remove from desired stock?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="make_grocery_list">Groceries</string>
+    <string name="edit_shelf_title">Edit stock</string>
+    <string name="do_we_still_have">Do we need this?</string>
+    <string name="shelf_is_empty">Desired stock is empty, first add some line items
     </string>
-    <string name="delete_grocery_confirm">Uit de boodschappenlijst verwijderen?</string>
-    <string name="importing">Bezig met importeren</string>
-    <string name="import_failed">Importeren mislukt</string>
-    <string name="import_ok">Importeren gelukt</string>
-    <string name="export_shelf">Voorraad delen</string>
-    <string name="export_failed">Delen is mislukt</string>
-    <string name="share_subject">Ik wil een Shelfie met je delen</string>
-    <string name="share_title">Shelfie delen</string>
-    <string name="exporting">Delen starten</string>
-    <string name="via">via</string>
-    <string name="add_shelf">Voorraad toevoegen</string>
-    <string name="save">Opslaan</string>
-    <string name="shelf_name">Naam voor voorraad</string>
-
+    <string name="delete_grocery_confirm">Remove from grocery list?</string>
+    <string name="importing">Importing</string>
+    <string name="import_failed">Import failed</string>
+    <string name="import_ok">Import OK</string>
+    <string name="export_shelf">Share stock</string>
+    <string name="export_failed">Share failed</string>
+    <string name="share_subject">I would like to share a Shelfie with you</string>
+    <string name="share_title">Share shelfie</string>
+    <string name="exporting">Sharing shelf</string>
+    <string name="via">on</string>
+    <string name="add_shelf">Add stock</string>
+    <string name="save">Save</string>
+    <string name="shelf_name">Name for new stock</string>
 </resources>
