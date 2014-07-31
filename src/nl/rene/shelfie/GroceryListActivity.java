@@ -182,7 +182,7 @@ public class GroceryListActivity extends BaseActivity {
 
         if(shelf.getItems().size() == 0) {
             Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
-            startEditShelfActivity(null);
+            startEditShelfActivity(findViewById(R.id.edit_shelf));
         } else {
             init();
         }
