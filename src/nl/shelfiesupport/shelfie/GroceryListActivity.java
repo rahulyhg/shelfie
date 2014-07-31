@@ -1,4 +1,4 @@
-package nl.rene.shelfie;
+package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
 import android.widget.ImageButton;

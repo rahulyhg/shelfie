@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="nl.rene.shelfie"
-          android:versionCode="1"
-          android:versionName="1.0">
+          package="nl.shelfiesupport.shelfie"
+          android:versionCode="2"
+          android:versionName="1.1">
     <uses-sdk android:minSdkVersion="15"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name=".MainActivity"
+        <activity android:name="nl.shelfiesupport.shelfie.MainActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ImportActivity">
+        <activity android:name="nl.shelfiesupport.shelfie.ImportActivity">
             <intent-filter>
                 <data android:scheme="http" android:host="getshelfie.herokuapp.com" />
                 <action android:name="android.intent.action.VIEW" />
@@ -27,9 +27,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddShelfActivity"/>
-        <activity android:name=".EditShelfActivity"/>
-        <activity android:name=".BaseActivity"/>
-        <activity android:name=".GroceryListActivity"/>
+        <activity android:name="nl.shelfiesupport.shelfie.AddShelfActivity"/>
+        <activity android:name="nl.shelfiesupport.shelfie.EditShelfActivity"/>
+        <activity android:name="nl.shelfiesupport.shelfie.BaseActivity"/>
+        <activity android:name="nl.shelfiesupport.shelfie.GroceryListActivity"/>
     </application>
 </manifest>

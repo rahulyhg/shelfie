@@ -1,4 +1,4 @@
-package nl.rene.shelfie;
+package nl.shelfiesupport.shelfie;
 
 import android.content.Intent;
 import android.os.Bundle;

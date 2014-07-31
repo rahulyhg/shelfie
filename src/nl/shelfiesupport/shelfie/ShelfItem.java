@@ -1,4 +1,4 @@
-package nl.rene.shelfie;
+package nl.shelfiesupport.shelfie;
 
 import org.json.JSONException;
 import org.json.JSONObject;

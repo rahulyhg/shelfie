@@ -1,4 +1,4 @@
-package nl.rene.shelfie;
+package nl.shelfiesupport.shelfie;
 
 public interface Responder {
 
