@@ -4,13 +4,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
-public class BaseActivity extends Activity  {
+public class BaseActivity extends Activity implements Responder  {
     protected Shelf shelf;
     protected GroceryList groceryList;
 
@@ -57,6 +61,14 @@ public class BaseActivity extends Activity  {
                 intent = new Intent(this, AddShelfActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+
+            case R.id.share_menu_button:
+                if(shelf == null) { shelf = Shelf.getInstance(this); }
+                Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
+                new ExportTask(this, shelf).execute("");
+                break;
+
             default:
         }
         return super.onOptionsItemSelected(item);
@@ -88,5 +100,28 @@ public class BaseActivity extends Activity  {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    protected void parseAndShareExport(String jsonStr) {
+        try {
+            String id = ((JSONObject) new JSONObject(jsonStr).getJSONArray("added").get(0)).getString("_id");
+            Log.d("SHELFIE", id);
+            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
+            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_subject) + " " +
+                    getString(R.string.via) + ": http://getshelfie.herokuapp.com/" + id);
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
+        } catch (JSONException e) {
+            Log.w("SHELFIE", "failed to parse response: " + jsonStr);
+            Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
+        }
+    }
 
+    @Override
+    public void respondWith(String response) {
+        if(response != null) {
+            parseAndShareExport(response);
+        } else {
+            Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
+        }
+    }
 }

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/share_menu_button"
+          android:icon="@drawable/main_menu_share"
+          android:title="@string/share"
+          android:showAsAction="ifRoom" />
+
     <item android:id="@+id/add_shelf"
           android:icon="@drawable/main_menu_plus"
           android:title="@string/add_shelf"

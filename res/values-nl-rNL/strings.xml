@@ -32,5 +32,6 @@
     <string name="save">Opslaan</string>
     <string name="shelf_name">Naam voor voorraad</string>
     <string name="delete_groceries">Verwijder boodschappenlijst</string>
+    <string name="share">Delen</string>
 
 </resources>

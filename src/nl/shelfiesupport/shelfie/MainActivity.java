@@ -9,7 +9,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends BaseActivity implements Responder {
+public class MainActivity extends BaseActivity  {
     private View exportButton = null;
 
     @Override
@@ -45,37 +45,19 @@ public class MainActivity extends BaseActivity implements Responder {
         exportButton.setEnabled(false);
         exportButton.setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
 
-
         new ExportTask(this, shelf).execute("");
     }
 
-    private void parseAndShareExport(String jsonStr) {
-        try {
-            String id = ((JSONObject) new JSONObject(jsonStr).getJSONArray("added").get(0)).getString("_id");
-            Log.d("SHELFIE", id);
-            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
-            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.share_subject) + " " +
-                    getString(R.string.via) + ": http://getshelfie.herokuapp.com/" + id);
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
-        } catch (JSONException e) {
-            Log.w("SHELFIE", "failed to parse response: " + jsonStr);
-            Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
-        }
-    }
+
 
     @Override
     public void respondWith(String response) {
+        super.respondWith(response);
         if(exportButton != null) {
             exportButton.setEnabled(true);
             exportButton.setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
         }
-        if(response != null) {
-            parseAndShareExport(response);
-        } else {
-            Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
-        }
+
     }
 
 }
