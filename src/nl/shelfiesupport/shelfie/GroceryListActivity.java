@@ -209,7 +209,7 @@ public class GroceryListActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.grocery_list_options, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
