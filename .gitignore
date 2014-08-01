@@ -1,4 +1,6 @@
 *.apk
+*.jks
+src/nl/shelfiesupport/shelfie/Remoting.java
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
