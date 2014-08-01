@@ -113,7 +113,13 @@ public class Shelf {
     }
 
     public void addItem(ShelfItem item) {
-        items.add(item);
+        ShelfItem selectedItem = getSelectedItem();
+        if(selectedItem != null) {
+            items.add(items.indexOf(selectedItem) + 1, item);
+        } else {
+            items.add(item);
+        }
+        setSelectedItem(item);
         setChanged(true);
     }
 
@@ -162,5 +168,31 @@ public class Shelf {
 
     public String getExportId() {
         return exportId;
+    }
+
+    public int getSelectedItemPosition() {
+        ShelfItem item = getSelectedItem();
+        if(item != null) {
+            return items.indexOf(item);
+        }
+        return items.size() - 1;
+    }
+
+    public ShelfItem getSelectedItem() {
+        for(ShelfItem shelfItem : items) {
+            if(shelfItem.isSelected()) { return shelfItem; }
+        }
+        return null;
+    }
+
+    public void setSelectedItem(ShelfItem item) {
+        for(ShelfItem shelfItem : items) {
+            if(item.equals(shelfItem)) {
+                shelfItem.setSelected(true);
+            } else {
+                shelfItem.setSelected(false);
+            }
+
+        }
     }
 }

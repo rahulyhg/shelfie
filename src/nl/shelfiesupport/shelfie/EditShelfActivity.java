@@ -25,6 +25,22 @@ public class EditShelfActivity extends BaseActivity {
         private final Context context;
         private final List<ShelfItem> objects;
 
+        private class SelectClickListener implements View.OnClickListener {
+            private ShelfListAdapter adapter;
+            private ShelfItem item;
+
+            public SelectClickListener(ShelfItem item, ShelfListAdapter adapter) {
+                this.adapter = adapter;
+                this.item = item;
+            }
+
+            @Override
+            public void onClick(View v) {
+                shelf.setSelectedItem(item);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
         private class ClickListener implements View.OnClickListener, View.OnLongClickListener {
             private ShelfListAdapter adapter;
             private ClickOperation clickOperation;
@@ -105,6 +121,12 @@ public class EditShelfActivity extends BaseActivity {
             shelfItemRowLayout.getDownArrow().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.SWAP_DOWN));
 
             shelfItemRowLayout.setOnLongClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.DELETE));
+            shelfItemRowLayout.setOnClickListener(new SelectClickListener(objects.get(position), this));
+            if(objects.get(position).isSelected()) {
+                shelfItemRowLayout.setBackgroundColor(context.getResources().getColor(R.color.shelfie_dark_blue));
+            } else {
+                shelfItemRowLayout.setBackgroundColor(context.getResources().getColor(android.R.color.background_dark));
+            }
             return shelfItemRowLayout;
         }
     }
@@ -114,6 +136,9 @@ public class EditShelfActivity extends BaseActivity {
         super.onResume();
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
+        final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
+        shelfLayout.setSelection(shelf.getSelectedItemPosition());
+
     }
 
 
@@ -122,13 +147,13 @@ public class EditShelfActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_shelf);
         ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.edit_shelf_title));
-        }
+        if(actionBar != null) { actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.edit_shelf_title)); }
+
 
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         adapter = new ShelfListAdapter(this, shelf.getItems());
         shelfLayout.setAdapter(adapter);
+
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
 
@@ -141,7 +166,7 @@ public class EditShelfActivity extends BaseActivity {
                     shelf.addItem(new ShelfItem(value, 1));
                     v.setText("");
                     adapter.notifyDataSetChanged();
-                    shelfLayout.setSelection(adapter.getCount() - 1);
+                    shelfLayout.setSelection(shelf.getSelectedItemPosition());
                     return true;
                 }
                 return false;

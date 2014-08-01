@@ -6,6 +6,7 @@ import org.json.JSONObject;
 public class ShelfItem {
     private String name;
     private int desiredAmount;
+    private boolean selected = false;
 
     public ShelfItem(String name, int desiredNumber) {
         this.name = name;
@@ -41,4 +42,11 @@ public class ShelfItem {
                 '}';
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
 }

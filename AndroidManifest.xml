@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name="nl.shelfiesupport.shelfie.AddShelfActivity"/>
-        <activity android:name="nl.shelfiesupport.shelfie.EditShelfActivity"/>
+        <activity android:name="nl.shelfiesupport.shelfie.EditShelfActivity" android:windowSoftInputMode="stateUnchanged"/>
         <activity android:name="nl.shelfiesupport.shelfie.BaseActivity"/>
         <activity android:name="nl.shelfiesupport.shelfie.GroceryListActivity"/>
     </application>
