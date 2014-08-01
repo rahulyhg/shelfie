@@ -125,4 +125,15 @@ public class GroceryList {
             }
         }
     }
+
+    public String asText() {
+        StringBuilder sb = new StringBuilder();
+        for(ShelfItem shelfItem : groceries) {
+            sb.append(shelfItem.getName());
+            sb.append(": ");
+            sb.append(shelfItem.getDesiredAmount());
+            sb.append("\r\n");
+        }
+        return sb.toString();
+    }
 }

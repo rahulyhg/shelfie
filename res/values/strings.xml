@@ -33,4 +33,6 @@
     <string name="shelf_name">Name for new stock</string>
     <string name="delete_groceries">Delete grocery list</string>
     <string name="share">Share</string>
+    <string name="share_groceries_subject">The Groceries</string>
+    <string name="share_groceries_title">Share the groceries</string>
 </resources>

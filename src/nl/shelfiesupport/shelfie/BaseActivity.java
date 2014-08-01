@@ -64,9 +64,19 @@ public class BaseActivity extends Activity implements Responder  {
                 break;
 
             case R.id.share_menu_button:
-                if(shelf == null) { shelf = Shelf.getInstance(this); }
-                Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
-                new ExportTask(this, shelf).execute("");
+                if(this instanceof GroceryListActivity) {
+                    Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    shareIntent.setType("message/rfc822");
+                    shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_groceries_subject));
+                    shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, groceryList.asText());
+                    startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
+                } else {
+                    if (shelf == null) {
+                        shelf = Shelf.getInstance(this);
+                    }
+                    Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
+                    new ExportTask(this, shelf).execute("");
+                }
                 break;
 
             default:
