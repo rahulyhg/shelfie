@@ -57,8 +57,9 @@ public class BaseActivity extends Activity  {
                 intent = new Intent(this, AddShelfActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            default:
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

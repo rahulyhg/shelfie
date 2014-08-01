@@ -31,4 +31,5 @@
     <string name="add_shelf">Add stock</string>
     <string name="save">Save</string>
     <string name="shelf_name">Name for new stock</string>
+    <string name="delete_groceries">Delete grocery list</string>
 </resources>

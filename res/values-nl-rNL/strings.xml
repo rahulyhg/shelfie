@@ -31,5 +31,6 @@
     <string name="add_shelf">Voorraad toevoegen</string>
     <string name="save">Opslaan</string>
     <string name="shelf_name">Naam voor voorraad</string>
+    <string name="delete_groceries">Verwijder boodschappenlijst</string>
 
 </resources>

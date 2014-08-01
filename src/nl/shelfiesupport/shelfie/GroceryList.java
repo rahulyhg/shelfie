@@ -94,7 +94,35 @@ public class GroceryList {
 
     public void addGrocery(ShelfItem item, int amount) {
         ShelfItem grocery = new ShelfItem(item.getName(), amount);
-        groceries.add(grocery);
+        ShelfItem selectedItem = getSelectedItem();
+        if(selectedItem != null) {
+            groceries.add(groceries.indexOf(selectedItem) + 1, grocery);
+        } else {
+            groceries.add(grocery);
+        }
+        setSelectedItem(grocery);
         setChanged(true);
+    }
+
+    public void clear() {
+        groceries.clear();
+        setChanged(true);
+    }
+
+    public ShelfItem getSelectedItem() {
+        for(ShelfItem shelfItem : groceries) {
+            if(shelfItem.isSelected()) { return shelfItem; }
+        }
+        return null;
+    }
+
+    public void setSelectedItem(ShelfItem item) {
+        for(ShelfItem shelfItem : groceries) {
+            if(shelfItem.equals(item)) {
+                shelfItem.setSelected(true);
+            } else {
+                shelfItem.setSelected(false);
+            }
+        }
     }
 }

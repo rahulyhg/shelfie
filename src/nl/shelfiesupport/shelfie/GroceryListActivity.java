@@ -1,6 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,7 +31,7 @@ public class GroceryListActivity extends BaseActivity {
         private final Context context;
         private final List<ShelfItem> objects;
 
-        private class ClickListener implements View.OnLongClickListener {
+        private class ClickListener implements View.OnClickListener, View.OnLongClickListener {
             private GroceryListAdapter adapter;
             private ShelfItem item;
             private int position;
@@ -37,6 +40,12 @@ public class GroceryListActivity extends BaseActivity {
                 this.item = item;
                 this.position = position;
                 this.adapter = adapter;
+            }
+
+            @Override
+            public void onClick(View v) {
+                groceryList.setSelectedItem(item);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -81,8 +90,15 @@ public class GroceryListActivity extends BaseActivity {
             nameInput.setText(objects.get(position).getName());
             desiredAmount.setText("" + objects.get(position).getDesiredAmount());
 
-            layout.setOnLongClickListener(new ClickListener(objects.get(position), position, this));
+            ClickListener clickListener = new ClickListener(objects.get(position), position, this);
+            layout.setOnLongClickListener(clickListener);
+            layout.setOnClickListener(clickListener);
 
+            if(objects.get(position).isSelected()) {
+                layout.setBackgroundColor(context.getResources().getColor(R.color.shelfie_dark_blue));
+            } else {
+                layout.setBackgroundColor(context.getResources().getColor(android.R.color.background_dark));
+            }
 
             return layout;
         }
@@ -123,6 +139,7 @@ public class GroceryListActivity extends BaseActivity {
                 case ADD:
                     groceryList.addGrocery(shelf.getCurrentItem(), Integer.parseInt(amount.getText().toString()));
                     groceryListAdapter.notifyDataSetChanged();
+
                 case NEXT:
                     shelf.nextItem();
                     itemName.setText(shelf.getCurrentItem().getName());
@@ -186,5 +203,29 @@ public class GroceryListActivity extends BaseActivity {
         } else {
             init();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.grocery_list_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete_groceries:
+                deleteGroceries();
+                return true;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteGroceries() {
+        if(groceryList != null) { groceryList.clear(); }
+        if(groceryListAdapter != null) { groceryListAdapter.notifyDataSetChanged(); }
     }
 }
