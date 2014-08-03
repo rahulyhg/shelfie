@@ -43,8 +43,11 @@ public class BaseActivity extends Activity implements Responder  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-
+        if(this instanceof GroceryListActivity) {
+            inflater.inflate(R.menu.grocery_top_menu, menu);
+        } else {
+            inflater.inflate(R.menu.main_menu, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -63,20 +66,20 @@ public class BaseActivity extends Activity implements Responder  {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
 
+            case R.id.email_menu_button:
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("message/rfc822");
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_groceries_subject));
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, groceryList.asText());
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
+                break;
+
             case R.id.share_menu_button:
-                if(this instanceof GroceryListActivity) {
-                    Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-                    shareIntent.setType("message/rfc822");
-                    shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_groceries_subject));
-                    shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, groceryList.asText());
-                    startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
-                } else {
-                    if (shelf == null) {
-                        shelf = Shelf.getInstance(this);
-                    }
-                    Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
-                    new ExportTask(this, shelf).execute("");
+                if (shelf == null) {
+                    shelf = Shelf.getInstance(this);
                 }
+                Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
+                new ExportTask(this, shelf).execute("");
                 break;
 
             default:
