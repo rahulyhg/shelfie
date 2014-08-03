@@ -147,7 +147,7 @@ public class EditShelfActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_shelf);
         ActionBar actionBar = getActionBar();
-        if(actionBar != null) { actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.edit_shelf_title)); }
+        if(actionBar != null) { actionBar.setTitle(getString(R.string.edit_shelf_title)); }
 
 
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);

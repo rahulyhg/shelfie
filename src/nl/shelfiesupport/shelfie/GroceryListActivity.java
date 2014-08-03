@@ -194,7 +194,7 @@ public class GroceryListActivity extends BaseActivity {
 
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {
-            actionBar.setTitle(getString(R.string.app_name) + " - " + getString(R.string.make_grocery_list));
+            actionBar.setTitle(getString(R.string.make_grocery_list));
         }
 
         if(shelf.getItems().size() == 0) {
