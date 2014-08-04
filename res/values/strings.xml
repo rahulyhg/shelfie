@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shelfie</string>
-    <string name="edit_shelf">Stock</string>
+    <string name="edit_shelf">Shelf</string>
     <string name="make_list">Groceries</string>
     <string name="new_item">Add supply</string>
     <string name="move_up">Move up</string>
@@ -10,31 +10,40 @@
     <string name="example">3</string>
     <string name="increase_desired_amt">Increase desired amount</string>
     <string name="decrease_desired_amt">Decrease desired amount</string>
-    <string name="delete_item_confirm">Remove from desired stock?</string>
+    <string name="delete_item_confirm">Remove from desired supplies?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="make_grocery_list">Groceries</string>
-    <string name="edit_shelf_title">Edit stock</string>
+    <string name="edit_shelf_title">Edit supplies</string>
     <string name="do_we_still_have">Do we need this?</string>
-    <string name="shelf_is_empty">Desired stock is empty, first add some line items
+    <string name="shelf_is_empty">Desired supply is empty, first add some line items
     </string>
     <string name="delete_grocery_confirm">Remove from grocery list?</string>
     <string name="importing">Importing</string>
     <string name="import_failed">Import failed</string>
     <string name="import_ok">Import OK</string>
-    <string name="export_shelf">Share stock</string>
+    <string name="export_shelf">Share shelf</string>
     <string name="export_failed">Share failed</string>
     <string name="share_subject">I would like to share a Shelfie with you</string>
     <string name="share_title">Share shelfie</string>
     <string name="exporting">Sharing shelf</string>
     <string name="via">on</string>
-    <string name="add_shelf">Add stock</string>
+    <string name="add_shelf">Add shelf</string>
     <string name="save">Save</string>
-    <string name="shelf_name">Name for new stock</string>
+    <string name="shelf_name">Name for new shelf</string>
     <string name="delete_groceries">Delete grocery list</string>
     <string name="share">Share</string>
     <string name="share_groceries_subject">The Groceries</string>
     <string name="share_groceries_title">Share the groceries</string>
     <string name="send">Mail grocery list</string>
     <string name="default_shelf">Basic supplies</string>
+    <string name="overwrite_shelf">Overwrite shelf</string>
+    <string name="overwrite_shelf_confirm">Shelf has the same name as your own, would you like to overwrite it?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="import_canceled">Import canceled</string>
+    <string name="import_with_new_name">Import as new shelf</string>
+    <string name="delete_shelf">Delete shelf</string>
+    <string name="uneedaleastoneshelf">Shelfie requires at least one shelf</string>
+    <string name="delete_shelf_confirm">Delete shelf, are you sure?</string>
 </resources>

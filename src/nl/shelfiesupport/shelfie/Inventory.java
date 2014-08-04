@@ -3,6 +3,7 @@ package nl.shelfiesupport.shelfie;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,6 +95,12 @@ public class Inventory {
         inventory.save(context);
     }
 
+    public static void saveImportedShelf(Context context, Shelf newShelf) {
+        Inventory inventory = getInstance(context);
+        inventory.shelves.add(newShelf);
+        inventory.save(context);
+    }
+
     public static List<String> getShelfNames(Context context) {
         Inventory inventory = getInstance(context);
         List<String>names = new ArrayList<String>();
@@ -116,5 +123,24 @@ public class Inventory {
 
     public static int getSelectedShelfIndex() {
         return currentShelfIndex;
+    }
+
+    public static Shelf findShelfByName(Context context, String name) {
+        Inventory inventory = getInstance(context);
+        for(Shelf shelf : inventory.shelves) {
+            if(name.equals(shelf.getName())) { return shelf; }
+        }
+        return null;
+    }
+
+    public static void deleteCurrentShelf(Context context) {
+        Inventory inventory = getInstance(context);
+        if(inventory.shelves.size() > 1) {
+            inventory.shelves.remove(getShelf(context));
+            inventory.save(context);
+        } else {
+            Toast.makeText(context,
+                    context.getString(R.string.uneedaleastoneshelf), Toast.LENGTH_LONG).show();
+        }
     }
 }

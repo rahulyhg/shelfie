@@ -37,5 +37,14 @@
     <string name="share_groceries_title">De boodschappen delen</string>
     <string name="send">Versturen</string>
     <string name="default_shelf">Basisvoorraad</string>
+    <string name="overwrite_shelf">Voorraad overschrijven</string>
+    <string name="overwrite_shelf_confirm">Voorraad heeft dezelfde naam als uw eigen voorraad. Wilt u deze voorraad overschrijven?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="import_canceled">Importeren afgebroken</string>
+    <string name="import_with_new_name">Importeren onder nieuwe naam</string>
+    <string name="delete_shelf">Voorraad verwijderen</string>
+    <string name="uneedaleastoneshelf">U kunt de laatste voorraad niet verwijderen</string>
+    <string name="delete_shelf_confirm">Weet u zeker dat u deze voorraad wilt verwijderen?</string>
 
 </resources>

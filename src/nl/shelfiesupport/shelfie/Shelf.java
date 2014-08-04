@@ -52,11 +52,6 @@ public class Shelf {
         return instance;
     }
 
-    public void importFromJSON(JSONObject jsonObject) {
-        this.items.clear();
-        fromJSON(jsonObject);
-    }
-
     public List<ShelfItem> getItems() {
         return this.items;
     }
@@ -176,5 +171,18 @@ public class Shelf {
     public static void setInstanceChanged(Context context) {
         instance = null;
         getInstance(context);
+    }
+
+    public void overwriteWith(Context context, Shelf importedShelf) {
+        items.clear();
+        for(ShelfItem item : importedShelf.getItems()) {
+            items.add(item);
+        }
+        setChanged(true);
+        save(context);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

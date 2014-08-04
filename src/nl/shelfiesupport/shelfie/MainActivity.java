@@ -1,6 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
@@ -34,7 +37,8 @@ public class MainActivity extends BaseActivity   {
 
         final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
         initSpinner(currentShelfSpinner);
-        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }    }
+        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }
+    }
 
     @SuppressWarnings("unused")
     public void startShelfExport(View view) {
@@ -47,6 +51,27 @@ public class MainActivity extends BaseActivity   {
         new ExportTask(this, shelf).execute("");
     }
 
+    public void deleteCurrentShelf(View view) {
+        final Context context = this;
+
+        if(Inventory.getShelfNames(this).size() < 2) {
+            Toast.makeText(context,
+                    context.getString(R.string.uneedaleastoneshelf), Toast.LENGTH_LONG).show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.delete_shelf) + ": " + shelf.getName())
+                    .setMessage(getString(R.string.delete_shelf_confirm))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Inventory.deleteCurrentShelf(context);
+                            recreate();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.no), null)
+                    .show();
+        }
+    }
 
 
     @Override

@@ -15,16 +15,27 @@
             android:layout_weight="1"
             />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
+                  android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
             >
         <Button
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_shelf"
+                android:id="@+id/delete_shelf"
+                android:onClick="deleteCurrentShelf"
+                android:background="@color/shelfie_blue"
+                android:layout_marginTop="2dp"/>
+
+        <Button
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/export_shelf"
-                android:id="@+id/export_shelf" android:onClick="startShelfExport" android:layout_weight="0.5"
-                android:background="@color/shelfie_blue" android:layout_marginTop="2dp"/>
+                android:id="@+id/export_shelf"
+                android:onClick="startShelfExport"
+                android:background="@color/shelfie_blue"
+                android:layout_marginTop="2dp"/>
 
     </LinearLayout>
 

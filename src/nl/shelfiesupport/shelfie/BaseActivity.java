@@ -154,7 +154,11 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(Inventory.getSelectedShelfIndex() != position) {
             Inventory.setSelectedShelfByIndex(this, position);
-            recreate();
+            if(this instanceof MainActivity) {
+                shelf = Shelf.getInstance(this);
+            } else {
+                recreate();
+            }
         }
     }
 
