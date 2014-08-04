@@ -154,8 +154,7 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(Inventory.getSelectedShelfIndex() != position) {
-            String selected = ((TextView) view).getText().toString().trim();
-            Inventory.setSelectedShelfByName(this, selected);
+            Inventory.setSelectedShelfByIndex(this, position);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             recreate();
         }

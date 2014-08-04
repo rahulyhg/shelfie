@@ -103,9 +103,9 @@ public class Inventory {
         return names;
     }
 
-    public static void setSelectedShelfByName(Context context, String selected) {
-        int index = getShelfNames(context).indexOf(selected);
-        if(index < 0) {
+    public static void setSelectedShelfByIndex(Context context, int index) {
+
+        if(getShelfNames(context).size() <= index) {
             currentShelfIndex = 0;
         } else {
             currentShelfIndex = index;
