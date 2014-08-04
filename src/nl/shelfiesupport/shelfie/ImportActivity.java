@@ -38,7 +38,8 @@ public class ImportActivity extends Activity implements Responder {
             try {
                 JSONObject obj = new JSONObject(response);
                 if(obj.has("not") && obj.getString("not").equals("found")) { throw new JSONException("object not found"); }
-                Shelf shelf = Shelf.fromJSON(obj);
+                Shelf shelf = Shelf.getInstance(this);
+                shelf.importFromJSON(obj);
                 shelf.setChanged(true);
                 shelf.save(this);
                 Toast.makeText(this, getString(R.string.import_ok) , Toast.LENGTH_LONG).show();

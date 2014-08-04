@@ -15,15 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shelf {
-    private static final String FILENAME = "theshelf.json";
+    private static Shelf instance = null;
     private List<ShelfItem> items;
 
     private boolean changed = false;
-    private static Shelf instance = null;
     private int currentItem = 0;
     private String exportId = null;
 
-    private Shelf(JSONObject me) {
+    public Shelf() {
+        this.items = new ArrayList<ShelfItem>();
+
+    }
+
+    public Shelf(JSONObject me) {
+        fromJSON(me);
+    }
+
+    private void fromJSON(JSONObject me) {
         this.items = new ArrayList<ShelfItem>();
         try {
             JSONArray jsonItems = me.getJSONArray("items");
@@ -38,41 +46,14 @@ public class Shelf {
         }
     }
 
-    private Shelf(String filename, Context context) {
-        FileInputStream is;
-        this.items = new ArrayList<ShelfItem>();
-        try {
-            is = context.openFileInput(filename);
-
-            BufferedReader r = new BufferedReader(new InputStreamReader(is));
-            String line = r.readLine();
-            StringBuilder sb = new StringBuilder();
-            while(line != null) {
-                sb.append(line);
-                line = r.readLine();
-            }
-            JSONObject me = new JSONObject(sb.toString());
-            JSONArray jsonItems = me.getJSONArray("items");
-            for(int i = 0; i < jsonItems.length(); i++) {
-                JSONObject jsonItem = jsonItems.getJSONObject(i);
-                ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
-                items.add(item);
-            }
-            if(me.has("_id")) { exportId = me.getString("_id"); }
-            is.close();
-        } catch(IOException ignored) {
-        } catch(JSONException ignored) {
-        }
-    }
-
     public static Shelf getInstance(Context context) {
-        if(instance == null) { instance = new Shelf(FILENAME, context); }
+        if(instance == null) { instance = Inventory.getShelf(context); }
         return instance;
     }
 
-    public static Shelf fromJSON(JSONObject json) {
-        instance = new Shelf(json);
-        return instance;
+    public void importFromJSON(JSONObject jsonObject) {
+        this.items.clear();
+        fromJSON(jsonObject);
     }
 
     public List<ShelfItem> getItems() {
@@ -98,17 +79,8 @@ public class Shelf {
 
     public void save(Context context) {
         if(!changed) { return; }
-        FileOutputStream os;
-        try {
-            os = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            Log.d("SHELFIE", "Saving Shelf: " + toJSON().toString());
-            os.write(toJSON().toString().getBytes());
+        if(Inventory.getInstance(context).save(context)) {
             changed = false;
-            os.close();
-        } catch(IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 
