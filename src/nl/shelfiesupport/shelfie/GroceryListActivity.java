@@ -1,11 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.app.AlertDialog;
 import android.content.Context;

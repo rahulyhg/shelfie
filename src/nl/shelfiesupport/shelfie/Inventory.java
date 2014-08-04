@@ -77,7 +77,7 @@ public class Inventory {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            if(os != null) { try { os.close(); } catch (Exception ignoed) { } }
+            if(os != null) { try { os.close(); } catch (Exception ignored) { } }
         }
         return saved;
     }

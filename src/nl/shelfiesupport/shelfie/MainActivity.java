@@ -1,16 +1,10 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends BaseActivity   {
     private View exportButton = null;
