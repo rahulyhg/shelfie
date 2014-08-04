@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -155,7 +154,6 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(Inventory.getSelectedShelfIndex() != position) {
             Inventory.setSelectedShelfByIndex(this, position);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             recreate();
         }
     }
