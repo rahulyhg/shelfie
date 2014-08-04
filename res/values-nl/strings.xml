@@ -3,7 +3,7 @@
     <string name="app_name">Shelfie</string>
     <string name="edit_shelf">Voorraad</string>
     <string name="make_list">Boodschappen</string>
-    <string name="new_item">Toevoegen</string>
+    <string name="new_item">Toevoegen aan voorraad</string>
     <string name="move_up">Omhoog in lijst</string>
     <string name="move_down">Omlaag in lijst</string>
     <string name="test">Voorbeeld</string>
@@ -36,5 +36,5 @@
     <string name="share_groceries_subject">De boodschappen</string>
     <string name="share_groceries_title">De boodschappen versturen</string>
     <string name="send">Versturen</string>
-
+    <string name="default_shelf">Basisvoorraad</string>
 </resources>

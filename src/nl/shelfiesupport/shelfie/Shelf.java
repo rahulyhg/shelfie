@@ -21,10 +21,15 @@ public class Shelf {
     private boolean changed = false;
     private int currentItem = 0;
     private String exportId = null;
+    private String name = "standard_shelf";
 
     public Shelf() {
         this.items = new ArrayList<ShelfItem>();
+    }
 
+    public Shelf(String name) {
+        this();
+        this.name = name;
     }
 
     public Shelf(JSONObject me) {
@@ -41,6 +46,7 @@ public class Shelf {
                 items.add(item);
             }
             if(me.has("_id")) { exportId = me.getString("_id"); }
+            if(me.has("name")) { name = me.getString("name"); }
         } catch (JSONException ignored) {
 
         }
@@ -63,7 +69,7 @@ public class Shelf {
     public JSONObject toJSON() throws JSONException {
         JSONObject me = new JSONObject();
         JSONArray jsonItems = new JSONArray();
-        me.put("name", "standard_shelf");
+        me.put("name", name);
         for(ShelfItem item : items) {
             jsonItems.put(item.toJSON());
         }
@@ -166,5 +172,14 @@ public class Shelf {
             }
 
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static void setInstanceChanged(Context context) {
+        instance = null;
+        getInstance(context);
     }
 }

@@ -5,25 +5,15 @@
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
         >
     <include layout="@layout/top" />
-    <LinearLayout
-            android:orientation="vertical"
+    <include layout="@layout/shelfpicker" />
+    <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/edit_shelf"
-                android:id="@+id/textView" />
-        <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/new_item"
-                    android:id="@+id/addInput"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionDone" android:singleLine="true"
-                    />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:hint="@string/new_item"
+            android:id="@+id/addInput"
+            android:inputType="textCapWords"
+            android:imeOptions="actionDone" android:singleLine="true"
+            />
 
     <LinearLayout android:layout_width="fill_parent" android:layout_height="match_parent">
         <ListView

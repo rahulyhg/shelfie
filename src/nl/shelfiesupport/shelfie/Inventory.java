@@ -18,6 +18,7 @@ import java.util.List;
 public class Inventory {
     private static final String FILENAME = "theinventory.json";
     private static Inventory instance = null;
+    private static int currentShelfIndex = 0;
 
     private List<Shelf> shelves;
 
@@ -44,7 +45,7 @@ public class Inventory {
         } catch(JSONException ignored) {
         }
         if(this.shelves.size() == 0) {
-            this.shelves.add(new Shelf());
+            this.shelves.add(new Shelf(context.getString(R.string.default_shelf)));
         }
     }
 
@@ -82,6 +83,38 @@ public class Inventory {
     }
 
     public static Shelf getShelf(Context context) {
-        return getInstance(context).shelves.get(0);
+
+        return getInstance(context).shelves.get(currentShelfIndex);
+    }
+
+    public static void createNewShelf(Context context, String name) {
+        Inventory inventory = getInstance(context);
+        Shelf newShelf = new Shelf(name);
+        inventory.shelves.add(newShelf);
+        inventory.save(context);
+    }
+
+    public static List<String> getShelfNames(Context context) {
+        Inventory inventory = getInstance(context);
+        List<String>names = new ArrayList<String>();
+        for(Shelf shelf : inventory.shelves) {
+            names.add(shelf.getName());
+        }
+        return names;
+    }
+
+    public static void setSelectedShelfByName(Context context, String selected) {
+        int index = getShelfNames(context).indexOf(selected);
+        if(index < 0) {
+            currentShelfIndex = 0;
+        } else {
+            currentShelfIndex = index;
+        }
+        Shelf.setInstanceChanged(context);
+        Log.d("SHELFIE", "Selected shelf: " + getInstance(context).shelves.get(currentShelfIndex));
+    }
+
+    public static int getSelectedShelfIndex() {
+        return currentShelfIndex;
     }
 }

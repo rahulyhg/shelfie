@@ -1,9 +1,11 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,8 @@ import java.util.List;
 public class GroceryListActivity extends BaseActivity {
 
     private GroceryListAdapter groceryListAdapter;
+
+
 
     private class GroceryListAdapter extends ArrayAdapter<ShelfItem> {
         private final Context context;
@@ -191,6 +196,10 @@ public class GroceryListActivity extends BaseActivity {
         setContentView(R.layout.grocery_list);
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+
+        final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
+        initSpinner(currentShelfSpinner);
+        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }
 
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {

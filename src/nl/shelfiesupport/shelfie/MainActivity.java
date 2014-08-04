@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity   {
     private View exportButton = null;
 
     @Override
@@ -35,7 +38,9 @@ public class MainActivity extends BaseActivity  {
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
 
-    }
+        final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
+        initSpinner(currentShelfSpinner);
+        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }    }
 
     @SuppressWarnings("unused")
     public void startShelfExport(View view) {
@@ -59,5 +64,4 @@ public class MainActivity extends BaseActivity  {
         }
 
     }
-
 }

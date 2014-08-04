@@ -3,7 +3,7 @@
     <string name="app_name">Shelfie</string>
     <string name="edit_shelf">Stock</string>
     <string name="make_list">Groceries</string>
-    <string name="new_item">Add</string>
+    <string name="new_item">Add supply</string>
     <string name="move_up">Move up</string>
     <string name="move_down">Move down</string>
     <string name="test">Example</string>
@@ -36,4 +36,5 @@
     <string name="share_groceries_subject">The Groceries</string>
     <string name="share_groceries_title">Share the groceries</string>
     <string name="send">Mail grocery list</string>
+    <string name="default_shelf">Basic supplies</string>
 </resources>

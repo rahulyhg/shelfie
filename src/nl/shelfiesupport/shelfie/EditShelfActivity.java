@@ -5,13 +5,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 public class EditShelfActivity extends BaseActivity {
 
     private ShelfListAdapter adapter;
+
 
     private class ShelfListAdapter extends ArrayAdapter<ShelfItem> {
         private final Context context;
@@ -154,6 +158,10 @@ public class EditShelfActivity extends BaseActivity {
         adapter = new ShelfListAdapter(this, shelf.getItems());
         shelfLayout.setAdapter(adapter);
 
+        final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
+        initSpinner(currentShelfSpinner);
+        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }
+
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
 
@@ -173,4 +181,5 @@ public class EditShelfActivity extends BaseActivity {
             }
         });
     }
+
 }

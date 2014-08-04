@@ -9,14 +9,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class BaseActivity extends Activity implements Responder  {
+public class BaseActivity extends Activity implements Responder, AdapterView.OnItemSelectedListener {
     protected Shelf shelf;
     protected GroceryList groceryList;
+    protected ArrayAdapter<String> currentShelfAdapter;
+
+    protected void initSpinner(final Spinner spinner) {
+        currentShelfAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, Inventory.getShelfNames(this));
+
+        spinner.setAdapter(currentShelfAdapter);
+        spinner.setSelection(Inventory.getSelectedShelfIndex());
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +40,7 @@ public class BaseActivity extends Activity implements Responder  {
         }
         shelf = Shelf.getInstance(this);
         groceryList = GroceryList.getInstance(this);
+
     }
 
     @Override
@@ -137,4 +150,20 @@ public class BaseActivity extends Activity implements Responder  {
             Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(Inventory.getSelectedShelfIndex() != position) {
+            String selected = ((TextView) view).getText().toString().trim();
+            Inventory.setSelectedShelfByName(this, selected);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            recreate();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

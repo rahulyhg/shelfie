@@ -18,7 +18,7 @@ public class AddShelfActivity extends BaseActivity {
         view.setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
 
         if(shelfName.getText().toString().trim().length() > 0) {
-            Toast.makeText(this, "TODO: create new shelf named: " + shelfName.getText(), Toast.LENGTH_LONG).show();
+            Inventory.createNewShelf(this, shelfName.getText().toString().trim());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
