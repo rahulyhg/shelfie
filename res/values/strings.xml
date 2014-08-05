@@ -16,8 +16,7 @@
     <string name="make_grocery_list">Groceries</string>
     <string name="edit_shelf_title">Edit supplies</string>
     <string name="do_we_still_have">Do we need this?</string>
-    <string name="shelf_is_empty">Desired supply is empty, first add some line items
-    </string>
+    <string name="shelf_is_empty">Desired supply is empty, you can only add custom groceries</string>
     <string name="delete_grocery_confirm">Remove from grocery list?</string>
     <string name="importing">Importing</string>
     <string name="import_failed">Import failed</string>
@@ -46,4 +45,6 @@
     <string name="delete_shelf">Delete shelf</string>
     <string name="uneedaleastoneshelf">Shelfie requires at least one shelf</string>
     <string name="delete_shelf_confirm">Delete shelf, are you sure?</string>
+    <string name="add_grocery">Add grocery</string>
+    <string name="grocery_hint">enter name</string>
 </resources>

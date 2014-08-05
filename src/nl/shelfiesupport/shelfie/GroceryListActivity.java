@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -107,6 +108,7 @@ public class GroceryListActivity extends BaseActivity {
         }
     }
 
+
     private class GroceryClickListener implements View.OnClickListener {
 
         private final ClickOperation operation;
@@ -156,7 +158,6 @@ public class GroceryListActivity extends BaseActivity {
 
     private void init() {
         final ShelfItem currentItem = shelf.getCurrentItem();
-        final ListView groceryListLayout = (ListView) findViewById(R.id.grocery_list);
         final TextView itemName = (TextView) findViewById(R.id.itemName);
         final TextView amount = (TextView) findViewById(R.id.amount);
         Button yesButton = (Button) findViewById(R.id.yesButt);
@@ -165,8 +166,6 @@ public class GroceryListActivity extends BaseActivity {
         ImageButton minusButton = (ImageButton) findViewById(R.id.minusButton);
         ImageButton nextButton = (ImageButton) findViewById(R.id.nextButt);
         ImageButton prevButton = (ImageButton) findViewById(R.id.prevButt);
-        groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
-        groceryListLayout.setAdapter(groceryListAdapter);
 
         itemName.setText(currentItem.getName());
         amount.setText("" + currentItem.getDesiredAmount());
@@ -204,12 +203,34 @@ public class GroceryListActivity extends BaseActivity {
             actionBar.setTitle(getString(R.string.make_grocery_list));
         }
 
+        final ListView groceryListLayout = (ListView) findViewById(R.id.grocery_list);
+        groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
+        groceryListLayout.setAdapter(groceryListAdapter);
+
+
         if(shelf.getItems().size() == 0) {
             Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
-            startEditShelfActivity(findViewById(R.id.edit_shelf));
+            disableShelfButtons();
         } else {
             init();
         }
+    }
+
+    private void disableShelfButtons() {
+        Button yesButton = (Button) findViewById(R.id.yesButt);
+        Button noButton = (Button) findViewById(R.id.noButt);
+        ImageButton plusButton = (ImageButton) findViewById(R.id.plusButton);
+        ImageButton minusButton = (ImageButton) findViewById(R.id.minusButton);
+        ImageButton nextButton = (ImageButton) findViewById(R.id.nextButt);
+        ImageButton prevButton = (ImageButton) findViewById(R.id.prevButt);
+
+        yesButton.setEnabled(false);
+        noButton.setEnabled(false);
+        nextButton.setEnabled(false);
+        prevButton.setEnabled(false);
+        plusButton.setEnabled(false);
+        minusButton.setEnabled(false);
+
     }
 
     @Override
@@ -223,12 +244,42 @@ public class GroceryListActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.add_grocery_menu_button:
+                showAddGroceryPrompt();
+                break;
+
             case R.id.delete_groceries:
                 deleteGroceries();
                 return true;
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAddGroceryPrompt() {
+        final Context context = this;
+        final EditText input = new EditText(this);
+        input.setHint(getString(R.string.grocery_hint));
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.add_grocery))
+                .setView(input)
+                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (input.getText().toString().trim().length() == 0) {
+                            showAddGroceryPrompt();
+                        } else {
+                            ShelfItem grocery = new ShelfItem(input.getText().toString(), 1);
+                            if (groceryList != null && groceryListAdapter != null) {
+                                groceryList.addGrocery(grocery, 1);
+                                groceryListAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
     }
 
     private void deleteGroceries() {

@@ -16,8 +16,7 @@
     <string name="make_grocery_list">Boodschappenlijst</string>
     <string name="edit_shelf_title">Voorraad bewerken</string>
     <string name="do_we_still_have">Hebben we dit nog nodig?</string>
-    <string name="shelf_is_empty">Uw gewenste voorraad is nog niet opgesteld, maak eerst een gewenste voorraad aan
-    </string>
+    <string name="shelf_is_empty">Uw gewenste voorraad is leeg, u kunt wel direct boodschappen toevoegen</string>
     <string name="delete_grocery_confirm">Uit de boodschappenlijst verwijderen?</string>
     <string name="importing">Bezig met importeren</string>
     <string name="import_failed">Importeren mislukt</string>
@@ -46,5 +45,7 @@
     <string name="delete_shelf">Voorraad verwijderen</string>
     <string name="uneedaleastoneshelf">U kunt de laatste voorraad niet verwijderen</string>
     <string name="delete_shelf_confirm">Weet u zeker dat u deze voorraad wilt verwijderen?</string>
+    <string name="add_grocery">Boodschap toevoegen</string>
+    <string name="grocery_hint">Naam</string>
 
 </resources>

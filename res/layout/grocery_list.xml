@@ -10,7 +10,8 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_marginBottom="15dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -21,7 +22,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/example"
                 android:id="@+id/amount"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="6dp" />
@@ -29,7 +29,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/test"
                 android:id="@+id/itemName"
                 android:singleLine="false"
                 android:layout_marginLeft="10dp"

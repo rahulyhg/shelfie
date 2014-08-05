@@ -6,5 +6,9 @@
           android:title="@string/send"
           android:showAsAction="ifRoom" />
 
+    <item android:id="@+id/add_grocery_menu_button"
+          android:icon="@drawable/main_menu_plus"
+          android:title="@string/add_grocery"
+          android:showAsAction="ifRoom" />
 
 </menu>
