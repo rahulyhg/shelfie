@@ -133,4 +133,13 @@ public class GroceryList {
         }
         return sb.toString();
     }
+
+    public int getSelectedItemPosition() {
+        ShelfItem item = getSelectedItem();
+        if(item != null) {
+            return groceries.indexOf(item);
+        }
+        return groceries.size() - 1;
+    }
+
 }

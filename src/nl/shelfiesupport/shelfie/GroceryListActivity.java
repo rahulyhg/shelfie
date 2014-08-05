@@ -28,7 +28,7 @@ import java.util.List;
 public class GroceryListActivity extends BaseActivity {
 
     private GroceryListAdapter groceryListAdapter;
-
+    private ListView groceryListLayout;
 
 
     private class GroceryListAdapter extends ArrayAdapter<ShelfItem> {
@@ -144,6 +144,7 @@ public class GroceryListActivity extends BaseActivity {
                 case ADD:
                     groceryList.addGrocery(shelf.getCurrentItem(), Integer.parseInt(amount.getText().toString()));
                     groceryListAdapter.notifyDataSetChanged();
+                    groceryListLayout.setSelection(groceryList.getSelectedItemPosition());
 
                 case NEXT:
                     shelf.nextItem();
@@ -203,7 +204,7 @@ public class GroceryListActivity extends BaseActivity {
             actionBar.setTitle(getString(R.string.make_grocery_list));
         }
 
-        final ListView groceryListLayout = (ListView) findViewById(R.id.grocery_list);
+        groceryListLayout = (ListView) findViewById(R.id.grocery_list);
         groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
         groceryListLayout.setAdapter(groceryListAdapter);
 

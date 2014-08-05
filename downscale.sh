@@ -26,6 +26,8 @@ convert -resize $(printf '%.0f' ${xhdpiW})x$(printf '%.0f' ${xhdpiH})  res/drawa
 
 convert -resize $(printf '%.0f' ${hdpiW})x$(printf '%.0f' ${hdpiH})  res/drawable-xxxhdpi/$1 res/drawable-hdpi/$1
 
+convert -resize $(printf '%.0f' ${hdpiW})x$(printf '%.0f' ${hdpiH})  res/drawable-xxxhdpi/$1 res/drawable/$1
+
 convert -resize $(printf '%.0f' ${mdpiW})x$(printf '%.0f' ${mdpiH})  res/drawable-xxxhdpi/$1 res/drawable-mdpi/$1
 
 convert -resize $(printf '%.0f' ${ldpiW})x$(printf '%.0f' ${ldpiH})  res/drawable-xxxhdpi/$1 res/drawable-ldpi/$1
