@@ -17,6 +17,9 @@ hdpiH=$(bc <<< $inH*0.375)
 mdpiW=$(bc <<< $inW*0.25)
 mdpiH=$(bc <<< $inH*0.25)
 
+ldpiW=$(bc <<< $inW*0.1875)
+ldpiH=$(bc <<< $inH*0.1875)
+
 convert -resize $(printf '%.0f' ${xxhdpiW})x$(printf '%.0f' ${xxhdpiH})  res/drawable-xxxhdpi/$1 res/drawable-xxhdpi/$1
 
 convert -resize $(printf '%.0f' ${xhdpiW})x$(printf '%.0f' ${xhdpiH})  res/drawable-xxxhdpi/$1 res/drawable-xhdpi/$1
@@ -24,3 +27,5 @@ convert -resize $(printf '%.0f' ${xhdpiW})x$(printf '%.0f' ${xhdpiH})  res/drawa
 convert -resize $(printf '%.0f' ${hdpiW})x$(printf '%.0f' ${hdpiH})  res/drawable-xxxhdpi/$1 res/drawable-hdpi/$1
 
 convert -resize $(printf '%.0f' ${mdpiW})x$(printf '%.0f' ${mdpiH})  res/drawable-xxxhdpi/$1 res/drawable-mdpi/$1
+
+convert -resize $(printf '%.0f' ${ldpiW})x$(printf '%.0f' ${ldpiH})  res/drawable-xxxhdpi/$1 res/drawable-ldpi/$1
