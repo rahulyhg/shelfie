@@ -47,5 +47,10 @@
     <string name="delete_shelf_confirm">Weet u zeker dat u deze voorraad wilt verwijderen?</string>
     <string name="add_grocery">Boodschap toevoegen</string>
     <string name="grocery_hint">Naam</string>
+    <string name="delete_groceries_confirm">Are you sure you want to clear your grocery list</string>
+    <string name="welcome">Welkom bij Shelfie</string>
+    <string name="start_now_by">Start een basisvoorraad met de Voorraad-knop</string>
+    <string name="start_now_by_2">En maak een boodschappenlijst met de Boodschappen-knop</string>
+    <string name="start_now_by_3">Een boodschappenlijst maken gaat het snelst met een basisvoorraad</string>
 
 </resources>

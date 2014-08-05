@@ -20,6 +20,7 @@ public class Inventory {
     private static final String FILENAME = "theinventory.json";
     private static Inventory instance = null;
     private static int currentShelfIndex = 0;
+    private static boolean infoSuppressed = false;
 
     private List<Shelf> shelves;
 
@@ -54,6 +55,7 @@ public class Inventory {
         if(instance == null) { instance = new Inventory(FILENAME, context); }
         return instance;
     }
+
 
     public JSONObject toJSON() throws JSONException {
         JSONObject me = new JSONObject();
@@ -143,4 +145,13 @@ public class Inventory {
                     context.getString(R.string.uneedaleastoneshelf), Toast.LENGTH_LONG).show();
         }
     }
+
+    public static boolean isInfoSuppressed() {
+        return infoSuppressed;
+    }
+
+    public static void setInfoSuppressed(boolean infoSuppressed) {
+        Inventory.infoSuppressed = infoSuppressed;
+    }
+
 }

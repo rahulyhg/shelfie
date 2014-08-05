@@ -2,6 +2,9 @@ package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +66,28 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void deleteCurrentShelf(View view) {
+        final Context context = this;
+
+        if(Inventory.getShelfNames(this).size() < 2) {
+            Toast.makeText(context,
+                    context.getString(R.string.uneedaleastoneshelf), Toast.LENGTH_LONG).show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.delete_shelf) + ": " + shelf.getName())
+                    .setMessage(getString(R.string.delete_shelf_confirm))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Inventory.deleteCurrentShelf(context);
+                            recreate();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.no), null)
+                    .show();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         Intent intent;
@@ -72,10 +97,15 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+
             case R.id.add_shelf:
                 intent = new Intent(this, AddShelfActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+
+            case R.id.main_menu_delete_shelf:
+                deleteCurrentShelf(null);
                 break;
 
             case R.id.email_menu_button:

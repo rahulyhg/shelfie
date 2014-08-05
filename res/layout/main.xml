@@ -9,34 +9,31 @@
     <include layout="@layout/top" />
     <include layout="@layout/shelfpicker" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 
-    <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
+
+    <LinearLayout
+            android:id="@+id/info_layout"
+            android:gravity="center_vertical"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content"
             >
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_shelf"
-                android:id="@+id/delete_shelf"
-                android:onClick="deleteCurrentShelf"
-                android:background="@color/shelfie_blue"
-                android:layout_marginTop="2dp"/>
 
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/export_shelf"
-                android:id="@+id/export_shelf"
-                android:onClick="startShelfExport"
-                android:background="@color/shelfie_blue"
-                android:layout_marginTop="2dp"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/info_big"
 
+                />
+        <include layout="@layout/info_flipper" />
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/cross"
+                android:onClick="removeInfo"
+                />
     </LinearLayout>
+    <Space android:layout_width="fill_parent"
+           android:layout_height="0dp"
+           android:layout_weight="1"/>
 
 </LinearLayout>

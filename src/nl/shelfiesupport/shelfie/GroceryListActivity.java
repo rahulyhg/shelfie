@@ -233,12 +233,6 @@ public class GroceryListActivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.grocery_list_options, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -257,7 +251,6 @@ public class GroceryListActivity extends BaseActivity {
     }
 
     private void showAddGroceryPrompt() {
-        final Context context = this;
         final EditText input = new EditText(this);
         input.setHint(getString(R.string.grocery_hint));
         new AlertDialog.Builder(this)
@@ -283,7 +276,19 @@ public class GroceryListActivity extends BaseActivity {
     }
 
     private void deleteGroceries() {
-        if(groceryList != null) { groceryList.clear(); }
-        if(groceryListAdapter != null) { groceryListAdapter.notifyDataSetChanged(); }
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.delete_groceries))
+                .setMessage(getString(R.string.delete_groceries_confirm))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (groceryList != null && groceryListAdapter != null) {
+                            groceryList.clear();
+                            groceryListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .show();
     }
 }
