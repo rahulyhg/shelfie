@@ -9,7 +9,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
 
-        android:flipInterval="3000"
+        android:flipInterval="5000"
         android:autoStart="true">
 
     <LinearLayout

@@ -23,8 +23,8 @@
     <string name="import_ok">Import OK</string>
     <string name="export_shelf">Share shelf</string>
     <string name="export_failed">Share failed</string>
-    <string name="share_subject">I would like to share a Shelfie with you</string>
-    <string name="share_title">Share shelfie</string>
+    <string name="share_subject">I would like to share a Shelfie shelf with you</string>
+    <string name="share_title">Share shelf</string>
     <string name="exporting">Sharing shelf</string>
     <string name="via">on</string>
     <string name="add_shelf">Add shelf</string>

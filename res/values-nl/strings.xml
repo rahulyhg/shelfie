@@ -23,8 +23,8 @@
     <string name="import_ok">Importeren gelukt</string>
     <string name="export_shelf">Voorraad delen</string>
     <string name="export_failed">Delen is mislukt</string>
-    <string name="share_subject">Ik wil een Shelfie met je delen</string>
-    <string name="share_title">Shelfie delen</string>
+    <string name="share_subject">Ik wil een Shelfie-voorraad met je delen</string>
+    <string name="share_title">Voorraad delen</string>
     <string name="exporting">Delen starten</string>
     <string name="via">via</string>
     <string name="add_shelf">Voorraad toevoegen</string>
