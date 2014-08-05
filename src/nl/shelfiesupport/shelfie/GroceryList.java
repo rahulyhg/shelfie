@@ -15,7 +15,6 @@ public class GroceryList {
     private static GroceryList instance = null;
     private boolean changed = false;
     private List<ShelfItem> groceries;
-    private static final long DAY_DURATION = 86400000;
 
     private GroceryList(String filename, Context context) {
         FileInputStream is;
@@ -32,13 +31,11 @@ public class GroceryList {
             }
             JSONObject me = new JSONObject(sb.toString());
             long updatedAt = me.getLong("updatedAt");
-            if(System.currentTimeMillis() < DAY_DURATION + updatedAt) {
-                JSONArray jsonGroceries = me.getJSONArray("groceries");
-                for(int i = 0; i < jsonGroceries.length(); i++) {
-                    JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
-                    ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
-                    groceries.add(grocery);
-                }
+            JSONArray jsonGroceries = me.getJSONArray("groceries");
+            for(int i = 0; i < jsonGroceries.length(); i++) {
+                JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
+                ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
+                groceries.add(grocery);
             }
             is.close();
         } catch(IOException ignored) {

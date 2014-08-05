@@ -52,4 +52,11 @@
     <string name="start_now_by">Start with a basic supply using the Shelf-button</string>
     <string name="start_now_by_2">And start a grocery list with the Groceries-button</string>
     <string name="start_now_by_3">Making a grocery list is fastest with a basic Shelf</string>
+    <string name="start_now_by_4">You can add a new shelf from this view using the plus icon</string>
+    <string name="start_now_by_5">And you can select a shelf from all views in the box above this info text</string>
+    <string name="start_now_by_6">And delete the selected shelf using the trash can</string>
+    <string name="start_now_by_7">In groceries the trash can just clears the grocery list</string>
+    <string name="start_now_by_8">And the plus icon allows you to add a custom grocery item to the list</string>
+    <string name="start_now_by_9">You can share the selected shelf using the share icon</string>
+    <string name="start_now_by_10">A shared Shelfie hyperlink can be opened directly by Shelfie on your Android device</string>
 </resources>

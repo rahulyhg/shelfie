@@ -52,5 +52,11 @@
     <string name="start_now_by">Start een basisvoorraad met de Voorraad-knop</string>
     <string name="start_now_by_2">En maak een boodschappenlijst met de Boodschappen-knop</string>
     <string name="start_now_by_3">Een boodschappenlijst maken gaat het snelst met een basisvoorraad</string>
-
+    <string name="start_now_by_4">Een nieuwe voorraad aanmaken kan met het plus-icoon vanuit dit overzicht</string>
+    <string name="start_now_by_5">En een voorraad selecteren gaat via de select-box boven deze infotekst</string>
+    <string name="start_now_by_6">Met de prullenbak verwijder je de geselecteerde voorraad</string>
+    <string name="start_now_by_7">Of wis je de boodschappenlijst onder \'Boodschappen\'</string>
+    <string name="start_now_by_8">Met de plus kun je bij boodschappen snel een boodschap toevoegen</string>
+    <string name="start_now_by_9">Met het delen icoon kun je de geselecteerde voorraad delen</string>
+    <string name="start_now_by_10">Een gedeelde Shelfie hyperlink kunt u direct met Shelfie openen in uw Android device</string>
 </resources>

@@ -95,6 +95,8 @@ public class Inventory {
         Shelf newShelf = new Shelf(name);
         inventory.shelves.add(newShelf);
         inventory.save(context);
+        currentShelfIndex = inventory.shelves.indexOf(newShelf);
+        Shelf.setInstanceChanged(context);
     }
 
     public static void saveImportedShelf(Context context, Shelf newShelf) {
