@@ -4,7 +4,9 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +15,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -164,7 +168,16 @@ public class EditShelfActivity extends BaseActivity {
 
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
-        initAds(R.id.adView2);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        if(size.y > 480) {
+            initAds(R.id.adView2);
+        } else {
+            View ad = findViewById(R.id.adView2);
+            ((LinearLayout)ad.getParent()).removeView(ad);
+        }
 
         EditText newItem = (EditText) findViewById(R.id.addInput);
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
