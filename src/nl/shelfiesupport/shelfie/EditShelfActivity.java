@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -184,7 +183,7 @@ public class EditShelfActivity extends BaseActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 String value = v.getText().toString();
-                if(actionId == EditorInfo.IME_ACTION_DONE && value.trim().length() > 1) {
+                if((actionId == EditorInfo.IME_ACTION_DONE || actionId == 0) && value.trim().length() > 1) {
                     shelf.addItem(new ShelfItem(value, 1));
                     v.setText("");
                     adapter.notifyDataSetChanged();
