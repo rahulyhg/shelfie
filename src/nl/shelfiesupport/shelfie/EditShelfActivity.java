@@ -172,7 +172,7 @@ public class EditShelfActivity extends BaseActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        if(size.y > 480) {
+        if(size.y > 640) {
             initAds(R.id.adView2);
         } else {
             View ad = findViewById(R.id.adView2);
