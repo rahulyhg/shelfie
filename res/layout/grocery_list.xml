@@ -11,7 +11,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="42dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
         <ImageButton
                 android:id="@+id/prevButt"
                 android:layout_width="50dp"
@@ -67,31 +67,38 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/do_we_still_have"
                 android:id="@+id/needed" android:layout_marginLeft="10dp" android:layout_weight="1"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="-2dp"/>
         <Button
+                android:layout_marginTop="-5dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no"
                 android:id="@+id/noButt"/>
         <Button
+                android:layout_marginTop="-5dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yes"
                 android:id="@+id/yesButt"/>
     </LinearLayout>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/make_grocery_list"
-            android:id="@+id/textView2"/>
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
         <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/grocery_list"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.gms.ads.AdView
+                android:id="@+id/adView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                ads:adUnitId="ca-app-pub-2493301058078803/5873099376"
+                ads:adSize="BANNER"/>
     </LinearLayout>
 </LinearLayout>

@@ -164,6 +164,7 @@ public class EditShelfActivity extends BaseActivity {
 
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        initAds(R.id.adView2);
 
         EditText newItem = (EditText) findViewById(R.id.addInput);
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {

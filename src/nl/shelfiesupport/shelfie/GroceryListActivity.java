@@ -209,6 +209,8 @@ public class GroceryListActivity extends BaseActivity {
         groceryListLayout.setAdapter(groceryListAdapter);
 
 
+        initAds(R.id.adView1);
+
         if(shelf.getItems().size() == 0) {
             Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
             disableShelfButtons();

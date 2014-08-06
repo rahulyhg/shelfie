@@ -7,6 +7,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class MainActivity extends BaseActivity   {
 
     @Override
@@ -33,6 +36,8 @@ public class MainActivity extends BaseActivity   {
         final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
         initSpinner(currentShelfSpinner);
         if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }
+
+        initAds(R.id.adView);
 
         if(Inventory.isInfoSuppressed()) {
             hideInfo();

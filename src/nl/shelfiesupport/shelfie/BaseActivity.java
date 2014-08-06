@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,6 +88,16 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
                     .setNegativeButton(getString(R.string.no), null)
                     .show();
         }
+    }
+
+    protected void initAds(int id) {
+        AdView adView = (AdView) findViewById(id);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("3437F11BC6A323302078E41E0EDFFB9E")
+                .build();
+
+        adView.loadAd(adRequest);
     }
 
     @Override
