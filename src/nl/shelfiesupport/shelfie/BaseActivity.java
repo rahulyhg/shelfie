@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,18 +28,20 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     protected GroceryList groceryList;
     protected ArrayAdapter<String> currentShelfAdapter;
 
-    @SuppressWarnings("unchecked")
     protected void initShelfPicker() {
         final View currentShelfSpinner = findViewById(R.id.currentShelfSpinner);
         currentShelfAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, Inventory.getShelfNames(this));
 
         if(currentShelfSpinner != null) {
-            ((AdapterView<ArrayAdapter<String>>) currentShelfSpinner).setAdapter(currentShelfAdapter);
 
             if(currentShelfSpinner instanceof Spinner) {
-                ((AdapterView<ArrayAdapter<String>>) currentShelfSpinner).setSelection(Inventory.getSelectedShelfIndex());
+                ((Spinner) currentShelfSpinner).setAdapter(currentShelfAdapter);
+
+                ((Spinner) currentShelfSpinner).setSelection(Inventory.getSelectedShelfIndex());
                 ((Spinner) currentShelfSpinner).setOnItemSelectedListener(this);
             } else if(currentShelfSpinner instanceof ListView) {
+                ((ListView) currentShelfSpinner).setAdapter(currentShelfAdapter);
+
                 ((ListView) currentShelfSpinner).setItemChecked(Inventory.getSelectedShelfIndex(), true);
                 ((ListView) currentShelfSpinner).setOnItemClickListener(this);
 

@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-
         android:flipInterval="5000"
         android:autoStart="true">
 

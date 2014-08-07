@@ -50,6 +50,22 @@ public class MainActivity extends BaseActivity   {
         findViewById(R.id.info_layout).setVisibility(View.INVISIBLE);
     }
 
+
+    public void toggleInfoViews(View view) {
+        final View[] infos = {
+                findViewById(R.id.info_flipper),
+                findViewById(R.id.info_frame)
+        };
+        for(View infoView : infos) {
+            if (infoView.getVisibility() == View.GONE) {
+                infoView.setVisibility(View.VISIBLE);
+            } else {
+                infoView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
     public void removeInfo(View view) {
         Inventory.setInfoSuppressed(true);
         hideInfo();

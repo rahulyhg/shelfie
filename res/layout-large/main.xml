@@ -13,31 +13,26 @@
 
         <include layout="@layout/shelfpicker" />
 
-        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".7">
+        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight=".7"
+                android:layout_marginTop="20dp">
 
-            <LinearLayout
-                    android:id="@+id/info_layout"
-                    android:gravity="center_vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_margin="50dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
 
                 <ImageView android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:src="@drawable/info_big"
+                           android:onClick="toggleInfoViews"/>
 
-                        />
                 <include layout="@layout/info_flipper" />
-                <ImageView
+                <include layout="@layout/info_frame" />
+
+            <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/cross"
                         android:onClick="removeInfo"
                         />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
