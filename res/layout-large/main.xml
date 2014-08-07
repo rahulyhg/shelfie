@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+
+    <include layout="@layout/top" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">
+
+        <include layout="@layout/shelfpicker" />
+
+        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".7">
+
+            <LinearLayout
+                    android:id="@+id/info_layout"
+                    android:gravity="center_vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_margin="50dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/info_big"
+
+                        />
+                <include layout="@layout/info_flipper" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/cross"
+                        android:onClick="removeInfo"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+
+        <com.google.android.gms.ads.AdView
+               android:id="@+id/adView"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               ads:adUnitId="ca-app-pub-2493301058078803/5873099376"
+               ads:adSize="BANNER"/>
+    </LinearLayout>
+
+</LinearLayout>

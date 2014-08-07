@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+    <include layout="@layout/top" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">
+
+        <include layout="@layout/shelfpicker" />
+
+        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".7">
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="42dp"
+                    android:hint="@string/new_item"
+                    android:id="@+id/addInput"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionDone" android:singleLine="true"
+                    />
+
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="fill_parent"
+                          android:layout_weight="1">
+                <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edit_shelf_list" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+        <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                ads:adUnitId="ca-app-pub-2493301058078803/5873099376"
+                ads:adSize="BANNER"/>
+    </LinearLayout>
+
+</LinearLayout>
