@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
@@ -22,17 +24,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class BaseActivity extends Activity implements Responder, AdapterView.OnItemSelectedListener {
+public class BaseActivity extends Activity implements Responder, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
     protected Shelf shelf;
     protected GroceryList groceryList;
     protected ArrayAdapter<String> currentShelfAdapter;
 
-    protected void initSpinner(final Spinner spinner) {
+    @SuppressWarnings("unchecked")
+    protected void initShelfPicker() {
+        final View currentShelfSpinner = findViewById(R.id.currentShelfSpinner);
         currentShelfAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, Inventory.getShelfNames(this));
 
-        spinner.setAdapter(currentShelfAdapter);
-        spinner.setSelection(Inventory.getSelectedShelfIndex());
+        if(currentShelfSpinner != null) {
+            ((AdapterView<ArrayAdapter<String>>) currentShelfSpinner).setAdapter(currentShelfAdapter);
+
+            if(currentShelfSpinner instanceof Spinner) {
+                ((AdapterView<ArrayAdapter<String>>) currentShelfSpinner).setSelection(Inventory.getSelectedShelfIndex());
+                ((Spinner) currentShelfSpinner).setOnItemSelectedListener(this);
+            } else if(currentShelfSpinner instanceof ListView) {
+                ((ListView) currentShelfSpinner).setItemChecked(Inventory.getSelectedShelfIndex(), true);
+                ((ListView) currentShelfSpinner).setOnItemClickListener(this);
+
+            }
+        }
+
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -193,8 +209,9 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    private void selectShelf(int position) {
+
         if(Inventory.getSelectedShelfIndex() != position) {
             Inventory.setSelectedShelfByIndex(this, position);
             if(this instanceof MainActivity) {
@@ -206,8 +223,17 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     }
 
     @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectShelf(position);
+    }
+
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        selectShelf(position);
+     }
 }

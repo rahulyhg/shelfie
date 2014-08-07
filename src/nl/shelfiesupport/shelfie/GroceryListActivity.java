@@ -195,9 +195,7 @@ public class GroceryListActivity extends BaseActivity {
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
 
-        final Spinner currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
-        initSpinner(currentShelfSpinner);
-        if(currentShelfAdapter != null) { currentShelfSpinner.setOnItemSelectedListener(this); }
+        initShelfPicker();
 
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {

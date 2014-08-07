@@ -59,4 +59,5 @@
     <string name="start_now_by_8">And the plus icon allows you to add a custom grocery item to the list</string>
     <string name="start_now_by_9">You can share the selected shelf using the share icon</string>
     <string name="start_now_by_10">A shared Shelfie hyperlink can be opened directly by Shelfie on your Android device</string>
+    <string name="selected_shelf">Selected shelf</string>
 </resources>
