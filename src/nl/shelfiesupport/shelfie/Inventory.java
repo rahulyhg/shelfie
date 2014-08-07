@@ -142,6 +142,8 @@ public class Inventory {
         if(inventory.shelves.size() > 1) {
             inventory.shelves.remove(getShelf(context));
             inventory.save(context);
+            currentShelfIndex = 0;
+            Shelf.setInstanceChanged(context);
         } else {
             Toast.makeText(context,
                     context.getString(R.string.uneedaleastoneshelf), Toast.LENGTH_LONG).show();
