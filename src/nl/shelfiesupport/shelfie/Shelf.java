@@ -19,6 +19,7 @@ public class Shelf {
     private String name = "standard_shelf";
 
     public Shelf() {
+
         this.items = new ArrayList<ShelfItem>();
     }
 
@@ -31,7 +32,15 @@ public class Shelf {
         fromJSON(me);
     }
 
+    public Shelf(JSONObject me, boolean isImported) {
+        fromJSON(me, isImported);
+    }
+
     private void fromJSON(JSONObject me) {
+        fromJSON(me, false);
+    }
+
+    private void fromJSON(JSONObject me, boolean isImported) {
         this.items = new ArrayList<ShelfItem>();
         try {
             JSONArray jsonItems = me.getJSONArray("items");
@@ -40,7 +49,7 @@ public class Shelf {
                 ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
                 items.add(item);
             }
-            if(me.has("_id")) { exportId = me.getString("_id"); }
+            if(me.has("_id") && !isImported) { exportId = me.getString("_id"); }
             if(me.has("name")) { name = me.getString("name"); }
         } catch (JSONException ignored) {
 

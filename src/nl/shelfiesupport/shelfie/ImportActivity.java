@@ -118,15 +118,15 @@ public class ImportActivity extends Activity implements Responder {
             try {
                 JSONObject obj = new JSONObject(response);
                 if(obj.has("not") && obj.getString("not").equals("found")) { throw new JSONException("object not found"); }
-                Shelf shelf = new Shelf(obj);
-                Shelf localShelf = Inventory.findShelfByName(this, shelf.getName());
+                Shelf importedShelf = new Shelf(obj, true);
+                Shelf localShelf = Inventory.findShelfByName(this, importedShelf.getName());
                 if(localShelf != null) {
-                    showOverwriteDialog(localShelf, shelf);
+                    showOverwriteDialog(localShelf, importedShelf);
                     return;
                 } else {
-                    Inventory.saveImportedShelf(this, shelf);
+                    Inventory.saveImportedShelf(this, importedShelf);
                     Toast.makeText(this, getString(R.string.import_ok) + ": " +
-                            shelf.getName(), Toast.LENGTH_LONG).show();
+                            importedShelf.getName(), Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_LONG).show();
