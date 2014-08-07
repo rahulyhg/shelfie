@@ -6,7 +6,7 @@
               android:layout_weight=".3"
               android:layout_height="fill_parent"
                android:layout_marginRight="10dp">
-    <TextView android:layout_marginTop="4dp" android:height="40dp"
+    <TextView android:layout_marginTop="4dp" android:height="60dp"
                 android:layout_width="fill_parent" android:layout_height="wrap_content"
               android:text="@string/selected_shelf"
               android:textAppearance="?android:textAppearanceLarge"

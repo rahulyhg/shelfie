@@ -192,18 +192,4 @@ public class EditShelfActivity extends BaseActivity {
             }
         });
     }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_shelf:
-                EditText newItem = (EditText) findViewById(R.id.addInput);
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.showSoftInput(newItem, InputMethodManager.SHOW_IMPLICIT);
-                return true;
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }
