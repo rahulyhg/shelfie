@@ -18,22 +18,33 @@
             android:layout_marginTop="12dp"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="vertical"
             >
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/info_big"
+                       android:onClick="toggleInfoViews"/>
+            <include layout="@layout/info_flipper" />
+            <include layout="@layout/info_frame" />
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/cross"
+                    android:onClick="removeInfo"
+                    />
+        </LinearLayout>
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="8dp"
+                  android:text="@string/top_feature_reqs"/>
+        <ListView android:layout_width="fill_parent" android:layout_height="match_parent">
 
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/info_big"
-                   android:onClick="toggleInfoViews"/>
-        <include layout="@layout/info_flipper" />
-        <include layout="@layout/info_frame" />
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/cross"
-                android:onClick="removeInfo"
-                />
+        </ListView>
     </LinearLayout>
+
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
 
         <com.google.android.gms.ads.AdView

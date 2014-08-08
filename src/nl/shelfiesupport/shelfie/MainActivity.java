@@ -1,21 +1,19 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Spinner;
 import android.widget.ViewFlipper;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends BaseActivity implements VoteResponder {
+
 
     @Override
     public void onResume() {
@@ -94,13 +92,24 @@ public class MainActivity extends BaseActivity implements VoteResponder {
         Inventory.setNextFetch(System.currentTimeMillis() + 3600000);
         if(response != null) {
             try {
-                Log.d("SHELFIE", "FETCH VOTES: " + response);
                 Inventory.setVoteFetchData(new JSONObject("{votes: " + response + "}"));
+                renderVotes();
             } catch (JSONException e) {
                 Log.w("SHELFIE", "Failed to parse json in VOTE fetch");
             }
         } else {
             Log.d("SHELFIE", "NO VOTES LANDED");
         }
+    }
+
+    private void renderVotes() {
+        JSONObject voteFetchData = Inventory.getVoteFetchData();
+        if(voteFetchData == null) { return; }
+        try {
+            JSONArray jsonVotes = voteFetchData.getJSONArray("votes");
+            Log.d("SHELFIE", "vote data: " + jsonVotes);
+        } catch (JSONException ignored) {
+        }
+
     }
 }
