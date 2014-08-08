@@ -23,10 +23,16 @@ public class Inventory {
     private static boolean infoSuppressed = false;
 
     private List<Shelf> shelves;
+    private List<String> votes = new ArrayList<String>();
+
+
+    private static JSONObject voteFetchData = null;
+    private static long nextFetch = -1;
 
     private Inventory(String filename, Context context) {
         FileInputStream is;
         this.shelves = new ArrayList<Shelf>();
+        this.votes = new ArrayList<String>();
         try {
             is = context.openFileInput(filename);
             BufferedReader r = new BufferedReader(new InputStreamReader(is));
@@ -41,6 +47,13 @@ public class Inventory {
             JSONArray jsonShelves = me.getJSONArray("shelves");
             for(int i = 0; i < jsonShelves.length(); i++) {
                 shelves.add(new Shelf((JSONObject) jsonShelves.get(i)));
+            }
+
+            if(me.has("votes")) {
+                JSONArray jsonVotes = me.getJSONArray("votes");
+                for(int i = 0; i < jsonVotes.length(); i++) {
+                    votes.add(jsonVotes.getString(i));
+                }
             }
             is.close();
         } catch(IOException ignored) {
@@ -63,6 +76,11 @@ public class Inventory {
         for(Shelf shelf : shelves) {
             jsonShelves.put(shelf.toJSON());
         }
+        JSONArray jsonVotes = new JSONArray();
+        for(String vote : votes) {
+            jsonVotes.put(vote);
+        }
+        me.put("votes", jsonVotes);
         me.put("shelves", jsonShelves);
         return me;
     }
@@ -150,6 +168,12 @@ public class Inventory {
         }
     }
 
+    public static void addVote(Context context, String vote) {
+        Inventory inventory = getInstance(context);
+        inventory.votes.add(vote);
+        inventory.save(context);
+    }
+
     public static boolean isInfoSuppressed() {
         return infoSuppressed;
     }
@@ -157,5 +181,22 @@ public class Inventory {
     public static void setInfoSuppressed(boolean infoSuppressed) {
         Inventory.infoSuppressed = infoSuppressed;
     }
+
+    public static boolean mayFetchNext() {
+        return System.currentTimeMillis() > nextFetch;
+    }
+
+    public static void setNextFetch(long nextFetch) {
+        Inventory.nextFetch = nextFetch;
+    }
+
+    public static JSONObject getVoteFetchData() {
+        return voteFetchData;
+    }
+
+    public static void setVoteFetchData(JSONObject voteFetchData) {
+        Inventory.voteFetchData = voteFetchData;
+    }
+
 
 }

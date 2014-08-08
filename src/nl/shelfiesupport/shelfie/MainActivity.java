@@ -2,6 +2,7 @@ package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Spinner;
@@ -9,8 +10,10 @@ import android.widget.ViewFlipper;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends BaseActivity   {
+public class MainActivity extends BaseActivity implements VoteResponder {
 
     @Override
     public void onResume() {
@@ -35,7 +38,6 @@ public class MainActivity extends BaseActivity   {
 
         initShelfPicker();
 
-        initAds(R.id.adView);
 
         if(Inventory.isInfoSuppressed()) {
             hideInfo();
@@ -44,6 +46,12 @@ public class MainActivity extends BaseActivity   {
             infoFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
             infoFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
         }
+
+        initAds(R.id.adView);
+        if(Inventory.mayFetchNext()) {
+            new FetchVotesTask(this).execute("ok");
+        }
+
     }
 
     private void hideInfo() {
@@ -71,4 +79,18 @@ public class MainActivity extends BaseActivity   {
         hideInfo();
     }
 
+    @Override
+    public void respondToVotesFetchWith(String response) {
+        Inventory.setNextFetch(System.currentTimeMillis() + 3600000);
+        if(response != null) {
+            try {
+                Log.d("SHELFIE", "FETCH VOTES: " + response);
+                Inventory.setVoteFetchData(new JSONObject("{votes: " + response + "}"));
+            } catch (JSONException e) {
+                Log.w("SHELFIE", "Failed to parse json in VOTE fetch");
+            }
+        } else {
+            Log.d("SHELFIE", "NO VOTES LANDED");
+        }
+    }
 }
