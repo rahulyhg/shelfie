@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +22,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 public class BaseActivity extends Activity implements Responder, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
     protected Shelf shelf;
@@ -62,6 +62,13 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
         shelf = Shelf.getInstance(this);
         groceryList = GroceryList.getInstance(this);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shelf = Shelf.getInstance(this);
+        groceryList = GroceryList.getInstance(this);
     }
 
     @Override
@@ -108,13 +115,20 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     }
 
     protected void initAds(int id) {
-        AdView adView = (AdView) findViewById(id);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("3437F11BC6A323302078E41E0EDFFB9E")
-                .build();
+        Handler handler = new Handler();
+        final AdView adView = (AdView) findViewById(id);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AdRequest adRequest = new AdRequest.Builder()
+                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                        .addTestDevice("3437F11BC6A323302078E41E0EDFFB9E")
+                        .build();
+                adView.loadAd(adRequest);
 
-        adView.loadAd(adRequest);
+            }
+        }, 500);
+
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -145,6 +146,9 @@ public class EditShelfActivity extends BaseActivity {
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         shelfLayout.setSelection(shelf.getSelectedItemPosition());
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
 
     }
 

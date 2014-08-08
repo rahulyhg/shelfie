@@ -1,7 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -49,7 +51,15 @@ public class MainActivity extends BaseActivity implements VoteResponder {
 
         initAds(R.id.adView);
         if(Inventory.mayFetchNext()) {
-            new FetchVotesTask(this).execute("ok");
+            final VoteResponder self = this;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    new FetchVotesTask(self).execute();
+                }
+            }, 1000);
+
         }
 
     }

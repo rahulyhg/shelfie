@@ -1,6 +1,7 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -185,6 +186,10 @@ public class GroceryListActivity extends BaseActivity {
         super.onResume();
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        if(groceryListAdapter != null) {
+            groceryListAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
