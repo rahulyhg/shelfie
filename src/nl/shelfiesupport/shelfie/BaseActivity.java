@@ -187,7 +187,8 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
     protected void parseAndShareExport(String jsonStr) {
         try {
             String id = ((JSONObject) new JSONObject(jsonStr).getJSONArray("added").get(0)).getString("_id");
-            Log.d("SHELFIE", id);
+            shelf.setExportId(id);
+            shelf.save(this);
             Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_subject));

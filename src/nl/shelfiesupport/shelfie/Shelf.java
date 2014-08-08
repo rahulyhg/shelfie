@@ -15,6 +15,12 @@ public class Shelf {
 
     private boolean changed = false;
     private int currentItem = 0;
+
+    public void setExportId(String exportId) {
+        this.exportId = exportId;
+        this.setChanged(true);
+    }
+
     private String exportId = null;
     private String name = "standard_shelf";
 
@@ -42,6 +48,7 @@ public class Shelf {
 
     private void fromJSON(JSONObject me, boolean isImported) {
         this.items = new ArrayList<ShelfItem>();
+        Log.d("SHELFIE", "loading shelf from inventory: " + me.toString());
         try {
             JSONArray jsonItems = me.getJSONArray("items");
             for (int i = 0; i < jsonItems.length(); i++) {
@@ -49,7 +56,10 @@ public class Shelf {
                 ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
                 items.add(item);
             }
-            if(me.has("_id") && !isImported) { exportId = me.getString("_id"); }
+            if(me.has("_id") && !isImported) {
+                Log.d("SHELFIE", "found export id " + me.getString("_id"));
+                exportId = me.getString("_id");
+            }
             if(me.has("name")) { name = me.getString("name"); }
         } catch (JSONException ignored) {
 
@@ -73,7 +83,9 @@ public class Shelf {
             jsonItems.put(item.toJSON());
         }
         me.put("items", jsonItems);
-        if(exportId != null) { me.put("_id", exportId); }
+        if(exportId != null) {
+            me.put("_id", exportId);
+        }
         return me;
     }
 
