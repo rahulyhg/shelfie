@@ -1,6 +1,7 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity implements VoteResponder {
 
@@ -123,11 +125,13 @@ public class MainActivity extends BaseActivity implements VoteResponder {
     private class VotesAdapter extends ArrayAdapter<JSONObject> {
         private final Context context;
         private final List<JSONObject> objects;
+        private String currentVote;
 
-        public VotesAdapter(Context context, List<JSONObject> objects) {
+        public VotesAdapter(Context context, List<JSONObject> objects, String currentVote) {
             super(context, R.layout.vote_row, objects);
             this.context = context;
             this.objects = objects;
+            this.currentVote = currentVote;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
             LinearLayout layout;
@@ -140,11 +144,53 @@ public class MainActivity extends BaseActivity implements VoteResponder {
             }
 
             try {
-                JSONObject localized = objects.get(position).getJSONObject("en");
+                String lang = "en";
+                if (Locale.getDefault().getLanguage().equalsIgnoreCase("nl")) {
+                    lang = "nl";
+                }
+                final String voteId = objects.get(position).getString("_id");
+                JSONObject localized = objects.get(position).getJSONObject(lang);
                 TextView shortDesc = (TextView) layout.findViewById(R.id.short_desc);
                 TextView score = (TextView) layout.findViewById(R.id.score);
                 shortDesc.setText(localized.getString("short"));
                 score.setText("" + objects.get(position).getInt("score"));
+
+                if(currentVote == null) {
+                    View upVoteButton = layout.findViewById(R.id.upVote);
+                    layout.findViewById(R.id.noVote).setVisibility(View.GONE);
+
+                    upVoteButton.setVisibility(View.VISIBLE);
+                    upVoteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Inventory.addVote(context, voteId);
+                            Inventory.setNextFetch(-1);
+                            new VoteTask(voteId, 1).execute();
+                            recreate();
+                        }
+                    });
+                } else if(currentVote == voteId) {
+                    View downVoteButton = layout.findViewById(R.id.downVote);
+                    layout.findViewById(R.id.noVote).setVisibility(View.GONE);
+                    downVoteButton.setVisibility(View.VISIBLE);
+                    downVoteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Inventory.retractVote(context, voteId);
+                            Inventory.setNextFetch(-1);
+                            new VoteTask(voteId, -1).execute();
+                            recreate();
+                        }
+                    });
+                }
+
+                final String longDesc = localized.getString("long");
+                layout.findViewById(R.id.voteTextWrapper).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(context).setMessage(longDesc).show();
+                    }
+                });
             } catch(JSONException e) {
                 Log.w("SHELFIE", e.getMessage());
             }
@@ -160,14 +206,16 @@ public class MainActivity extends BaseActivity implements VoteResponder {
             final ListView voteListView = (ListView) findViewById(R.id.votesList);
             final List<JSONObject> votesList = new ArrayList<JSONObject>();
             final JSONArray jsonVotes = voteFetchData.getJSONArray("votes");
-            final VotesAdapter votesAdapter = new VotesAdapter(this, votesList);
-
-            voteListView.setAdapter(votesAdapter);
-
+            String currentVote = null;
             for(int i = 0; i < jsonVotes.length(); i++) {
+                if(Inventory.votedFor(this, jsonVotes.getJSONObject(i).getString("_id"))) {
+                    currentVote = jsonVotes.getJSONObject(i).getString("_id");
+                }
                 votesList.add(jsonVotes.getJSONObject(i));
             }
 
+            final VotesAdapter votesAdapter = new VotesAdapter(this, votesList, currentVote);
+            voteListView.setAdapter(votesAdapter);
             votesAdapter.notifyDataSetChanged();
           //  JSONArray jsonVotes = voteFetchData.getJSONArray("votes");
             Log.d("SHELFIE", "vote data: " + jsonVotes);

@@ -174,6 +174,16 @@ public class Inventory {
         inventory.save(context);
     }
 
+    public static void retractVote(Context context, String vote) {
+        Inventory inventory = getInstance(context);
+        inventory.votes.remove(vote);
+        inventory.save(context);
+    }
+
+    public static boolean votedFor(Context context, String vote) {
+        Inventory inventory = getInstance(context);
+        return inventory.votes.indexOf(vote) > -1;
+    }
     public static boolean isInfoSuppressed() {
         return infoSuppressed;
     }

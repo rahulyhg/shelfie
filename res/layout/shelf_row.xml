@@ -5,7 +5,7 @@
         android:layout_height="80dp" xmlns:android="http://schemas.android.com/apk/res/android"
         android:weightSum="1" android:orientation="horizontal">
     <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/upButton"
             android:src="@drawable/menu_arrow_up"
@@ -71,7 +71,7 @@
         </LinearLayout>
     </LinearLayout>
     <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/downButton"
             android:src="@drawable/menu_arrow_down"
