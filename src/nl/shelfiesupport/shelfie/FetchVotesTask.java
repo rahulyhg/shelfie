@@ -16,6 +16,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
         this.responder = responder;
     }
 
+
     @Override
     protected String doInBackground(String... params) {
         String response = null;
@@ -28,7 +29,12 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
             URL url = new URL(Remoting.SERVICE_URL_FEATURES);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Accept-Charset", "utf-8");
-            connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "true");
+            if(Inventory.expire) {
+                Inventory.expire = false;
+                connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "expire");
+            } else {
+                connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "no-expire");
+            }
             is = connection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
@@ -43,7 +49,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }
             if(connection != null) { connection.disconnect(); }
         }
-
+        Inventory.expire = true;
         return response;
     }
 

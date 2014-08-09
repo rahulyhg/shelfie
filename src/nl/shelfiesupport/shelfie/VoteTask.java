@@ -27,7 +27,7 @@ public class VoteTask extends AsyncTask<String, Integer, String> {
         JSONObject query = new JSONObject();
         query.put("action", "vote");
         query.put("id", id);
-        query.put("score", amount);
+        query.put("amount", amount);
         return query;
     }
 

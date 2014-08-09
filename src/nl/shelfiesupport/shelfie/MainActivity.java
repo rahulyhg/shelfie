@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
                 public void run() {
                     new FetchVotesTask(self).execute();
                 }
-            }, 1000);
+            }, 200);
         } else {
             renderVotes();
         }
