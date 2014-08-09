@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 public class ExportTask extends AsyncTask<String, Integer, String> {
     Responder responder;
@@ -46,9 +47,11 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
+            connection.setRequestProperty("Accept-Charset", "utf-8");
+            connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             connection.setDoOutput(true);
             DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
-            dos.writeBytes(sendData);
+            dos.write(sendData.getBytes(Charset.forName("UTF-8")));
             dos.flush();
             dos.close();
             is = connection.getInputStream();

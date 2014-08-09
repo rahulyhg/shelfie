@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 public class ImportTask extends AsyncTask<String, Integer, String> {
     Responder responder;
@@ -29,10 +30,12 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
             String sendData = "{\"action\": \"fetch\", \"id\": \"" + id[0] + "\" }";
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Accept-Charset", "utf-8");
+            connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
-            dos.writeBytes(sendData);
+            dos.write(sendData.getBytes(Charset.forName("UTF-8")));
             dos.flush();
             dos.close();
             is = connection.getInputStream();

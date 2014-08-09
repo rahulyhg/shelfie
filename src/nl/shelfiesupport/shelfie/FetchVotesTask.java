@@ -27,6 +27,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(Remoting.SERVICE_URL_FEATURES);
             connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Accept-Charset", "utf-8");
             connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "true");
             is = connection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
