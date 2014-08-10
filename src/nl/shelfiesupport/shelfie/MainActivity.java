@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
         }
 
         initAds(R.id.adView);
-        if(Inventory.mayFetchNext()) {
+        if(Inventory.mayFetchNext() || Inventory.getVoteFetchData() == null) {
             final VoteResponder self = this;
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -113,6 +113,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
         if(response != null) {
             try {
                 Inventory.setVoteFetchData(new JSONObject("{votes: " + response + "}"));
+                Inventory.getInstance(this).save(this);
                 renderVotes();
             } catch (JSONException e) {
                 Log.w("SHELFIE", "Failed to parse json in VOTE fetch");
@@ -201,7 +202,10 @@ public class MainActivity extends BaseActivity implements VoteResponder {
 
     private void renderVotes() {
         JSONObject voteFetchData = Inventory.getVoteFetchData();
-        if(voteFetchData == null) { return; }
+        if(voteFetchData == null) {
+
+            return;
+        }
         try {
             final ListView voteListView = (ListView) findViewById(R.id.votesList);
             final List<JSONObject> votesList = new ArrayList<JSONObject>();

@@ -28,6 +28,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(Remoting.SERVICE_URL_FEATURES);
             connection = (HttpURLConnection) url.openConnection();
+            Log.d("SHELFIE_NET", url.toString());
             connection.setRequestProperty("Accept-Charset", "utf-8");
             if(Inventory.expire) {
                 Inventory.expire = false;
@@ -49,7 +50,6 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }
             if(connection != null) { connection.disconnect(); }
         }
-        Inventory.expire = true;
         return response;
     }
 

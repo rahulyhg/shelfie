@@ -46,6 +46,7 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
             String sendData = buildQuery().toString();
             Log.d("SHELFIE", sendData);
             connection = (HttpURLConnection) url.openConnection();
+            Log.d("SHELFIE_NET", url.toString());
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Accept-Charset", "utf-8");
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");

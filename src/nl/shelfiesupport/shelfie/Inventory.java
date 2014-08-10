@@ -56,6 +56,12 @@ public class Inventory {
                     votes.add(jsonVotes.getString(i));
                 }
             }
+            if(me.has("vote_fetch_data")) {
+                voteFetchData = me.getJSONObject("vote_fetch_data");
+            }
+            if(me.has("next_fetch")) {
+                nextFetch = me.getLong("next_fetch");
+            }
             is.close();
         } catch(IOException ignored) {
         } catch(JSONException ignored) {
@@ -83,6 +89,10 @@ public class Inventory {
         }
         me.put("votes", jsonVotes);
         me.put("shelves", jsonShelves);
+        if(voteFetchData != null) {
+            me.put("vote_fetch_data", voteFetchData);
+        }
+        me.put("next_fetch", nextFetch);
         return me;
     }
 
