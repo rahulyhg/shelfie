@@ -43,6 +43,7 @@
                   android:layout_marginBottom="8dp"
                   android:id="@+id/votesTitle"
                   android:textAppearance="?android:textAppearanceLarge"
+                  android:textColor="@color/shelfie_head"
                   android:text="@string/top_feature_reqs"/>
         <ListView android:id="@+id/votesList"
                 android:layout_width="fill_parent" android:layout_height="match_parent">
