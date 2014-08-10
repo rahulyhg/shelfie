@@ -28,9 +28,9 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(Remoting.SERVICE_URL);
             String sendData = "{\"action\": \"fetch\", \"id\": \"" + id[0] + "\" }";
-            Log.d("SHELFIE", sendData);
+            Log.d(Tag.SHELFIE, sendData);
             connection = (HttpURLConnection) url.openConnection();
-            Log.d("SHELFIE_NET", url.toString());
+            Log.d(Tag.SHELFIE_NET, url.toString());
             connection.setRequestProperty("Accept-Charset", "utf-8");
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             connection.setRequestMethod("POST");
@@ -46,7 +46,7 @@ public class ImportTask extends AsyncTask<String, Integer, String> {
             while((ln = reader.readLine()) != null) { sb.append(ln); }
             response = sb.toString();
         } catch (IOException e) {
-            Log.w("SHELFIE", "Failed to open service");
+            Log.w(Tag.SHELFIE, "Failed to open service");
         } finally {
             if(reader != null) { try { reader.close(); } catch (IOException ignored) { /* ignore */ } }
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }

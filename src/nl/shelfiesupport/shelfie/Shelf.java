@@ -48,7 +48,7 @@ public class Shelf {
 
     private void fromJSON(JSONObject me, boolean isImported) {
         this.items = new ArrayList<ShelfItem>();
-        Log.d("SHELFIE", "loading shelf from inventory: " + me.toString());
+        Log.d(Tag.SHELFIE, "loading shelf from inventory: " + me.toString());
         try {
             JSONArray jsonItems = me.getJSONArray("items");
             for (int i = 0; i < jsonItems.length(); i++) {
@@ -57,12 +57,12 @@ public class Shelf {
                 items.add(item);
             }
             if(me.has("_id") && !isImported) {
-                Log.d("SHELFIE", "found export id " + me.getString("_id"));
+                Log.d(Tag.SHELFIE, "found export id " + me.getString("_id"));
                 exportId = me.getString("_id");
             }
             if(me.has("name")) { name = me.getString("name"); }
-        } catch (JSONException ignored) {
-
+        } catch (JSONException e) {
+            Log.e(Tag.SHELFIE, "Failed to load JSON");
         }
     }
 
@@ -118,7 +118,7 @@ public class Shelf {
     }
 
     public void setChanged(boolean changed) {
-        if(changed) { Log.d("SHELFIE", "Change in Shelf registered"); }
+        if(changed) { Log.d(Tag.SHELFIE, "Change in Shelf registered"); }
         this.changed = changed;
     }
 

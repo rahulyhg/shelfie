@@ -2,8 +2,6 @@ package nl.shelfiesupport.shelfie;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -28,7 +26,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(Remoting.SERVICE_URL_FEATURES);
             connection = (HttpURLConnection) url.openConnection();
-            Log.d("SHELFIE_NET", url.toString());
+            Log.d(Tag.SHELFIE_NET, url.toString());
             connection.setRequestProperty("Accept-Charset", "utf-8");
             if(Inventory.expire) {
                 Inventory.expire = false;
@@ -44,7 +42,7 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
             response = sb.toString();
 
         } catch (IOException e) {
-            Log.w("SHELFIE", "Failed to open service");
+            Log.w(Tag.SHELFIE, "Failed to open service");
         } finally {
             if(reader != null) { try { reader.close(); } catch (IOException ignored) { /* ignore */ } }
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }

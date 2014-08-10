@@ -63,8 +63,10 @@ public class Inventory {
                 nextFetch = me.getLong("next_fetch");
             }
             is.close();
-        } catch(IOException ignored) {
-        } catch(JSONException ignored) {
+        } catch(IOException e) {
+            Log.e(Tag.SHELFIE, "Failed to open file");
+        } catch(JSONException e) {
+            Log.e(Tag.SHELFIE, "Failed to parse json");
         }
         if(this.shelves.size() == 0) {
             this.shelves.add(new Shelf(context.getString(R.string.default_shelf)));
@@ -101,13 +103,16 @@ public class Inventory {
         boolean saved = false;
         try {
             os = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            Log.d("SHELFIE", "Saving Inventory: " + toJSON().toString());
+            Log.d(Tag.SHELFIE, "Saving Inventory: " + toJSON().toString());
             os.write(toJSON().toString().getBytes());
             saved = true;
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.e(Tag.SHELFIE, "Failed to save to file");
+
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tag.SHELFIE, "Failed to compile JSON");
+
+
         } finally {
             if(os != null) { try { os.close(); } catch (Exception ignored) { } }
         }
@@ -151,7 +156,7 @@ public class Inventory {
             currentShelfIndex = index;
         }
         Shelf.setInstanceChanged(context);
-        Log.d("SHELFIE", "Selected shelf: " + getInstance(context).shelves.get(currentShelfIndex));
+        Log.d(Tag.SHELFIE, "Selected shelf: " + getInstance(context).shelves.get(currentShelfIndex));
     }
 
     public static int getSelectedShelfIndex() {

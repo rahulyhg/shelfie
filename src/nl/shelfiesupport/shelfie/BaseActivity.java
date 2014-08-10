@@ -211,7 +211,7 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
                     getString(R.string.via) + ": http://getshelfie.herokuapp.com/" + id);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_title)));
         } catch (JSONException e) {
-            Log.w("SHELFIE", "failed to parse response: " + jsonStr);
+            Log.w(Tag.SHELFIE, "failed to parse response: " + jsonStr);
             Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_LONG).show();
         }
     }

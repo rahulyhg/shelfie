@@ -30,7 +30,6 @@ public class GroceryList {
                 line = r.readLine();
             }
             JSONObject me = new JSONObject(sb.toString());
-            long updatedAt = me.getLong("updatedAt");
             JSONArray jsonGroceries = me.getJSONArray("groceries");
             for(int i = 0; i < jsonGroceries.length(); i++) {
                 JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
@@ -39,7 +38,9 @@ public class GroceryList {
             }
             is.close();
         } catch(IOException ignored) {
+            Log.e(Tag.SHELFIE, "Failed to load from file");
         } catch(JSONException ignored) {
+            Log.e(Tag.SHELFIE, "Failed to parse JSON");
         }
     }
 
@@ -65,19 +66,19 @@ public class GroceryList {
         FileOutputStream os;
         try {
             os = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            Log.d("SHELFIE", "Saving GroceryList: " + toJSON().toString());
+            Log.d(Tag.SHELFIE, "Saving GroceryList: " + toJSON().toString());
             os.write(toJSON().toString().getBytes());
             changed = false;
             os.close();
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.e(Tag.SHELFIE, "Failed to save to file");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tag.SHELFIE, "Failed to parse JSON");
         }
     }
 
     public void setChanged(boolean changed) {
-        if(changed) { Log.d("SHELFIE", "Change in GroceryList registered"); }
+        if(changed) { Log.d(Tag.SHELFIE, "Change in GroceryList registered"); }
         this.changed = changed;
     }
 

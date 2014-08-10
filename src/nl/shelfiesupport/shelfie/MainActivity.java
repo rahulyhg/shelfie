@@ -116,10 +116,10 @@ public class MainActivity extends BaseActivity implements VoteResponder {
                 Inventory.getInstance(this).save(this);
                 renderVotes();
             } catch (JSONException e) {
-                Log.w("SHELFIE", "Failed to parse json in VOTE fetch");
+                Log.w(Tag.SHELFIE, "Failed to parse json in VOTE fetch");
             }
         } else {
-            Log.d("SHELFIE", "NO VOTES LANDED");
+            Log.d(Tag.SHELFIE, "NO VOTES LANDED");
         }
     }
 
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
                             recreate();
                         }
                     });
-                } else if(currentVote == voteId) {
+                } else if(currentVote.equalsIgnoreCase(voteId)) {
                     View downVoteButton = layout.findViewById(R.id.downVote);
                     layout.findViewById(R.id.noVote).setVisibility(View.GONE);
                     downVoteButton.setVisibility(View.VISIBLE);
@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
                     }
                 });
             } catch(JSONException e) {
-                Log.w("SHELFIE", e.getMessage());
+                Log.w(Tag.SHELFIE, e.getMessage());
             }
 
             return layout;
@@ -221,8 +221,6 @@ public class MainActivity extends BaseActivity implements VoteResponder {
             final VotesAdapter votesAdapter = new VotesAdapter(this, votesList, currentVote);
             voteListView.setAdapter(votesAdapter);
             votesAdapter.notifyDataSetChanged();
-          //  JSONArray jsonVotes = voteFetchData.getJSONArray("votes");
-            Log.d("SHELFIE", "vote data: " + jsonVotes);
 
         } catch (JSONException ignored) {
         }

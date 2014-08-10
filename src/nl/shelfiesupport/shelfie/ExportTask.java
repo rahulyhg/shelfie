@@ -44,9 +44,9 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(Remoting.SERVICE_URL);
             String sendData = buildQuery().toString();
-            Log.d("SHELFIE", sendData);
+            Log.d(Tag.SHELFIE, sendData);
             connection = (HttpURLConnection) url.openConnection();
-            Log.d("SHELFIE_NET", url.toString());
+            Log.d(Tag.SHELFIE_NET, url.toString());
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Accept-Charset", "utf-8");
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
@@ -62,9 +62,9 @@ public class ExportTask extends AsyncTask<String, Integer, String> {
             while((ln = reader.readLine()) != null) { sb.append(ln); }
             response = sb.toString();
         } catch (IOException e) {
-            Log.w("SHELFIE", "Failed to open service");
+            Log.w(Tag.SHELFIE, "Failed to open service");
         } catch (JSONException e) {
-            Log.w("SHELFIE", "Failed generate JSON");
+            Log.w(Tag.SHELFIE, "Failed generate JSON");
         } finally {
             if(reader != null) { try { reader.close(); } catch (IOException ignored) { /* ignore */ } }
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }
