@@ -140,42 +140,13 @@ public class EditShelfActivity extends BaseActivity {
         super.onResume();
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
-        final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
-        shelfLayout.setSelection(shelf.getSelectedItemPosition());
-        if(adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
 
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_shelf);
-        ActionBar actionBar = getActionBar();
-        if(actionBar != null) { actionBar.setTitle(getString(R.string.edit_shelf_title)); }
+        initShelfPicker();
 
 
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         adapter = new ShelfListAdapter(this, shelf.getItems());
         shelfLayout.setAdapter(adapter);
-
-        initShelfPicker();
-
-        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
-        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        if(size.y > 640) {
-            initAds(R.id.adView2);
-        } else {
-            View ad = findViewById(R.id.adView2);
-            ((LinearLayout)ad.getParent()).removeView(ad);
-        }
-
         EditText newItem = (EditText) findViewById(R.id.addInput);
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -191,5 +162,31 @@ public class EditShelfActivity extends BaseActivity {
                 return false;
             }
         });
+
+        shelfLayout.setSelection(shelf.getSelectedItemPosition());
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.edit_shelf);
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) { actionBar.setTitle(getString(R.string.edit_shelf_title)); }
+
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        if(size.y > 640) {
+            initAds(R.id.adView2);
+        } else {
+            View ad = findViewById(R.id.adView2);
+            ((LinearLayout)ad.getParent()).removeView(ad);
+        }
+
+
     }
 }

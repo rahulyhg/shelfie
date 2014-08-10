@@ -182,6 +182,20 @@ public class GroceryListActivity extends BaseActivity {
         super.onResume();
         findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
         findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
+        initShelfPicker();
+
+        groceryListLayout = (ListView) findViewById(R.id.grocery_list);
+        groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
+        groceryListLayout.setAdapter(groceryListAdapter);
+
+        if(shelf.getItems().size() == 0) {
+            Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
+            disableShelfButtons();
+        } else {
+            enableShelfButtons();
+            init();
+        }
+
         if(groceryListAdapter != null) {
             groceryListAdapter.notifyDataSetChanged();
         }
@@ -191,48 +205,53 @@ public class GroceryListActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.grocery_list);
-        findViewById(R.id.make_list).setBackgroundColor(getResources().getColor(R.color.shelfie_darker_blue));
-        findViewById(R.id.edit_shelf).setBackgroundColor(getResources().getColor(R.color.shelfie_blue));
-
-        initShelfPicker();
-
         ActionBar actionBar = getActionBar();
         if(actionBar != null) {
             actionBar.setTitle(getString(R.string.make_grocery_list));
         }
-
-        groceryListLayout = (ListView) findViewById(R.id.grocery_list);
-        groceryListAdapter = new GroceryListAdapter(this, groceryList.getGroceries());
-        groceryListLayout.setAdapter(groceryListAdapter);
-
-
         initAds(R.id.adView1);
+    }
 
-        if(shelf.getItems().size() == 0) {
-            Toast.makeText(this, R.string.shelf_is_empty, Toast.LENGTH_LONG).show();
-            disableShelfButtons();
-        } else {
-            init();
+    private void enableShelfButtons() {
+        Button yesButton = (Button) findViewById(R.id.yesButt);
+        Button noButton = (Button) findViewById(R.id.noButt);
+        ImageButton[] imgButtons = {
+                (ImageButton) findViewById(R.id.plusButton),
+                (ImageButton) findViewById(R.id.minusButton),
+                (ImageButton) findViewById(R.id.nextButt),
+                (ImageButton) findViewById(R.id.prevButt)
+        };
+
+        yesButton.setEnabled(true);
+        noButton.setEnabled(true);
+        for(ImageButton button : imgButtons) {
+            button.setEnabled(true);
+            button.setAlpha(1.0f);
         }
+
     }
 
     private void disableShelfButtons() {
+        TextView itemName = (TextView) findViewById(R.id.itemName);
+        TextView amount = (TextView) findViewById(R.id.amount);
         Button yesButton = (Button) findViewById(R.id.yesButt);
         Button noButton = (Button) findViewById(R.id.noButt);
-        ImageButton plusButton = (ImageButton) findViewById(R.id.plusButton);
-        ImageButton minusButton = (ImageButton) findViewById(R.id.minusButton);
-        ImageButton nextButton = (ImageButton) findViewById(R.id.nextButt);
-        ImageButton prevButton = (ImageButton) findViewById(R.id.prevButt);
+        ImageButton[] imgButtons = {
+            (ImageButton) findViewById(R.id.plusButton),
+            (ImageButton) findViewById(R.id.minusButton),
+            (ImageButton) findViewById(R.id.nextButt),
+            (ImageButton) findViewById(R.id.prevButt)
+        };
 
         yesButton.setEnabled(false);
         noButton.setEnabled(false);
-        nextButton.setEnabled(false);
-        prevButton.setEnabled(false);
-        plusButton.setEnabled(false);
-        minusButton.setEnabled(false);
-
+        for(ImageButton button : imgButtons) {
+            button.setEnabled(false);
+            button.setAlpha(0.7f);
+        }
+        itemName.setText("");
+        amount.setText("");
     }
 
 

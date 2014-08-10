@@ -19,7 +19,7 @@ public class AddShelfActivity extends BaseActivity {
 
         if(shelfName.getText().toString().trim().length() > 0) {
             Inventory.createNewShelf(this, shelfName.getText().toString().trim());
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, EditShelfActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
