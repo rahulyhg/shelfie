@@ -70,6 +70,8 @@ public class MainActivity extends BaseActivity implements VoteResponder {
 
     private void hideInfo() {
 
+        findViewById(R.id.votesTitle).setVisibility(View.VISIBLE);
+        findViewById(R.id.votesList).setVisibility(View.VISIBLE);
         findViewById(R.id.info_wrapper).setVisibility(View.GONE);
     }
 
@@ -186,7 +188,11 @@ public class MainActivity extends BaseActivity implements VoteResponder {
                 layout.findViewById(R.id.voteTextWrapper).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(context).setMessage(longDesc).show();
+                        new AlertDialog.Builder(context)
+                                .setMessage(longDesc)
+                                .setCancelable(false)
+                                .setPositiveButton(getString(R.string.ok), null)
+                                .show();
                     }
                 });
             } catch(JSONException e) {
