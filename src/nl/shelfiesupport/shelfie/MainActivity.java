@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
             infoFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
         }
 
-        initAds(R.id.adView);
+
         if(Inventory.mayFetchNext() || Inventory.getVoteFetchData() == null) {
             final VoteResponder self = this;
             Handler handler = new Handler();

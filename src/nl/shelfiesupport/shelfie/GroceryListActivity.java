@@ -210,7 +210,6 @@ public class GroceryListActivity extends BaseActivity {
         if(actionBar != null) {
             actionBar.setTitle(getString(R.string.make_grocery_list));
         }
-        initAds(R.id.adView1);
     }
 
     private void enableShelfButtons() {

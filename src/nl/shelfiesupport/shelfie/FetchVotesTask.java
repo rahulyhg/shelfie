@@ -28,12 +28,8 @@ public class FetchVotesTask extends AsyncTask<String, Integer, String> {
             connection = (HttpURLConnection) url.openConnection();
             Log.d(Tag.SHELFIE_NET, url.toString());
             connection.setRequestProperty("Accept-Charset", "utf-8");
-            if(Inventory.expire) {
-                Inventory.expire = false;
-                connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "expire");
-            } else {
-                connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "no-expire");
-            }
+            connection.setRequestProperty(Remoting.ALLOWANCE_HEADER, "expire");
+
             is = connection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();

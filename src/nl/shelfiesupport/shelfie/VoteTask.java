@@ -65,7 +65,6 @@ public class VoteTask extends AsyncTask<String, Integer, String> {
             if(is != null) { try { is.close(); } catch (IOException ignored) { /* ignore */ } }
             if(connection != null) { connection.disconnect(); }
         }
-        Inventory.expire = true;
 
         return response;
     }

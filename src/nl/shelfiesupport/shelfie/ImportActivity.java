@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,14 +23,6 @@ public class ImportActivity extends Activity implements Responder {
         Uri uri = getIntent().getData();
 
         List<String> params = uri.getPathSegments();
-
-        AdView adView = (AdView) findViewById(R.id.adView3);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("3437F11BC6A323302078E41E0EDFFB9E")
-                .build();
-
-        adView.loadAd(adRequest);
 
 
         if(params.size() == 0) {

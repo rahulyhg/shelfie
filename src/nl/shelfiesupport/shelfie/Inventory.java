@@ -21,7 +21,6 @@ public class Inventory {
     private static Inventory instance = null;
     private static int currentShelfIndex = 0;
     private static boolean infoSuppressed = false;
-    public static boolean expire = false;
 
     private List<Shelf> shelves;
     private List<String> votes = new ArrayList<String>();

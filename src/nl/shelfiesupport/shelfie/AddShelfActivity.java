@@ -10,7 +10,6 @@ public class AddShelfActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_shelf);
-        initAds(R.id.adView4);
     }
 
     public void addShelf(View view) {
