@@ -4,16 +4,16 @@
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
         >
 
     <include layout="@layout/top" />
-    <include layout="@layout/shelfpicker" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+    <include layout="@layout/shelfpicker" android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
 
     <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_marginTop="12dp"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -21,7 +21,7 @@
             >
         <LinearLayout
                 android:id="@+id/info_wrapper"
-                android:layout_width="fill_parent" android:layout_height="wrap_content">
+                android:layout_width="match_parent" android:layout_height="wrap_content">
             <ImageView android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/info_big"
@@ -37,7 +37,7 @@
                     />
         </LinearLayout>
 
-        <TextView android:layout_width="fill_parent"
+        <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="8dp"
                   android:layout_marginBottom="8dp"
@@ -46,7 +46,7 @@
                   android:textColor="@color/shelfie_head"
                   android:text="@string/top_feature_reqs"/>
         <ListView android:id="@+id/votesList"
-                android:layout_width="fill_parent" android:layout_height="match_parent">
+                android:layout_width="match_parent" android:layout_height="match_parent">
 
         </ListView>
     </LinearLayout>

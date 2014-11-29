@@ -5,15 +5,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include layout="@layout/top" />
-    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
 
         <include layout="@layout/shelfpicker" />
 
-        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".7">
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:orientation="vertical" android:layout_weight=".7">
 
             <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp">
@@ -31,7 +31,7 @@
                         />
                 <TextView
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/itemName"
                         android:singleLine="false"
@@ -56,11 +56,11 @@
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="@string/do_we_still_have"
                         android:id="@+id/needed" android:layout_marginLeft="10dp" android:layout_weight="1"
@@ -79,11 +79,11 @@
 
             <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
                 <ListView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/grocery_list"/>
             </LinearLayout>

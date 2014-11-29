@@ -4,20 +4,20 @@
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
         >
 
     <include layout="@layout/top" />
-    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1">
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
 
         <include layout="@layout/shelfpicker" />
 
-        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent" android:layout_weight=".7"
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight=".7"
                 android:layout_marginTop="20dp">
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
-                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/info_wrapper">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/info_wrapper">
                     <ImageView android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:src="@drawable/info_big"
@@ -34,7 +34,7 @@
                                 android:onClick="removeInfo"
                                 />
                 </LinearLayout>
-                <TextView android:layout_width="fill_parent"
+                <TextView android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:layout_marginTop="8dp"
                           android:layout_marginBottom="8dp"
@@ -42,7 +42,7 @@
                           android:textAppearance="?android:textAppearanceLarge"
                           android:text="@string/top_feature_reqs"/>
                 <ListView android:id="@+id/votesList"
-                          android:layout_width="fill_parent" android:layout_height="match_parent">
+                          android:layout_width="match_parent" android:layout_height="match_parent">
 
                 </ListView>
             </LinearLayout>

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class ShelfItem {
     private String name;
+    private Store store = Store.getDefault();
     private int desiredAmount;
     private boolean selected = false;
 
@@ -33,6 +34,9 @@ public class ShelfItem {
         return me;
     }
 
+    public Store getStore() {
+        return store;
+    }
 
     @Override
     public String toString() {
@@ -48,5 +52,9 @@ public class ShelfItem {
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

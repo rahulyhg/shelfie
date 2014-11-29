@@ -6,7 +6,7 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/importing"
             android:id="@+id/importing" android:textSize="24sp" android:layout_marginTop="40dip"/>
@@ -16,6 +16,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/progressBar" android:layout_gravity="center_horizontal" android:layout_marginTop="40dip"/>
 
-    <Space android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1" />
+    <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
 
 </LinearLayout>

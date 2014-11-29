@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="80dp" xmlns:android="http://schemas.android.com/apk/res/android"
         android:weightSum="1" android:orientation="horizontal">
     <ImageButton
@@ -45,13 +45,15 @@
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 >
-            <Space
+            <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.6"/>
+                    android:layout_height="28dp"
+                    android:layout_weight="0.6"
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/store_picker" />
             <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

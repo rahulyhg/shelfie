@@ -24,6 +24,8 @@ public class Inventory {
 
     private List<Shelf> shelves;
     private List<String> votes = new ArrayList<String>();
+    private List<Store> stores = new ArrayList<Store>();
+
 
 
     private static JSONObject voteFetchData = null;
@@ -69,6 +71,9 @@ public class Inventory {
         }
         if(this.shelves.size() == 0) {
             this.shelves.add(new Shelf(context.getString(R.string.default_shelf)));
+        }
+        if(this.stores.size() == 0) {
+            this.stores.add(Store.getDefault());
         }
     }
 
@@ -131,7 +136,10 @@ public class Inventory {
         currentShelfIndex = inventory.shelves.indexOf(newShelf);
         Shelf.setInstanceChanged(context);
     }
-
+    public static void addStore(Context context, Store newStore) {
+        Inventory inventory = getInstance(context);
+        inventory.stores.add(newStore);
+    }
     public static void saveImportedShelf(Context context, Shelf newShelf) {
         Inventory inventory = getInstance(context);
         inventory.shelves.add(newShelf);
@@ -145,6 +153,24 @@ public class Inventory {
             names.add(shelf.getName());
         }
         return names;
+    }
+
+    public static List<String> getStoreNames(Context context) {
+        Inventory inventory = getInstance(context);
+        List<String>names = new ArrayList<String>();
+        for(Store store : inventory.stores) {
+            String name = store.getName();
+            if(name.equalsIgnoreCase("_default_store_")) {
+                name = context.getString(R.string.default_store);
+            }
+            names.add(name);
+        }
+        names.add(context.getString(R.string.add_store));
+        return names;
+    }
+
+    public static List<Store> getStores(Context context) {
+        return getInstance(context).stores;
     }
 
     public static void setSelectedShelfByIndex(Context context, int index) {
@@ -168,6 +194,14 @@ public class Inventory {
             if(name.equals(shelf.getName())) { return shelf; }
         }
         return null;
+    }
+
+    public static Store findStoreByName(Context context, String name) {
+        Inventory inventory = getInstance(context);
+        for(Store store : inventory.stores) {
+            if(name.equals(store.getName())) { return store; }
+        }
+        return Store.getDefault();
     }
 
     public static void deleteCurrentShelf(Context context) {
@@ -222,6 +256,7 @@ public class Inventory {
     public static void setVoteFetchData(JSONObject voteFetchData) {
         Inventory.voteFetchData = voteFetchData;
     }
+
 
 
 }

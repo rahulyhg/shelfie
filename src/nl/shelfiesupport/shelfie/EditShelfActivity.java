@@ -4,16 +4,15 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +27,7 @@ public class EditShelfActivity extends BaseActivity {
     private class ShelfListAdapter extends ArrayAdapter<ShelfItem> {
         private final Context context;
         private final List<ShelfItem> objects;
+        private final EditShelfActivity editShelfActivity;
 
         private class SelectClickListener implements View.OnClickListener {
             private ShelfListAdapter adapter;
@@ -100,10 +100,11 @@ public class EditShelfActivity extends BaseActivity {
             }
         }
 
-        public ShelfListAdapter(Context context, List<ShelfItem> objects) {
+        public ShelfListAdapter(Context context, List<ShelfItem> objects, EditShelfActivity editShelfActivity) {
             super(context, R.layout.shelf_row, objects);
             this.context = context;
             this.objects = objects;
+            this.editShelfActivity = editShelfActivity;
         }
 
 
@@ -111,19 +112,19 @@ public class EditShelfActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ShelfItemRowLayout shelfItemRowLayout;
             if(convertView == null) {
-                shelfItemRowLayout = new ShelfItemRowLayout(context);
+                shelfItemRowLayout = new ShelfItemRowLayout(context, objects.get(position), editShelfActivity);
             } else {
                 shelfItemRowLayout = (ShelfItemRowLayout) convertView;
             }
 
             shelfItemRowLayout.setName(objects.get(position).getName());
             shelfItemRowLayout.setDesiredAmount("" + objects.get(position).getDesiredAmount());
+            shelfItemRowLayout.setStore(objects.get(position).getStore());
             TextView desiredAmountView = shelfItemRowLayout.getDesiredAmountView();
             shelfItemRowLayout.getDecrementButton().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.DECREASE_AMOUNT));
             shelfItemRowLayout.getIncrementButton().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.INCREASE_AMOUNT));
             shelfItemRowLayout.getUpArrow().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.SWAP_UP));
             shelfItemRowLayout.getDownArrow().setOnClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.SWAP_DOWN));
-
             shelfItemRowLayout.setOnLongClickListener(new ClickListener(objects.get(position), desiredAmountView, position, this, ClickOperation.DELETE));
             shelfItemRowLayout.setOnClickListener(new SelectClickListener(objects.get(position), this));
             if(objects.get(position).isSelected()) {
@@ -133,6 +134,24 @@ public class EditShelfActivity extends BaseActivity {
             }
             return shelfItemRowLayout;
         }
+    }
+
+    public void addItem(View button) {
+        final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
+        final EditText newItem = (EditText) findViewById(R.id.addInput);
+        String value = newItem.getText().toString();
+        if(value.trim().length() > 1) {
+            shelf.addItem(new ShelfItem(value, 1));
+            adapter.notifyDataSetChanged();
+            shelfLayout.setSelection(shelf.getSelectedItemPosition());
+            newItem.setText("");
+        }
+    }
+
+    public void refresh() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -145,9 +164,10 @@ public class EditShelfActivity extends BaseActivity {
 
 
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
-        adapter = new ShelfListAdapter(this, shelf.getItems());
+        adapter = new ShelfListAdapter(this, shelf.getItems(), this);
         shelfLayout.setAdapter(adapter);
         EditText newItem = (EditText) findViewById(R.id.addInput);
+
         newItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
