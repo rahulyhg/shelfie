@@ -53,6 +53,7 @@ public class StoreSpinnerAdapter extends ArrayAdapter<Store> {
     @Override
     public View getDropDownView(final int position, View convertView, ViewGroup parent) {
         View baseView = getBaseView(position, convertView, parent);
+        baseView.findViewById(R.id.removeItem).setVisibility(View.VISIBLE);
         if(objects.get(position).equals(Store.getDefault())) {
             baseView.setOnClickListener(new View.OnClickListener() {
                 @Override
