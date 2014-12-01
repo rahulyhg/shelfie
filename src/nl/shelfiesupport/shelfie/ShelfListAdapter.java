@@ -98,7 +98,7 @@ class ShelfListAdapter extends ArrayAdapter<ShelfItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ShelfItemRowLayout shelfItemRowLayout;
         if(convertView == null) {
-            shelfItemRowLayout = new ShelfItemRowLayout(context, objects.get(position), editShelfActivity);
+            shelfItemRowLayout = new ShelfItemRowLayout(context, editShelfActivity);
         } else {
             shelfItemRowLayout = (ShelfItemRowLayout) convertView;
         }

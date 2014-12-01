@@ -38,7 +38,7 @@ public class GroceryList {
             }
             is.close();
         } catch(IOException ignored) {
-            Log.e(Tag.SHELFIE, "Failed to load from file");
+            Log.e(Tag.SHELFIE, "Failed to load grofrom file");
         } catch(JSONException ignored) {
             Log.e(Tag.SHELFIE, "Failed to parse JSON");
         }

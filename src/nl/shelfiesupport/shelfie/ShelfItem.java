@@ -1,5 +1,6 @@
 package nl.shelfiesupport.shelfie;
 
+import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,9 +10,14 @@ public class ShelfItem {
     private int desiredAmount;
     private boolean selected = false;
 
-    public ShelfItem(String name, int desiredNumber) {
+    public ShelfItem(String name, int desired) {
+        this(name, desired, Store.getDefault());
+    }
+
+    public ShelfItem(String name, int desiredNumber, Store store) {
         this.name = name;
         this.desiredAmount = desiredNumber;
+        this.store = store;
     }
 
     public String getName() {
@@ -31,6 +37,7 @@ public class ShelfItem {
         JSONObject me = new JSONObject();
         me.put("name", name);
         me.put("desiredAmount", desiredAmount);
+        me.put("store", store.toJSON());
         return me;
     }
 
@@ -41,8 +48,9 @@ public class ShelfItem {
     @Override
     public String toString() {
         return "ShelfItem{" +
-                "name='" + name + '\'' +
-                ", desiredAmount=" + desiredAmount +
+                "desiredAmount=" + desiredAmount +
+                ", name='" + name + '\'' +
+                ", store=" + store +
                 '}';
     }
 

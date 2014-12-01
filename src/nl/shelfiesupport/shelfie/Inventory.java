@@ -51,6 +51,14 @@ public class Inventory {
                 shelves.add(new Shelf((JSONObject) jsonShelves.get(i)));
             }
 
+            if(me.has("stores")) {
+                JSONArray jsonStores = me.getJSONArray("stores");
+                for(int i = 0; i < jsonStores.length(); i++) {
+                    stores.add(new Store(jsonStores.getJSONObject(i)));
+                }
+            }
+
+
             if(me.has("votes")) {
                 JSONArray jsonVotes = me.getJSONArray("votes");
                 for(int i = 0; i < jsonVotes.length(); i++) {
@@ -89,12 +97,18 @@ public class Inventory {
         for(Shelf shelf : shelves) {
             jsonShelves.put(shelf.toJSON());
         }
+        JSONArray jsonStores = new JSONArray();
+        for(Store store : stores) {
+            jsonStores.put(store.toJSON());
+        }
+
         JSONArray jsonVotes = new JSONArray();
         for(String vote : votes) {
             jsonVotes.put(vote);
         }
         me.put("votes", jsonVotes);
         me.put("shelves", jsonShelves);
+        me.put("stores", jsonStores);
         if(voteFetchData != null) {
             me.put("vote_fetch_data", voteFetchData);
         }
@@ -139,6 +153,7 @@ public class Inventory {
     public static void addStore(Context context, Store newStore) {
         Inventory inventory = getInstance(context);
         inventory.stores.add(newStore);
+        inventory.save(context);
     }
     public static void saveImportedShelf(Context context, Shelf newShelf) {
         Inventory inventory = getInstance(context);
@@ -195,6 +210,24 @@ public class Inventory {
         }
     }
 
+    public static void removeStore(Context context, int position) {
+        Inventory inventory = getInstance(context);
+        if(inventory.stores.size() > position) {
+            Store store = inventory.stores.get(position);
+            for(Shelf shelf : inventory.shelves) {
+                for(ShelfItem shelfItem : shelf.getItems()) {
+                    if(shelfItem.getStore().getName().equals(store.getName())) {
+                        shelfItem.setStore(Store.getDefault());
+                    }
+                }
+            }
+            inventory.stores.remove(position);
+            inventory.save(context);
+            Shelf.setInstanceChanged(context);
+        }
+    }
+
+
     public static void addVote(Context context, String vote) {
         Inventory inventory = getInstance(context);
         inventory.votes.add(vote);
@@ -234,7 +267,6 @@ public class Inventory {
     public static void setVoteFetchData(JSONObject voteFetchData) {
         Inventory.voteFetchData = voteFetchData;
     }
-
 
 
 }

@@ -54,6 +54,9 @@ public class Shelf {
             for (int i = 0; i < jsonItems.length(); i++) {
                 JSONObject jsonItem = jsonItems.getJSONObject(i);
                 ShelfItem item = new ShelfItem(jsonItem.getString("name"), jsonItem.getInt("desiredAmount"));
+                if(jsonItem.has("store")) {
+                    item.setStore(new Store(jsonItem.getJSONObject("store")));
+                }
                 items.add(item);
             }
             if(me.has("_id") && !isImported) {
@@ -125,7 +128,11 @@ public class Shelf {
     public void adjustDesiredAmount(ShelfItem item, int relAmt) {
         item.adjustDesiredAmount(relAmt);
         setChanged(true);
+    }
 
+    public void setStore(ShelfItem item, Store store) {
+        item.setStore(store);
+        setChanged(true);
     }
 
     public void swapItems(int position, int pos2) {

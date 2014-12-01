@@ -1,6 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -83,4 +86,31 @@ public class EditShelfActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getSize(size);
 
     }
+
+    public void showNewStorePrompt() {
+        final Context self = this;
+        final EditText input = new EditText(this);
+        input.setHint(this.getString(R.string.new_store_hint));
+        new AlertDialog.Builder(this)
+                .setTitle(this.getString(R.string.add_store_title))
+                .setView(input)
+                .setPositiveButton(this.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (input.getText().toString().trim().length() == 0) {
+                            showNewStorePrompt();
+                        } else {
+                            Store newStore = new Store(input.getText().toString().trim());
+                            Inventory.addStore(self, newStore);
+                            Shelf theShelf = Inventory.getShelf(self);
+                            ShelfItem selectedShelfItem = theShelf.getSelectedItem();
+                            theShelf.setStore(selectedShelfItem, newStore);
+                            refresh();
+                        }
+                    }
+                })
+                .setNegativeButton(this.getString(R.string.cancel), null)
+                .show();
+    }
+
 }

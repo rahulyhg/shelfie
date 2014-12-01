@@ -1,6 +1,7 @@
 package nl.shelfiesupport.shelfie;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +21,7 @@ public class ShelfItemRowLayout extends RelativeLayout {
     private final TextView desiredAmountView;
     private final StoreSpinnerAdapter storePickerAdapter;
     private final Context context;
-
+    private final EditShelfActivity editShelfActivity;
 
 
     public TextView getDesiredAmountView() {
@@ -44,10 +45,11 @@ public class ShelfItemRowLayout extends RelativeLayout {
         return downArrow;
     }
 
-    public ShelfItemRowLayout(final Context context, final ShelfItem shelfItem, final EditShelfActivity editShelfActivity) {
+    public ShelfItemRowLayout(final Context context, final EditShelfActivity editShelfActivity) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.shelf_row, this);
         this.context = context;
+        this.editShelfActivity = editShelfActivity;
 
         nameView = (TextView) findViewById(R.id.itemName);
         desiredAmountView = (TextView) findViewById(R.id.itemDesiredAmt);
@@ -57,18 +59,11 @@ public class ShelfItemRowLayout extends RelativeLayout {
         downArrow = (ImageButton) findViewById(R.id.downButton);
 
         storePicker = (StoreSpinner) findViewById(R.id.store_picker);
-        storePicker.setShelfItem(shelfItem);
         storePicker.setEditShelfActivity(editShelfActivity);
+        storePicker.setOnItemSelectedListener(storePicker);
         storePickerAdapter = new StoreSpinnerAdapter(context, R.layout.store_picker_row,
-                Inventory.getStores(context), editShelfActivity, shelfItem);
+                Inventory.getStores(context), editShelfActivity);
         storePicker.setAdapter(storePickerAdapter);
-    }
-
-    @Override
-    public boolean performClick() {
-
-        return super.performClick(); // show spinner dialog
-
     }
 
     public void setName(String name) {
@@ -77,6 +72,7 @@ public class ShelfItemRowLayout extends RelativeLayout {
 
     public void setStore(Store store) {
         storePicker.setSelection(Inventory.getStores(context).indexOf(store));
+        storePickerAdapter.notifyDataSetChanged();
     }
 
     public void setDesiredAmount(String desiredAmount) {
