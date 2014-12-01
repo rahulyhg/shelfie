@@ -62,8 +62,7 @@
     <string name="selected_shelf">Geselecteerde voorraad</string>
     <string name="top_feature_reqs">Top Verbeterverzoeken</string>
     <string name="number_of_votes">Aantal stemmen</string>
-    <string name="default_store">Winkel</string>
-    <string name="add_store">Nieuw...</string>
+    <string name="default_store">winkel...</string>
     <string name="new_store_hint">Naam</string>
     <string name="add_store_title">Winkel toevoegen</string>
 </resources>

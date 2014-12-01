@@ -155,20 +155,6 @@ public class Inventory {
         return names;
     }
 
-    public static List<String> getStoreNames(Context context) {
-        Inventory inventory = getInstance(context);
-        List<String>names = new ArrayList<String>();
-        for(Store store : inventory.stores) {
-            String name = store.getName();
-            if(name.equalsIgnoreCase("_default_store_")) {
-                name = context.getString(R.string.default_store);
-            }
-            names.add(name);
-        }
-        names.add(context.getString(R.string.add_store));
-        return names;
-    }
-
     public static List<Store> getStores(Context context) {
         return getInstance(context).stores;
     }
@@ -194,14 +180,6 @@ public class Inventory {
             if(name.equals(shelf.getName())) { return shelf; }
         }
         return null;
-    }
-
-    public static Store findStoreByName(Context context, String name) {
-        Inventory inventory = getInstance(context);
-        for(Store store : inventory.stores) {
-            if(name.equals(store.getName())) { return store; }
-        }
-        return Store.getDefault();
     }
 
     public static void deleteCurrentShelf(Context context) {

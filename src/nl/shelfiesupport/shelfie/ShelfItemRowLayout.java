@@ -1,28 +1,26 @@
 package nl.shelfiesupport.shelfie;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.*;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
-public class ShelfItemRowLayout extends RelativeLayout implements DialogInterface.OnClickListener {
+public class ShelfItemRowLayout extends RelativeLayout {
 
-    private final Spinner storePicker;
+    private final StoreSpinner storePicker;
     private final ImageButton decrementButton;
     private final ImageButton incrementButton;
     private final ImageButton upArrow;
     private final ImageButton downArrow;
     private final TextView nameView;
     private final TextView desiredAmountView;
-    private final ArrayAdapter<String> storePickerAdapter;
+    private final StoreSpinnerAdapter storePickerAdapter;
     private final Context context;
-    private final ShelfItem shelfItem;
-    private final EditShelfActivity editShelfActivity;
+
 
 
     public TextView getDesiredAmountView() {
@@ -46,73 +44,32 @@ public class ShelfItemRowLayout extends RelativeLayout implements DialogInterfac
         return downArrow;
     }
 
-    public ShelfItemRowLayout(final Context context, final ShelfItem shelfItem, EditShelfActivity editShelfActivity) {
+    public ShelfItemRowLayout(final Context context, final ShelfItem shelfItem, final EditShelfActivity editShelfActivity) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.shelf_row, this);
         this.context = context;
-        this.shelfItem = shelfItem;
-        this.editShelfActivity = editShelfActivity;
+
         nameView = (TextView) findViewById(R.id.itemName);
         desiredAmountView = (TextView) findViewById(R.id.itemDesiredAmt);
         decrementButton = (ImageButton) findViewById(R.id.minAmt);
         incrementButton = (ImageButton) findViewById(R.id.plusAmt);
         upArrow = (ImageButton) findViewById(R.id.upButton);
         downArrow = (ImageButton) findViewById(R.id.downButton);
-        storePicker = (Spinner) findViewById(R.id.store_picker);
-        storePickerAdapter = new ArrayAdapter<String>(context, R.layout.store_picker_row, Inventory.getStoreNames(context));
+
+        storePicker = (StoreSpinner) findViewById(R.id.store_picker);
+        storePicker.setShelfItem(shelfItem);
+        storePicker.setEditShelfActivity(editShelfActivity);
+        storePickerAdapter = new StoreSpinnerAdapter(context, R.layout.store_picker_row,
+                Inventory.getStores(context), editShelfActivity, shelfItem);
         storePicker.setAdapter(storePickerAdapter);
-
-        storePicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position < Inventory.getStores(context).size()) {
-                    shelfItem.setStore(Inventory.getStores(context).get(position));
-                    storePicker.setSelection(position);
-                    storePickerAdapter.notifyDataSetChanged();
-                } else {
-                    showNewStorePrompt();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-        Store store = shelfItem.getStore();
-        storePicker.setSelection(Inventory.getStores(context).indexOf(store));
-        storePickerAdapter.notifyDataSetChanged();
-    }
+    public boolean performClick() {
 
-    public void showNewStorePrompt() {
-        final ShelfItemRowLayout self = this;
-        final EditText input = new EditText(context);
-        input.setHint(context.getString(R.string.new_store_hint));
-        new AlertDialog.Builder(context)
-                .setTitle(context.getString(R.string.add_store_title))
-                .setView(input)
-                .setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (input.getText().toString().trim().length() == 0) {
-                            showNewStorePrompt();
-                        } else {
-                            Store newStore = new Store(input.getText().toString().trim());
-                            Inventory.addStore(context, newStore);
-                            shelfItem.setStore(newStore);
-                            Shelf.getInstance(context).setSelectedItem(shelfItem);
-                            editShelfActivity.refresh();
-                        }
-                    }
-                })
-                .setNegativeButton(context.getString(R.string.cancel), self)
-                .show();
-    }
+        return super.performClick(); // show spinner dialog
 
+    }
 
     public void setName(String name) {
         this.nameView.setText(name);
@@ -120,12 +77,10 @@ public class ShelfItemRowLayout extends RelativeLayout implements DialogInterfac
 
     public void setStore(Store store) {
         storePicker.setSelection(Inventory.getStores(context).indexOf(store));
-
     }
 
     public void setDesiredAmount(String desiredAmount) {
         this.desiredAmountView.setText(desiredAmount);
     }
-
 
 }
