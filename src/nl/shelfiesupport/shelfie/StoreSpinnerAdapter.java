@@ -1,7 +1,9 @@
 package nl.shelfiesupport.shelfie;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -46,33 +48,44 @@ public class StoreSpinnerAdapter extends ArrayAdapter<Store> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View baseView = getBaseView(position, convertView, parent);
-        baseView.findViewById(R.id.removeItem).setVisibility(View.INVISIBLE);
+        baseView.findViewById(R.id.removeItem).setVisibility(View.GONE);
         return baseView;
     }
 
     @Override
-    public View getDropDownView(final int position, View convertView, ViewGroup parent) {
-        View baseView = getBaseView(position, convertView, parent);
-        baseView.findViewById(R.id.removeItem).setVisibility(View.VISIBLE);
+    public View getDropDownView(final int position, View convertView, final ViewGroup parent) {
+        final View view = getBaseView(position, convertView, parent);
+        view.findViewById(R.id.removeItem).setVisibility(View.VISIBLE);
         if(objects.get(position).equals(Store.getDefault())) {
-            baseView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     editShelfActivity.showNewStorePrompt();
                 }
             });
-            baseView.findViewById(R.id.removeItem).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.removeItem).setVisibility(View.GONE);
         } else {
-            baseView.findViewById(R.id.removeItem).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.removeItem).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Inventory.removeStore(context, position);
-                    editShelfActivity.refresh();
+
+                    new AlertDialog.Builder(context)
+                            .setTitle(Inventory.getStores(context).get(position).getName())
+                            .setMessage(context.getString(R.string.delete_store_confirm))
+                            .setCancelable(false)
+                            .setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Inventory.removeStore(context, position);
+                                    editShelfActivity.refresh();
+                                }
+                            })
+                            .setNegativeButton(context.getString(R.string.no), null)
+                            .show();
                 }
             });
-
         }
 
-        return baseView;
+        return view;
     }
 }

@@ -65,5 +65,8 @@
     <string name="default_store">winkel...</string>
     <string name="new_store_hint">Naam</string>
     <string name="add_store_title">Winkel toevoegen</string>
+    <string name="delete_store_confirm">Weet u zeker dat u deze winkel wilt verwijderen? Deze zal verwijderd worden van
+        alle producten die ernaar verwijzen.
+    </string>
 
 </resources>

@@ -131,6 +131,7 @@ public class Shelf {
     }
 
     public void setStore(ShelfItem item, Store store) {
+        Log.d(Tag.SHELFIE, "Setting store to " + store.getName() + " for shelfitem " + item.getName());
         item.setStore(store);
         setChanged(true);
     }

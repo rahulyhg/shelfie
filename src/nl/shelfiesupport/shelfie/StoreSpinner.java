@@ -1,18 +1,13 @@
 package nl.shelfiesupport.shelfie;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
-import java.util.List;
-
 public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedListener {
     private EditShelfActivity editShelfActivity;
-    private boolean isInit = false;
+    private boolean readyForSelect = false;
 
     public StoreSpinner(Context context) {
         super(context);
@@ -30,11 +25,6 @@ public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedL
         super(context, attrs, defStyle, mode);
     }
 
-
-
-
-
-
     @Override
     public boolean performClick() {
         View currentShelfRow = this;
@@ -47,6 +37,7 @@ public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedL
             editShelfActivity.showNewStorePrompt();
             return false;
         }
+        readyForSelect = true;
         return super.performClick();
     }
 
@@ -56,14 +47,13 @@ public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedL
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(isInit) {
+        if(readyForSelect) {
             Store selectedStore = Inventory.getStores(getContext()).get(position);
             ShelfItem currentShelfItem = Inventory.getShelf(getContext()).getSelectedItem();
             if (selectedStore != null && currentShelfItem != null) {
                 Inventory.getShelf(getContext()).setStore(currentShelfItem, selectedStore);
             }
-        } else {
-            isInit = true;
+            readyForSelect = false;
         }
     }
 

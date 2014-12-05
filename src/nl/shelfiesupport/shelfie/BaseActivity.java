@@ -13,11 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -123,9 +119,7 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
                 break;
 
             case R.id.add_shelf:
-                intent = new Intent(this, AddShelfActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                showAddShelfPrompt();
                 break;
 
             case R.id.main_menu_delete_shelf:
@@ -151,6 +145,29 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAddShelfPrompt() {
+        final EditText input = new EditText(this);
+        final Context self = this;
+        input.setHint(getString(R.string.shelf_name));
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.add_shelf))
+                .setView(input)
+                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (input.getText().toString().trim().length() == 0) {
+                            showAddShelfPrompt();
+                        } else {
+                            Inventory.createNewShelf(self, input.getText().toString().trim());
+                            Intent intent = new Intent(self, EditShelfActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
     }
 
     @Override
