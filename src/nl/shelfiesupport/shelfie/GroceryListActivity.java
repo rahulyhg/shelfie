@@ -85,10 +85,13 @@ public class GroceryListActivity extends BaseActivity {
                 layout = (LinearLayout) convertView;
             }
 
-            TextView nameInput = (TextView) layout.findViewById(R.id.groceryName);
+            TextView nameView = (TextView) layout.findViewById(R.id.groceryName);
             TextView desiredAmount = (TextView) layout.findViewById(R.id.groceryAmount);
-
-            nameInput.setText(objects.get(position).getName());
+            String nameText = objects.get(position).getName();
+            if(!objects.get(position).getStore().equals(Store.getDefault())) {
+                nameText += " (" + objects.get(position).getStore() + ")";
+            }
+            nameView.setText(nameText);
             desiredAmount.setText("" + objects.get(position).getDesiredAmount());
 
             ClickListener clickListener = new ClickListener(objects.get(position), position, this);
@@ -111,11 +114,13 @@ public class GroceryListActivity extends BaseActivity {
         private final ClickOperation operation;
         private final TextView amount;
         private final TextView itemName ;
+        private final TextView storeName;
 
-        public GroceryClickListener(ClickOperation operation, TextView amount, TextView itemName) {
+        public GroceryClickListener(ClickOperation operation, TextView amount, TextView itemName, TextView storeName) {
             this.operation = operation;
             this.amount = amount;
             this.itemName = itemName;
+            this.storeName = storeName;
         }
 
         @Override
@@ -124,6 +129,11 @@ public class GroceryListActivity extends BaseActivity {
                 case PREV:
                     shelf.prevItem();
                     itemName.setText(shelf.getCurrentItem().getName());
+                    if(!shelf.getCurrentItem().getStore().equals(Store.getDefault())) {
+                        storeName.setText(shelf.getCurrentItem().getStore().getName());
+                    } else {
+                        storeName.setText("");
+                    }
                     amount.setText("" + shelf.getCurrentItem().getDesiredAmount());
                     break;
 
@@ -146,6 +156,12 @@ public class GroceryListActivity extends BaseActivity {
                 case NEXT:
                     shelf.nextItem();
                     itemName.setText(shelf.getCurrentItem().getName());
+                    if(!shelf.getCurrentItem().getStore().equals(Store.getDefault())) {
+                        storeName.setText(shelf.getCurrentItem().getStore().getName());
+                    } else {
+                        storeName.setText("");
+                    }
+
                     amount.setText("" + shelf.getCurrentItem().getDesiredAmount());
                 default:
             }
@@ -157,6 +173,7 @@ public class GroceryListActivity extends BaseActivity {
     private void init() {
         final ShelfItem currentItem = shelf.getCurrentItem();
         final TextView itemName = (TextView) findViewById(R.id.itemName);
+        final TextView storeName = (TextView) findViewById(R.id.storeName);
         final TextView amount = (TextView) findViewById(R.id.amount);
         Button yesButton = (Button) findViewById(R.id.yesButt);
         Button noButton = (Button) findViewById(R.id.noButt);
@@ -166,14 +183,16 @@ public class GroceryListActivity extends BaseActivity {
         ImageButton prevButton = (ImageButton) findViewById(R.id.prevButt);
 
         itemName.setText(currentItem.getName());
+        if(!currentItem.getStore().equals(Store.getDefault())) { storeName.setText(currentItem.getStore().getName()); }
+        else { storeName.setText(""); }
         amount.setText("" + currentItem.getDesiredAmount());
 
-        yesButton.setOnClickListener(new GroceryClickListener(ClickOperation.ADD, amount, itemName));
-        noButton.setOnClickListener(new GroceryClickListener(ClickOperation.NEXT, amount, itemName));
-        nextButton.setOnClickListener(new GroceryClickListener(ClickOperation.NEXT, amount, itemName));
-        prevButton.setOnClickListener(new GroceryClickListener(ClickOperation.PREV, amount, itemName));
-        plusButton.setOnClickListener(new GroceryClickListener(ClickOperation.INCREASE_AMOUNT, amount, itemName));
-        minusButton.setOnClickListener(new GroceryClickListener(ClickOperation.DECREASE_AMOUNT, amount, itemName));
+        yesButton.setOnClickListener(new GroceryClickListener(ClickOperation.ADD, amount, itemName, storeName));
+        noButton.setOnClickListener(new GroceryClickListener(ClickOperation.NEXT, amount, itemName, storeName));
+        nextButton.setOnClickListener(new GroceryClickListener(ClickOperation.NEXT, amount, itemName, storeName));
+        prevButton.setOnClickListener(new GroceryClickListener(ClickOperation.PREV, amount, itemName, storeName));
+        plusButton.setOnClickListener(new GroceryClickListener(ClickOperation.INCREASE_AMOUNT, amount, itemName, storeName));
+        minusButton.setOnClickListener(new GroceryClickListener(ClickOperation.DECREASE_AMOUNT, amount, itemName, storeName));
 
     }
 
@@ -233,6 +252,7 @@ public class GroceryListActivity extends BaseActivity {
 
     private void disableShelfButtons() {
         TextView itemName = (TextView) findViewById(R.id.itemName);
+        TextView storeName = (TextView) findViewById(R.id.storeName);
         TextView amount = (TextView) findViewById(R.id.amount);
         Button yesButton = (Button) findViewById(R.id.yesButt);
         Button noButton = (Button) findViewById(R.id.noButt);
@@ -250,6 +270,7 @@ public class GroceryListActivity extends BaseActivity {
             button.setAlpha(0.7f);
         }
         itemName.setText("");
+        storeName.setText("");
         amount.setText("");
     }
 

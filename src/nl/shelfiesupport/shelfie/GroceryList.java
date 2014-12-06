@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GroceryList {
@@ -34,6 +35,9 @@ public class GroceryList {
             for(int i = 0; i < jsonGroceries.length(); i++) {
                 JSONObject jsonGrocery = jsonGroceries.getJSONObject(i);
                 ShelfItem grocery = new ShelfItem(jsonGrocery.getString("name"), jsonGrocery.getInt("desiredAmount"));
+                if(jsonGrocery.has("store")) {
+                    grocery.setStore(new Store(jsonGrocery.getJSONObject("store")));
+                }
                 groceries.add(grocery);
             }
             is.close();
@@ -91,12 +95,21 @@ public class GroceryList {
     }
 
     public void addGrocery(ShelfItem item, int amount) {
-        ShelfItem grocery = new ShelfItem(item.getName(), amount);
+        ShelfItem grocery = new ShelfItem(item.getName(), amount, item.getStore());
         ShelfItem selectedItem = getSelectedItem();
-        if(selectedItem != null) {
+        if(selectedItem != null && selectedItem.getStore().equals(item.getStore())) {
             groceries.add(groceries.indexOf(selectedItem) + 1, grocery);
         } else {
-            groceries.add(grocery);
+            int idx;
+            boolean found = false;
+            for(idx = 0 ; idx < groceries.size(); idx++) {
+                if(groceries.get(idx).getStore().equals(item.getStore())) {
+                    found = true;
+                } else if(found) {
+                    break;
+                }
+            }
+            groceries.add(idx,grocery);
         }
         setSelectedItem(grocery);
         setChanged(true);

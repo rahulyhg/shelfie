@@ -38,15 +38,28 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:id="@+id/amount"
                         />
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:id="@+id/itemName"
-                        android:singleLine="false"
-                        android:layout_marginLeft="3dp"
-                        android:layout_weight="1"
-                        />
+                <LinearLayout android:layout_width="0dp"
+                              android:layout_height="match_parent"
+                              android:layout_weight="1"
+                              android:orientation="vertical">
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="21dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/itemName"
+                            android:singleLine="false"
+                            android:layout_marginLeft="3dp"
+                            />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="21dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/storeName"
+                            android:singleLine="false"
+                            android:layout_marginLeft="3dp"
+                            />
+
+                </LinearLayout>
                 <ImageButton
                         android:layout_width="50dp"
                         android:layout_height="50dp"
