@@ -68,4 +68,8 @@
     <string name="delete_store_confirm">Weet u zeker dat u deze winkel wilt verwijderen? Deze zal verwijderd worden van
         alle producten die ernaar verwijzen.
     </string>
+    <string name="prev">Previous</string>
+    <string name="next">Next</string>
+    <string name="info">Info</string>
+    <string name="drop_info">Remove</string>
 </resources>

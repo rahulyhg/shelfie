@@ -10,11 +10,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/test"
-            android:id="@+id/groceryName" android:layout_weight="1"/>
+            android:id="@+id/groceryName" android:layout_weight="1" android:layout_marginLeft="4dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/example"
-            android:id="@+id/groceryAmount" android:layout_marginLeft="10dp"/>
+            android:id="@+id/groceryAmount" android:layout_marginLeft="10dp" android:layout_marginRight="4dp"/>
 </LinearLayout>

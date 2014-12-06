@@ -5,33 +5,43 @@
         android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
         >
     <include layout="@layout/top" />
-    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+            >
+        <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_item"
+                android:id="@+id/addInput"
+                android:inputType="textCapWords"
+                android:imeOptions="actionDone" android:singleLine="true"
+                />
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:onClick="addItem"
+                android:text="@string/ok"/>
+    </LinearLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/shelfie_dark_blue"/>
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:baselineAligned="false">
 
         <include layout="@layout/shelfpicker" />
 
-        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:orientation="vertical" android:layout_weight=".7">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                <EditText
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/new_item"
-                        android:id="@+id/addInput"
-                        android:inputType="textCapWords"
-                        android:imeOptions="actionDone" android:singleLine="true"
-                        />
-                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:onClick="addItem"
-                        android:text="@string/ok"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:layout_weight="1">
-                <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edit_shelf_list" />
-            </LinearLayout>
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_weight=".7">
+
+            <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_shelf_list" />
         </LinearLayout>
     </LinearLayout>
 
