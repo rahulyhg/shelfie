@@ -1,15 +1,14 @@
 package nl.shelfiesupport.shelfie;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+@SuppressLint("ViewConstructor")
 public class ShelfItemRowLayout extends RelativeLayout {
 
     private final StoreSpinner storePicker;
@@ -21,7 +20,6 @@ public class ShelfItemRowLayout extends RelativeLayout {
     private final TextView desiredAmountView;
     private final StoreSpinnerAdapter storePickerAdapter;
     private final Context context;
-    private final EditShelfActivity editShelfActivity;
 
 
     public TextView getDesiredAmountView() {
@@ -49,7 +47,6 @@ public class ShelfItemRowLayout extends RelativeLayout {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.shelf_row, this);
         this.context = context;
-        this.editShelfActivity = editShelfActivity;
 
         nameView = (TextView) findViewById(R.id.itemName);
         desiredAmountView = (TextView) findViewById(R.id.itemDesiredAmt);
@@ -61,7 +58,7 @@ public class ShelfItemRowLayout extends RelativeLayout {
         storePicker = (StoreSpinner) findViewById(R.id.store_picker);
         storePicker.setEditShelfActivity(editShelfActivity);
         storePicker.setOnItemSelectedListener(storePicker);
-        storePickerAdapter = new StoreSpinnerAdapter(context, R.layout.store_picker_row,
+        storePickerAdapter = new StoreSpinnerAdapter(context,
                 Inventory.getStores(context), editShelfActivity);
         storePicker.setAdapter(storePickerAdapter);
     }

@@ -8,16 +8,15 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GroceryList {
     private static final String FILENAME = "the_groceries.json";
     private static GroceryList instance = null;
     private boolean changed = false;
-    private List<ShelfItem> groceries;
+    private final List<ShelfItem> groceries;
 
-    private GroceryList(String filename, Context context) {
+    private GroceryList(@SuppressWarnings("SameParameterValue") String filename, Context context) {
         FileInputStream is;
         this.groceries = new ArrayList<ShelfItem>();
         try {
@@ -81,7 +80,7 @@ public class GroceryList {
         }
     }
 
-    public void setChanged(boolean changed) {
+    public void setChanged(@SuppressWarnings("SameParameterValue") boolean changed) {
         if(changed) { Log.d(Tag.SHELFIE, "Change in GroceryList registered"); }
         this.changed = changed;
     }

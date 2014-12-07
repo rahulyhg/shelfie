@@ -20,7 +20,7 @@ public class EditShelfActivity extends BaseActivity {
     protected ShelfListAdapter adapter;
 
 
-    public void addItem(View button) {
+    public void addItem(@SuppressWarnings("UnusedParameters") View button) {
         final ListView shelfLayout = (ListView) findViewById(R.id.edit_shelf_list);
         final EditText newItem = (EditText) findViewById(R.id.addInput);
         String value = newItem.getText().toString();

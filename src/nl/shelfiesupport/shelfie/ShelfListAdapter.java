@@ -16,8 +16,8 @@ class ShelfListAdapter extends ArrayAdapter<ShelfItem> {
     private final EditShelfActivity editShelfActivity;
 
     private class SelectClickListener implements View.OnClickListener {
-        private ShelfListAdapter adapter;
-        private ShelfItem item;
+        private final ShelfListAdapter adapter;
+        private final ShelfItem item;
 
         public SelectClickListener(ShelfItem item, ShelfListAdapter adapter) {
             this.adapter = adapter;
@@ -32,11 +32,11 @@ class ShelfListAdapter extends ArrayAdapter<ShelfItem> {
     }
 
     private class ClickListener implements View.OnClickListener, View.OnLongClickListener {
-        private ShelfListAdapter adapter;
-        private ClickOperation clickOperation;
-        private ShelfItem item;
-        private int position;
-        private TextView textView;
+        private final ShelfListAdapter adapter;
+        private final ClickOperation clickOperation;
+        private final ShelfItem item;
+        private final int position;
+        private final TextView textView;
 
         public ClickListener(ShelfItem item, TextView view, int position, ShelfListAdapter adapter, ClickOperation operation) {
             this.item = item;

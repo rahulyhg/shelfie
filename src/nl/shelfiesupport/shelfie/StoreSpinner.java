@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.*;
 
+@SuppressWarnings("ALL")
 public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedListener {
     private EditShelfActivity editShelfActivity;
     private boolean readyForSelect = false;

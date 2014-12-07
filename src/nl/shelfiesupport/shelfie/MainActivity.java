@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
     }
 
 
-    public void toggleInfoViews(View view) {
+    public void toggleInfoViews(@SuppressWarnings("UnusedParameters") View view) {
         final View[] toggleViews = {
                 findViewById(R.id.info_flipper),
                 findViewById(R.id.info_frame),
@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
         infoWrapper.setLayoutParams(params);
     }
 
-    public void removeInfo(View view) {
+    public void removeInfo(@SuppressWarnings("UnusedParameters") View view) {
         Inventory.setInfoSuppressed(true);
         hideInfo();
     }
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements VoteResponder {
     private class VotesAdapter extends ArrayAdapter<JSONObject> {
         private final Context context;
         private final List<JSONObject> objects;
-        private String currentVote;
+        private final String currentVote;
 
         public VotesAdapter(Context context, List<JSONObject> objects, String currentVote) {
             super(context, R.layout.vote_row, objects);

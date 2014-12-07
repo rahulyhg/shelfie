@@ -4,7 +4,7 @@
     <item android:title="@string/delete_groceries"
           android:id="@+id/delete_groceries"
           android:icon="@drawable/main_menu_delete"
-          android:showAsAction="always"  />
+          android:showAsAction="ifRoom"  />
 
     <item android:id="@+id/email_menu_button"
           android:icon="@drawable/main_menu_email"

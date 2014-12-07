@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/vote_row_background"
               android:clickable="true"
@@ -29,7 +29,8 @@
     </LinearLayout>
     <ImageButton
             android:visibility="gone"
-            android:layout_width="45dp" android:layout_height="45dp" android:id="@+id/upVote" android:src="@drawable/menu_plus"/>
+            android:layout_width="45dp" android:layout_height="45dp" android:id="@+id/upVote" android:src="@drawable/menu_plus"
+            tools:ignore="ContentDescription"/>
     <ImageButton
             android:visibility="gone"
             android:layout_width="45dp" android:layout_height="45dp" android:id="@+id/downVote" android:src="@drawable/menu_minus"/>

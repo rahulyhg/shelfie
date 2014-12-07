@@ -22,16 +22,16 @@ public class Inventory {
     private static int currentShelfIndex = 0;
     private static boolean infoSuppressed = false;
 
-    private List<Shelf> shelves;
+    private final List<Shelf> shelves;
     private List<String> votes = new ArrayList<String>();
-    private List<Store> stores = new ArrayList<Store>();
+    private final List<Store> stores = new ArrayList<Store>();
 
 
 
     private static JSONObject voteFetchData = null;
     private static long nextFetch = -1;
 
-    private Inventory(String filename, Context context) {
+    private Inventory(@SuppressWarnings("SameParameterValue") String filename, Context context) {
         FileInputStream is;
         this.shelves = new ArrayList<Shelf>();
         this.votes = new ArrayList<String>();
@@ -158,6 +158,11 @@ public class Inventory {
     public static void saveImportedShelf(Context context, Shelf newShelf) {
         Inventory inventory = getInstance(context);
         inventory.shelves.add(newShelf);
+        for(ShelfItem item : newShelf.getItems()) {
+            if(inventory.stores.indexOf(item.getStore()) < 0) {
+                inventory.stores.add(item.getStore());
+            }
+        }
         inventory.save(context);
     }
 
@@ -248,8 +253,8 @@ public class Inventory {
         return infoSuppressed;
     }
 
-    public static void setInfoSuppressed(boolean infoSuppressed) {
-        Inventory.infoSuppressed = infoSuppressed;
+    public static void setInfoSuppressed(@SuppressWarnings("SameParameterValue") boolean suppressed) {
+        Inventory.infoSuppressed = suppressed;
     }
 
     public static boolean mayFetchNext() {

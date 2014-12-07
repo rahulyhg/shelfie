@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,7 +85,7 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void deleteCurrentShelf(View view) {
+    public void deleteCurrentShelf() {
         final Context context = this;
 
         if(Inventory.getShelfNames(this).size() < 2) {
@@ -123,7 +122,7 @@ public class BaseActivity extends Activity implements Responder, AdapterView.OnI
                 break;
 
             case R.id.main_menu_delete_shelf:
-                deleteCurrentShelf(null);
+                deleteCurrentShelf();
                 break;
 
             case R.id.email_menu_button:

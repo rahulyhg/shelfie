@@ -33,9 +33,9 @@ public class GroceryListActivity extends BaseActivity {
         private final List<ShelfItem> objects;
 
         private class ClickListener implements View.OnClickListener, View.OnLongClickListener {
-            private GroceryListAdapter adapter;
-            private ShelfItem item;
-            private int position;
+            private final GroceryListAdapter adapter;
+            private final ShelfItem item;
+            private final int position;
 
             public ClickListener(ShelfItem item, int position, GroceryListAdapter adapter) {
                 this.item = item;

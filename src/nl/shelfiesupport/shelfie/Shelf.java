@@ -38,7 +38,7 @@ public class Shelf {
         fromJSON(me);
     }
 
-    public Shelf(JSONObject me, boolean isImported) {
+    public Shelf(JSONObject me, @SuppressWarnings("SameParameterValue") boolean isImported) {
         fromJSON(me, isImported);
     }
 
@@ -120,9 +120,9 @@ public class Shelf {
         setChanged(true);
     }
 
-    public void setChanged(boolean changed) {
+    public void setChanged(@SuppressWarnings("UnusedParameters") boolean changed) {
         if(changed) { Log.d(Tag.SHELFIE, "Change in Shelf registered"); }
-        this.changed = changed;
+        this.changed = true;
     }
 
     public void adjustDesiredAmount(ShelfItem item, int relAmt) {
@@ -206,7 +206,11 @@ public class Shelf {
         items.clear();
         for(ShelfItem item : importedShelf.getItems()) {
             items.add(item);
+            if(Inventory.getStores(context).indexOf(item.getStore()) < 0) {
+                Inventory.addStore(context, item.getStore());
+            }
         }
+
         setChanged(true);
         save(context);
     }

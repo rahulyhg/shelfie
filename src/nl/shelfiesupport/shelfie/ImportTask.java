@@ -9,7 +9,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class ImportTask extends AsyncTask<String, Integer, String> {
-    Responder responder;
+    final Responder responder;
 
     public ImportTask(Responder responder) {
         super();

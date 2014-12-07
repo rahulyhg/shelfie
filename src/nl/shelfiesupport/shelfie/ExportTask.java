@@ -11,8 +11,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class ExportTask extends AsyncTask<String, Integer, String> {
-    Responder responder;
-    Shelf shelf;
+    final Responder responder;
+    final Shelf shelf;
 
     public ExportTask(Responder responder, Shelf shelf) {
         this.shelf = shelf;

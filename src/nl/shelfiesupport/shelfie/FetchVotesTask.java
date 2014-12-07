@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class FetchVotesTask extends AsyncTask<String, Integer, String> {
-    VoteResponder responder;
+    final VoteResponder responder;
 
     public FetchVotesTask(VoteResponder responder) {
         this.responder = responder;

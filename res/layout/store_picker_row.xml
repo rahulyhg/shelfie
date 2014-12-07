@@ -2,15 +2,16 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         >
     <TextView
               android:layout_width="0dp"
               android:layout_weight="1"
               android:layout_height="wrap_content"
-              android:text="test"
               android:gravity="left|center_vertical"
               android:id="@+id/textView"
             />
@@ -21,6 +22,6 @@
             android:gravity="left|center_vertical"
             android:src="@drawable/cross"
             android:id="@+id/removeItem"
-            />
+            tools:ignore="ContentDescription"/>
 
 </LinearLayout>

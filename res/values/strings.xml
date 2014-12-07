@@ -62,7 +62,7 @@
     <string name="selected_shelf">Selected shelf</string>
     <string name="top_feature_reqs">Top Feature Requests</string>
     <string name="number_of_votes">Number of votes</string>
-    <string name="default_store">Shop...</string>
+    <string name="default_store">Shop…</string>
     <string name="new_store_hint">Name</string>
     <string name="add_store_title">Add new shop</string>
     <string name="delete_store_confirm">Are you sure you want to delete this shop? It will be deleted from all shelf

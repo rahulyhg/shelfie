@@ -44,7 +44,7 @@
                               android:orientation="vertical">
                     <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="21dp"
+                            android:layout_height="24dp"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:id="@+id/itemName"
                             android:singleLine="false"
@@ -52,8 +52,8 @@
                             />
                     <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="21dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_height="18dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
                             android:id="@+id/storeName"
                             android:singleLine="false"
                             android:layout_marginLeft="3dp"

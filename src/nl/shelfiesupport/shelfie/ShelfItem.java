@@ -1,11 +1,10 @@
 package nl.shelfiesupport.shelfie;
 
-import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ShelfItem {
-    private String name;
+    private final String name;
     private Store store = Store.getDefault();
     private int desiredAmount;
     private boolean selected = false;
