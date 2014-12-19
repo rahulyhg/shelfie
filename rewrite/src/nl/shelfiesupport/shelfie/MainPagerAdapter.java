@@ -43,7 +43,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             case R.layout.welcome:
                 return context.getString(R.string.info);
             case R.layout.edit_shelf:
-                return context.getString(R.string.edit_shelf);
+                return context.getString(R.string.edit_shelf_title);
             case R.layout.grocery_list:
             default:
                 return context.getString(R.string.make_list);

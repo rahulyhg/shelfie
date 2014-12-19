@@ -40,7 +40,6 @@ public class Store {
 
     @Override
     public String toString() {
-        Log.i(Tag.SHELFIE, "to string called");
         return getName();
     }
 

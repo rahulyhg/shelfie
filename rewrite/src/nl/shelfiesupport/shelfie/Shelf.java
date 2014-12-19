@@ -152,6 +152,9 @@ public class Shelf {
     }
 
     public ShelfItem getCurrentItem() {
+        if(currentItem >= items.size()) {
+            return items.get(0);
+        }
         return items.get(currentItem);
     }
 

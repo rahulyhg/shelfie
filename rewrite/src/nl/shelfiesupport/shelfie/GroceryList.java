@@ -142,6 +142,9 @@ public class GroceryList {
             sb.append(shelfItem.getName());
             sb.append(": ");
             sb.append(shelfItem.getDesiredAmount());
+            if(!shelfItem.getStore().equals(Store.getDefault())) {
+                sb.append(" (" + shelfItem.getStore() + ")");
+            }
             sb.append("\r\n");
         }
         return sb.toString();

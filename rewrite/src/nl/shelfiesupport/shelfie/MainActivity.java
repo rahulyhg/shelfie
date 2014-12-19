@@ -93,7 +93,6 @@ public class MainActivity extends FragmentActivity implements
         }
     }
 
-
     public void deleteGroceries(View view) {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.delete_groceries))
@@ -118,6 +117,7 @@ public class MainActivity extends FragmentActivity implements
         } else {
             initViewPager();
         }
+
     }
     @Override
     public void onResume() {
@@ -176,25 +176,34 @@ public class MainActivity extends FragmentActivity implements
                 break;
 
             case R.id.email_menu_button:
-                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-                shareIntent.setType("message/rfc822");
-                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_groceries_subject));
-                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, groceryList.asText());
-                startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
+                emailGroceries(null);
                 break;
 
             case R.id.share_menu_button:
-                if (shelf == null) {
-                    shelf = Shelf.getInstance(this);
-                }
-                Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
-                new ExportTask(this, shelf).execute("");
+                shareShelf(null);
                 break;
 
             default:
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void shareShelf(View view) {
+        if (shelf == null) {
+            shelf = Shelf.getInstance(this);
+        }
+        Toast.makeText(this, getString(R.string.exporting), Toast.LENGTH_LONG).show();
+        new ExportTask(this, shelf).execute("");
+    }
+
+    public void emailGroceries(View view) {
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("message/rfc822");
+        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_groceries_subject));
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, groceryList.asText());
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
+    }
+
     private void showAddGroceryPrompt() {
         final EditText input = new EditText(this);
         input.setHint(getString(R.string.grocery_hint));
@@ -218,6 +227,10 @@ public class MainActivity extends FragmentActivity implements
                 })
                 .setNegativeButton(getString(R.string.cancel), null)
                 .show();
+    }
+
+    public void addShelf(View view) {
+        showAddShelfPrompt();
     }
 
     private void showAddShelfPrompt() {
@@ -253,16 +266,24 @@ public class MainActivity extends FragmentActivity implements
 
         pageAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragIds, this);
         viewPager = (ViewPager) findViewById(R.id.mainPager);
+
         viewPager.setAdapter(pageAdapter);
         viewPager.setCurrentItem(R.layout.grocery_list);
         viewPager.setAdapter(pageAdapter);
         viewPager.setCurrentItem(1);
         pageAdapter.notifyDataSetChanged();
         final PagerTabStrip tabStrip = (PagerTabStrip) findViewById(R.id.tabStrip);
+        tabStrip.setTabIndicatorColorResource(R.color.shelfie_blue);
+
+        tabStrip.setBackgroundResource(R.color.shelfie_darkest_blue);
         tabStrip.setTextSpacing(10);
     }
 
     private void initWideLayout() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.main_wide);
         isWide = true;
     }

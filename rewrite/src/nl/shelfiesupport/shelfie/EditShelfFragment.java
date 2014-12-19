@@ -83,8 +83,8 @@ public class EditShelfFragment extends Fragment {
             adapter.notifyDataSetChanged();
             shelfLayout.setSelection(shelf.getSelectedItemPosition());
             newItem.setText("");
+            ((ShelfieFragmentListener) activityContext).reinitGroceryListFragment();
         }
-        ((ShelfieFragmentListener) activityContext).reinitGroceryListFragment();
     }
 
     public void showNewStorePrompt() {
@@ -104,7 +104,7 @@ public class EditShelfFragment extends Fragment {
                             Shelf theShelf = Inventory.getShelf(activityContext);
                             ShelfItem selectedShelfItem = theShelf.getSelectedItem();
                             theShelf.setStore(selectedShelfItem, newStore);
-                            ((ShelfieFragmentListener) activityContext).reinitGroceryListFragment();
+                            ((ShelfieFragmentListener) activityContext).reinitFragments();
                         }
                     }
                 })
