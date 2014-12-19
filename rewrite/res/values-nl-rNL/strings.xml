@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shelfie</string>
+    <string name="edit_shelf">Voorraad</string>
+    <string name="make_list">Boodschappen</string>
+    <string name="new_item">Toevoegen aan voorraad</string>
+    <string name="move_up">Omhoog in lijst</string>
+    <string name="move_down">Omlaag in lijst</string>
+    <string name="test">Voorbeeld</string>
+    <string name="example">3</string>
+    <string name="increase_desired_amt">Gewenste voorraaad verhogen</string>
+    <string name="decrease_desired_amt">Gewenste voorraad verlagen</string>
+    <string name="delete_item_confirm">Uit de gewenste voorraad verwijderen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="make_grocery_list">Boodschappenlijst</string>
+    <string name="edit_shelf_title">Voorraad bewerken</string>
+    <string name="do_we_still_have">Hebben we dit nog nodig?</string>
+    <string name="shelf_is_empty">Uw gewenste voorraad is leeg, u kunt wel direct boodschappen toevoegen</string>
+    <string name="delete_grocery_confirm">Uit de boodschappenlijst verwijderen?</string>
+    <string name="importing">Bezig met importeren</string>
+    <string name="import_failed">Importeren mislukt</string>
+    <string name="import_ok">Importeren gelukt</string>
+    <string name="export_shelf">Voorraad delen</string>
+    <string name="export_failed">Delen is mislukt</string>
+    <string name="share_subject">Ik wil een Shelfie-voorraad met je delen</string>
+    <string name="share_title">Voorraad delen</string>
+    <string name="exporting">Delen starten</string>
+    <string name="via">via</string>
+    <string name="add_shelf">Voorraad toevoegen</string>
+    <string name="save">Opslaan</string>
+    <string name="shelf_name">Naam voor voorraad</string>
+    <string name="delete_groceries">Verwijder boodschappenlijst</string>
+    <string name="share">Delen</string>
+    <string name="share_groceries_subject">De boodschappen</string>
+    <string name="share_groceries_title">De boodschappen delen</string>
+    <string name="send">Versturen</string>
+    <string name="default_shelf">Basisvoorraad</string>
+    <string name="overwrite_shelf">Voorraad overschrijven</string>
+    <string name="overwrite_shelf_confirm">Voorraad heeft dezelfde naam als uw eigen voorraad. Wilt u deze voorraad overschrijven?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+    <string name="import_canceled">Importeren afgebroken</string>
+    <string name="import_with_new_name">Importeren onder nieuwe naam</string>
+    <string name="delete_shelf">Voorraad verwijderen</string>
+    <string name="uneedaleastoneshelf">U kunt de laatste voorraad niet verwijderen</string>
+    <string name="delete_shelf_confirm">Weet u zeker dat u deze voorraad wilt verwijderen?</string>
+    <string name="add_grocery">Boodschap toevoegen</string>
+    <string name="grocery_hint">Naam</string>
+    <string name="delete_groceries_confirm">Weet u zeker dat u de boodschappenlijst wilt wissen?</string>
+    <string name="welcome">Welkom bij Shelfie</string>
+    <string name="start_now_by">Start een basisvoorraad met de Voorraad-knop</string>
+    <string name="start_now_by_2">En maak een boodschappenlijst met de Boodschappen-knop</string>
+    <string name="start_now_by_3">Een boodschappenlijst maken gaat het snelst met een basisvoorraad</string>
+    <string name="start_now_by_4">Een nieuwe voorraad aanmaken kan met het plus-icoon vanuit dit overzicht</string>
+    <string name="start_now_by_5">En een voorraad selecteren gaat via de select-box boven deze infotekst</string>
+    <string name="start_now_by_6">Met de prullenbak verwijder je de geselecteerde voorraad</string>
+    <string name="start_now_by_7">Of wis je de boodschappenlijst onder \'Boodschappen\'</string>
+    <string name="start_now_by_8">Met de plus kun je bij boodschappen snel een boodschap toevoegen</string>
+    <string name="start_now_by_9">Met het delen icoon kun je de geselecteerde voorraad delen</string>
+    <string name="start_now_by_10">Een gedeelde Shelfie hyperlink kunt u direct met Shelfie openen in uw Android device</string>
+    <string name="selected_shelf">Huidige voorraad</string>
+    <string name="top_feature_reqs">Top Verbeterverzoeken</string>
+    <string name="number_of_votes">Aantal stemmen</string>
+    <string name="default_store">winkel…</string>
+    <string name="new_store_hint">Naam</string>
+    <string name="add_store_title">Winkel toevoegen</string>
+    <string name="delete_store_confirm">Weet u zeker dat u deze winkel wilt verwijderen? Deze zal verwijderd worden van
+        alle producten die ernaar verwijzen.
+    </string>
+    <string name="prev">Previous</string>
+    <string name="next">Next</string>
+    <string name="info">Info</string>
+    <string name="drop_info">Remove</string>
+
+</resources>

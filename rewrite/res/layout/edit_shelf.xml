@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:hint="@string/new_item"
+                android:id="@+id/addInput"
+                android:inputType="textCapWords"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                />
+        <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addItem"
+                android:text="@string/ok"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:minHeight="20dp"
+                  android:layout_weight="1">
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_shelf_list"
+                android:layout_margin="5dp"
+                android:layout_marginRight="0dp"/>
+    </LinearLayout>
+
+</LinearLayout>

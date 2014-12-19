@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shelfie_blue">#5093d1</color>
+    <color name="shelfie_darker_blue">#1566b2</color>
+    <color name="shelfie_dark_blue">#0f487e</color>
+    <color name="shelfie_head">#cacaca</color>
+</resources>

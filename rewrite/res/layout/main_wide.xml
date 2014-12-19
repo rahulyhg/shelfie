@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="0.2"
+            >
+        <Space android:layout_width="match_parent" android:layout_height="50dp"/>
+        <include layout="@layout/shelf_list" />
+
+
+    </LinearLayout>
+    <View android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:background="@color/shelfie_darker_blue"
+            />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@color/shelfie_dark_blue"
+                >
+
+            <TextView android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:paddingLeft="4dp"
+                      android:paddingRight="4dp"
+                      android:paddingTop="12dp"
+                      android:paddingBottom="15dp"
+                      android:layout_height="wrap_content"
+                      android:text="@string/edit_shelf_title"
+                      android:textSize="18sp"
+
+                    />
+            <View android:layout_width="1dp"
+                  android:layout_height="24dp"
+                  android:layout_marginTop="12dp"
+                  android:background="@color/shelfie_darker_blue"
+                    />
+            <ImageButton android:layout_width="50dp"
+                         android:layout_height="match_parent"
+                         android:paddingLeft="4dp"
+                         android:paddingRight="4dp"
+                         android:paddingTop="12dp"
+                         android:paddingBottom="15dp"
+                         android:src="@drawable/main_menu_delete"
+                         android:background="@drawable/button_background"
+                         android:onClick="deleteCurrentShelf"
+                    />
+        </LinearLayout>
+
+        <fragment android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/frag_edit_shelf"
+                  class="nl.shelfiesupport.shelfie.EditShelfFragment"
+                  tools:layout="@layout/edit_shelf"/>
+    </LinearLayout>
+    <View android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:background="@color/shelfie_darker_blue"
+            />
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+
+                      android:background="@color/shelfie_dark_blue"
+                >
+            <TextView android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:paddingLeft="4dp"
+                      android:paddingRight="4dp"
+                      android:paddingTop="12dp"
+                      android:paddingBottom="15dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/make_list"
+                        android:textSize="18sp"
+
+                    />
+            <View android:layout_width="1dp"
+                  android:layout_height="24dp"
+                  android:layout_marginTop="12dp"
+                  android:background="@color/shelfie_darker_blue"
+                    />
+            <ImageButton android:layout_width="50dp"
+                       android:layout_height="match_parent"
+                       android:paddingLeft="4dp"
+                       android:paddingRight="4dp"
+                       android:paddingTop="12dp"
+                       android:paddingBottom="15dp"
+                       android:src="@drawable/main_menu_delete"
+                       android:background="@drawable/button_background"
+                       android:onClick="deleteGroceries"
+                    />
+        </LinearLayout>
+        <fragment android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/frag_grocery_list"
+                class="nl.shelfiesupport.shelfie.GroceryListFragment"
+                tools:layout="@layout/grocery_list"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
