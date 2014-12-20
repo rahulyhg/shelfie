@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import net.peterkuterna.android.apps.swipeytabs.SwipeyTabs;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -264,19 +265,17 @@ public class MainActivity extends FragmentActivity implements
     private void initViewPager() {
         setContentView(R.layout.main);
 
-        pageAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragIds, this);
         viewPager = (ViewPager) findViewById(R.id.mainPager);
+        final SwipeyTabs swipeyTabs = (SwipeyTabs) findViewById(R.id.swipeytabs);
+
+        pageAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragIds, this, viewPager);
 
         viewPager.setAdapter(pageAdapter);
-        viewPager.setCurrentItem(R.layout.grocery_list);
-        viewPager.setAdapter(pageAdapter);
+        swipeyTabs.setAdapter(pageAdapter);
+        viewPager.setOnPageChangeListener(swipeyTabs);
         viewPager.setCurrentItem(1);
         pageAdapter.notifyDataSetChanged();
-        final PagerTabStrip tabStrip = (PagerTabStrip) findViewById(R.id.tabStrip);
-        tabStrip.setTabIndicatorColorResource(R.color.shelfie_blue);
 
-        tabStrip.setBackgroundResource(R.color.shelfie_darkest_blue);
-        tabStrip.setTextSpacing(10);
     }
 
     private void initWideLayout() {

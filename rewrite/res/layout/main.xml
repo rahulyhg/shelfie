@@ -3,21 +3,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_height="match_parent"
+        xmlns:shelfie="http://schemas.android.com/apk/res/nl.shelfiesupport.shelfie"
         android:layout_width="match_parent">
+    <net.peterkuterna.android.apps.swipeytabs.SwipeyTabs
+            android:id="@+id/swipeytabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            shelfie:bottomBarColor="@color/shelfie_darker_blue"
+            shelfie:bottomBarHeight="1dp"
+            shelfie:tabIndicatorHeight="3dp"
+            android:background="@color/shelfie_dark_blue"/>
+
     <include layout="@layout/shelfpicker" />
 
     <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/mainPager">
-        <android.support.v4.view.PagerTabStrip
+<!--        <android.support.v4.view.PagerTabStrip
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:id="@+id/tabStrip"
-                />
+                /> -->
 
 
     </android.support.v4.view.ViewPager>

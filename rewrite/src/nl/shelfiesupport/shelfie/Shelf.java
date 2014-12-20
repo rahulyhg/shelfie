@@ -215,11 +215,14 @@ public class Shelf {
         items.clear();
         for(ShelfItem item : importedShelf.getItems()) {
             items.add(item);
+            if(Inventory.getStores(context).indexOf(item.getStore()) < 0) {
+                Inventory.addStore(context, item.getStore());
+            }
         }
+
         setChanged(true);
         save(context);
     }
-
     public void setName(String name) {
         this.name = name;
     }
