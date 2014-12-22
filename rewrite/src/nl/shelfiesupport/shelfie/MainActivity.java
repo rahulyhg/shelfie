@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.*;
@@ -64,7 +63,6 @@ public class MainActivity extends FragmentActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         if(isWide) {
-
             inflater.inflate(R.menu.main_menu_wide, menu);
         } else {
             inflater.inflate(R.menu.main_menu, menu);
@@ -263,13 +261,16 @@ public class MainActivity extends FragmentActivity implements
 
 
     private void initViewPager() {
+        isWide = false;
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getActionBar().show();
+
         setContentView(R.layout.main);
+
 
         viewPager = (ViewPager) findViewById(R.id.mainPager);
         final SwipeyTabs swipeyTabs = (SwipeyTabs) findViewById(R.id.swipeytabs);
-
         pageAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragIds, this, viewPager);
-
         viewPager.setAdapter(pageAdapter);
         swipeyTabs.setAdapter(pageAdapter);
         viewPager.setOnPageChangeListener(swipeyTabs);
@@ -279,12 +280,12 @@ public class MainActivity extends FragmentActivity implements
     }
 
     private void initWideLayout() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        isWide = true;
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getActionBar().hide();
 
         setContentView(R.layout.main_wide);
-        isWide = true;
     }
     private void selectShelf(int position) {
 
