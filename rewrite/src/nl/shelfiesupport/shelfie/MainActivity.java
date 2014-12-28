@@ -1,5 +1,6 @@
 package nl.shelfiesupport.shelfie;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,13 +23,12 @@ public class MainActivity extends FragmentActivity implements
         ShelfieFragmentListener {
     private MainPagerAdapter pageAdapter;
     private static final List<Integer> fragIds = new ArrayList<Integer>();
-    {
+    static {
         fragIds.add(R.layout.welcome);
         fragIds.add(R.layout.edit_shelf);
         fragIds.add(R.layout.grocery_list);
     }
     private ViewPager viewPager;
-    private List<String> shelfNames = new ArrayList<String>();
     protected ArrayAdapter<String> currentShelfAdapter;
     private Shelf shelf;
     private GroceryList groceryList;
@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity implements
     protected void initShelfPicker() {
         currentShelfSpinner = (Spinner) findViewById(R.id.currentShelfSpinner);
         currentShelfListView = (ListView) findViewById(R.id.currentShelfListView);
-        shelfNames = Inventory.getShelfNames(this);
+        List<String> shelfNames = Inventory.getShelfNames(this);
 
         if(currentShelfSpinner != null) {
             currentShelfAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, shelfNames);
@@ -151,7 +151,7 @@ public class MainActivity extends FragmentActivity implements
                 } else {
                     switch (fragIds.get(viewPager.getCurrentItem())) {
                         case R.layout.grocery_list:
-                            showAddGroceryPrompt();
+                            showAddGroceryPrompt(null);
                             break;
                         case R.layout.edit_shelf:
                         default:
@@ -203,7 +203,7 @@ public class MainActivity extends FragmentActivity implements
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_groceries_title)));
     }
 
-    private void showAddGroceryPrompt() {
+    public void showAddGroceryPrompt(View view) {
         final EditText input = new EditText(this);
         input.setHint(getString(R.string.grocery_hint));
         new AlertDialog.Builder(this)
@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (input.getText().toString().trim().length() == 0) {
-                            showAddGroceryPrompt();
+                            showAddGroceryPrompt(null);
                         } else {
                             ShelfItem grocery = new ShelfItem(input.getText().toString(), 1);
                             if (groceryList != null) {
@@ -263,7 +263,8 @@ public class MainActivity extends FragmentActivity implements
     private void initViewPager() {
         isWide = false;
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getActionBar().show();
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) { actionBar.show(); }
 
         setContentView(R.layout.main);
 
@@ -283,7 +284,8 @@ public class MainActivity extends FragmentActivity implements
 
         isWide = true;
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getActionBar().hide();
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) { actionBar.hide(); }
 
         setContentView(R.layout.main_wide);
     }
