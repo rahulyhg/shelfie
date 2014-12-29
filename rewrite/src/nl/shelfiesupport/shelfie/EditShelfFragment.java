@@ -5,20 +5,22 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
+import nl.shelfiesupport.shelfie.v7.ShelfRecyclerViewAdapter;
 
 public class EditShelfFragment extends Fragment {
 
     private FragmentActivity activityContext;
     public Shelf shelf;
-    private ShelfListAdapter adapter;
+    private ShelfRecyclerViewAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,10 +34,13 @@ public class EditShelfFragment extends Fragment {
         shelf = Shelf.getInstance(activityContext);
         View rootView = getView();
         if(rootView == null) { return; }
-        final ListView shelfLayout = (ListView) rootView.findViewById(R.id.edit_shelf_list);
+        final RecyclerView shelfLayout = (RecyclerView) rootView.findViewById(R.id.edit_shelf_list);
+        shelfLayout.setHasFixedSize(true);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activityContext);
+        shelfLayout.setLayoutManager(layoutManager);
 
-        adapter = new ShelfListAdapter(activityContext, shelf.getItems(), this);
+        adapter = new ShelfRecyclerViewAdapter(activityContext, shelf.getItems(), this);
         shelfLayout.setAdapter(adapter);
         getView().findViewById(R.id.addItem).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +58,12 @@ public class EditShelfFragment extends Fragment {
                     shelf.addItem(new ShelfItem(value, 1));
                     v.setText("");
                     adapter.notifyDataSetChanged();
-                    shelfLayout.setSelection(shelf.getSelectedItemPosition());
                     return true;
                 }
                 return false;
             }
         });
 
-        shelfLayout.setSelection(shelf.getSelectedItemPosition());
         if(adapter != null) {
             adapter.notifyDataSetChanged();
         }
@@ -74,13 +77,11 @@ public class EditShelfFragment extends Fragment {
     }
 
     public void addItem() {
-        final ListView shelfLayout = (ListView) getView().findViewById(R.id.edit_shelf_list);
         final EditText newItem = (EditText) getView().findViewById(R.id.addInput);
         String value = newItem.getText().toString();
         if(value.trim().length() > 1) {
             shelf.addItem(new ShelfItem(value, 1));
             adapter.notifyDataSetChanged();
-            shelfLayout.setSelection(shelf.getSelectedItemPosition());
             newItem.setText("");
             ((ShelfieFragmentListener) activityContext).reinitGroceryListFragment();
         }

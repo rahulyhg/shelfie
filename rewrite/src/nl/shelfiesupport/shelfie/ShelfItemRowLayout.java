@@ -26,10 +26,7 @@ public class ShelfItemRowLayout extends RelativeLayout {
         return desiredAmountView;
     }
 
-    public ImageButton getDecrementButton() {
-
-        return decrementButton;
-    }
+    public ImageButton getDecrementButton() { return decrementButton; }
 
     public ImageButton getIncrementButton() {
         return incrementButton;

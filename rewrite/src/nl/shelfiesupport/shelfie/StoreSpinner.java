@@ -2,15 +2,18 @@ package nl.shelfiesupport.shelfie;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import nl.shelfiesupport.shelfie.v7.ShelfRecyclerViewAdapter;
 
 @SuppressWarnings("ALL")
 public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedListener {
     private EditShelfFragment editShelfFragment;
     private boolean readyForSelect = false;
     private Context context;
+    private ShelfRecyclerViewAdapter shelfRecyclerViewAdapter;
 
     public StoreSpinner(Context context) {
         super(context);
@@ -32,16 +35,19 @@ public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedL
         super(context, attrs, defStyle, mode);
         this.context = context;
     }
+    public void setShelfRecyclerViewAdapter(ShelfRecyclerViewAdapter adapter) {
+        this.shelfRecyclerViewAdapter = adapter;
+    }
 
     @Override
     public boolean performClick() {
         View currentShelfRow = this;
-        while(!(currentShelfRow instanceof ShelfItemRowLayout)) {
+        while(!(currentShelfRow.getParent() instanceof android.support.v7.widget.RecyclerView)) {
             currentShelfRow = (View) currentShelfRow.getParent();
         }
         currentShelfRow.performClick();
-
         if(Inventory.getStores(getContext()).size() == 1) {
+            Log.w(Tag.SHELFIE, "1a --");
             editShelfFragment.showNewStorePrompt();
             return false;
         }
@@ -61,7 +67,7 @@ public class StoreSpinner extends Spinner implements AdapterView.OnItemSelectedL
             if (selectedStore != null && currentShelfItem != null) {
                 Inventory.getShelf(getContext()).setStore(currentShelfItem, selectedStore);
                 ((ShelfieFragmentListener) context).reinitGroceryListFragment();
-
+                if(shelfRecyclerViewAdapter != null) { shelfRecyclerViewAdapter.notifyDataSetChanged(); }
             }
             readyForSelect = false;
         }
