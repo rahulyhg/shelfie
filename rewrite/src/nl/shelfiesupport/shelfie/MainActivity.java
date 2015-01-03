@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import net.peterkuterna.android.apps.swipeytabs.SwipeyTabs;
+import nl.shelfiesupport.shelfie.faye.WebSocketService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,6 +117,8 @@ public class MainActivity extends FragmentActivity implements
         } else {
             initViewPager();
         }
+        Intent intent = new Intent(this, WebSocketService.class);
+        startService(intent);
 
     }
     @Override

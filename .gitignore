@@ -53,3 +53,8 @@ out
 src/nl/rene/shelfie/Remoting.java
 
 proguard_logs
+test.html
+rewrite/src/com/saulpower/fayeclient/Base64.java
+rewrite/src/com/saulpower/fayeclient/FayeClient.java
+rewrite/src/com/saulpower/fayeclient/HybiParser.java
+rewrite/src/com/saulpower/fayeclient/WebSocketClient.java
