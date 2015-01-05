@@ -13,7 +13,8 @@ import java.net.URI;
 public class WebSocketService extends IntentService implements FayeClient.FayeListener {
 
     public final String TAG = Tag.SHELFIE_NET;
-    private String mChannel = "/testing";
+    public static boolean isUp = false;
+    private String mChannel = null;
     FayeClient mClient;
 
     private static final class WebSocketHandler extends Handler {
@@ -26,9 +27,15 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if(isUp) {
+            Log.i(TAG, "service is already up");
+            return;
+        }
+        isUp = true;
 
-
-        Log.i(TAG, "Starting Web Socket");
+        mChannel = intent.getStringExtra("channel");
+        if(mChannel == null) { return; }
+        Log.i(TAG, "Starting Web Socket for channel: " + mChannel);
 
         String baseUrl = Remoting.SERVICE_URL + "/chans";
 
@@ -63,6 +70,7 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
     @Override
     public void disconnectedFromServer() {
         Log.i(TAG, "Disonnected to Server");
+        isUp = false;
     }
 
     @Override
@@ -73,6 +81,7 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
     @Override
     public void subscriptionFailedWithError(String error) {
         Log.i(TAG, String.format("Subscription failed with error: %s", error));
+        isUp = false;
     }
 
     @Override

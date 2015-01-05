@@ -118,6 +118,7 @@ public class MainActivity extends FragmentActivity implements
             initViewPager();
         }
         Intent intent = new Intent(this, WebSocketService.class);
+        intent.putExtra("channel", "/testing");
         startService(intent);
 
     }
