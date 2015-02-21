@@ -58,3 +58,4 @@ rewrite/src/com/saulpower/fayeclient/Base64.java
 rewrite/src/com/saulpower/fayeclient/FayeClient.java
 rewrite/src/com/saulpower/fayeclient/HybiParser.java
 rewrite/src/com/saulpower/fayeclient/WebSocketClient.java
+rewrite/src/nl/shelfiesupport/shelfie/Remoting.java

@@ -2,9 +2,7 @@ package nl.shelfiesupport.shelfie;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -22,6 +20,23 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements
         Responder, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener,
         ShelfieFragmentListener {
+
+    public static final String GROCERY_LIST_ACTION = "GROC";
+    private Receiver grocerySyncReceiver;
+
+    private class Receiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                JSONObject message = new JSONObject(intent.getStringExtra("MSG"));
+                Toast.makeText(MainActivity.this, "MSG :" + message, Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                Log.e(Tag.SHELFIE, "Invalid JSON received by Receiver");
+            }
+        }
+    }
+
     private MainPagerAdapter pageAdapter;
     private static final List<Integer> fragIds = new ArrayList<Integer>();
     static {
@@ -117,9 +132,6 @@ public class MainActivity extends FragmentActivity implements
         } else {
             initViewPager();
         }
-        Intent intent = new Intent(this, WebSocketService.class);
-        intent.putExtra("channel", "/testing");
-        startService(intent);
 
     }
     @Override
@@ -177,7 +189,9 @@ public class MainActivity extends FragmentActivity implements
                     }
                 }
                 break;
-
+            case R.id.sync_groceries:
+                syncGroceries(null);
+                break;
             case R.id.email_menu_button:
                 emailGroceries(null);
                 break;
@@ -189,6 +203,13 @@ public class MainActivity extends FragmentActivity implements
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void syncGroceries(View view) {
+
+        Intent intent = new Intent(this, WebSocketService.class);
+        intent.putExtra("channel", "/testing");
+        startService(intent);
     }
 
     public void shareShelf(View view) {
@@ -375,5 +396,20 @@ public class MainActivity extends FragmentActivity implements
     public void reinitFragments() {
         reinitEditShelfFragment();
         reinitGroceryListFragment();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(grocerySyncReceiver);
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        grocerySyncReceiver = new Receiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(MainActivity.GROCERY_LIST_ACTION);
+        registerReceiver(grocerySyncReceiver, intentFilter);
+        super.onStart();
     }
 }

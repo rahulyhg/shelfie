@@ -13,6 +13,11 @@
           android:title="@string/share"
           android:showAsAction="always" />
 
+    <item android:title="@string/sync_groceries"
+          android:id="@+id/sync_groceries"
+          android:icon="@drawable/grocery_sync"
+          android:showAsAction="always"  />
+
     <item android:title="@string/delete_groceries"
           android:id="@+id/main_menu_delete"
           android:icon="@drawable/main_menu_delete"

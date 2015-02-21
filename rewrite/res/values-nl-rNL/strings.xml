@@ -76,5 +76,6 @@
     <string name="next">Next</string>
     <string name="info">Informatie</string>
     <string name="drop_info">Remove</string>
+    <string name="sync_groceries">Boodschappen synchroniseren</string>
 
 </resources>

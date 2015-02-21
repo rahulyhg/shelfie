@@ -171,7 +171,17 @@
                          android:onClick="emailGroceries"
                     />
             <include layout="@layout/dblborder" />
-
+            <ImageButton android:layout_width="50dp"
+                         android:layout_height="match_parent"
+                         android:paddingLeft="4dp"
+                         android:paddingRight="4dp"
+                         android:paddingTop="12dp"
+                         android:paddingBottom="15dp"
+                         android:src="@drawable/grocery_sync"
+                         android:background="@drawable/button_background"
+                         android:onClick="syncGroceries"
+                    />
+            <include layout="@layout/dblborder" />
             <ImageButton android:layout_width="50dp"
                        android:layout_height="match_parent"
                        android:paddingLeft="4dp"
