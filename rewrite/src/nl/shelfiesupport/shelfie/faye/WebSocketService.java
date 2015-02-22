@@ -15,14 +15,15 @@ import java.net.URI;
 public class WebSocketService extends IntentService implements FayeClient.FayeListener {
 
     public final String TAG = Tag.SHELFIE_NET;
-    public static boolean isUp = false;
+    private static boolean isUp = false;
     private String mChannel = null;
-    FayeClient mClient;
-    public static boolean connecting = false;
+    private static FayeClient mClient;
+    private static boolean connecting = false;
 
     private static final class WebSocketHandler extends Handler {
 
     }
+    private static final WebSocketHandler mHandler = new WebSocketHandler();
 
     public WebSocketService() {
         super("WebSocketService");
@@ -32,6 +33,13 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        boolean disconnect = intent.getBooleanExtra("disconnect", false);
+        if (disconnect) {
+            if(mClient != null) {
+                mClient.disconnectFromServer();
+            }
+            return;
+        }
         if(isUp || connecting) {
             Log.i(TAG, "service is already up or connecting");
             return;
@@ -39,14 +47,16 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
         connecting = true;
 
         mChannel = intent.getStringExtra("channel");
-        if(mChannel == null) { return; }
+        if(mChannel == null) {
+            return;
+        }
         Log.i(TAG, "Starting Web Socket for channel: " + mChannel);
 
         String baseUrl = Remoting.SERVICE_URL + "/chans";
 
         URI uri = URI.create(baseUrl);
 
-        mClient = new FayeClient(new WebSocketHandler(), uri, mChannel);
+        mClient = new FayeClient(mHandler, uri, mChannel);
         mClient.setFayeListener(this);
         mClient.connectToServer(new JSONObject());
 
@@ -72,13 +82,21 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
         Log.i(TAG, "Connected to Server");
         isUp = true;
         connecting = false;
+        Intent intent = new Intent();
+        intent.setAction(MainActivity.GROCERY_LIST_ACTION);
+        intent.putExtra("CONNECTED", 1);
+        sendBroadcast(intent);
     }
 
     @Override
     public void disconnectedFromServer() {
-        Log.i(TAG, "Disonnected to Server");
+        Log.i(TAG, "Disonnected from Server");
         isUp = false;
         connecting = false;
+        Intent intent = new Intent();
+        intent.setAction(MainActivity.GROCERY_LIST_ACTION);
+        intent.putExtra("CONNECTED", 0);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -92,6 +110,11 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
         Log.i(TAG, String.format("Subscription failed with error: %s", error));
         isUp = false;
         connecting = false;
+        Intent intent = new Intent();
+        intent.setAction(MainActivity.GROCERY_LIST_ACTION);
+        intent.putExtra("CONNECTED", 0);
+        sendBroadcast(intent);
+
     }
 
     @Override

@@ -179,7 +179,8 @@
                          android:paddingBottom="15dp"
                          android:src="@drawable/grocery_sync"
                          android:background="@drawable/button_background"
-                         android:onClick="syncGroceries"
+                         android:id="@+id/sync_groceries"
+                         android:onClick="toggleGrocerySync"
                     />
             <include layout="@layout/dblborder" />
             <ImageButton android:layout_width="50dp"

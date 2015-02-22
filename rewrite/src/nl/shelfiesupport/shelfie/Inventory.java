@@ -17,6 +17,7 @@ public class Inventory {
     private static Inventory instance = null;
     private static int currentShelfIndex = 0;
     private static boolean infoSuppressed = false;
+    static boolean connectedToFaye = false;
 
     private final List<Shelf> shelves;
     private List<String> votes = new ArrayList<String>();

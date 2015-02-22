@@ -28,12 +28,39 @@ public class MainActivity extends FragmentActivity implements
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            int connectStatus = intent.getIntExtra("CONNECTED", -1);
+            if(connectStatus > -1) {
+                onFayeStatusChanged(connectStatus);
+                return;
+            }
+
             try {
                 JSONObject message = new JSONObject(intent.getStringExtra("MSG"));
                 Toast.makeText(MainActivity.this, "MSG :" + message, Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 Log.e(Tag.SHELFIE, "Invalid JSON received by Receiver");
             }
+        }
+    }
+
+    private void onFayeStatusChanged(int connectStatus) {
+        ImageButton syncButt = (ImageButton) findViewById(R.id.sync_groceries);
+
+        if(connectStatus == 1) {
+            Inventory.connectedToFaye = true;
+            if(syncButt == null) {
+
+            } else {
+                syncButt.setImageDrawable(getResources().getDrawable(R.drawable.grocery_sync_up));
+            }
+        } else {
+            Inventory.connectedToFaye = false;
+            if(syncButt == null) {
+
+            } else {
+                syncButt.setImageDrawable(getResources().getDrawable(R.drawable.grocery_sync));
+            }
+            Toast.makeText(this, getString(R.string.no_faye_connect), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -132,7 +159,7 @@ public class MainActivity extends FragmentActivity implements
         } else {
             initViewPager();
         }
-
+        if(Inventory.connectedToFaye) { onFayeStatusChanged(1); }
     }
     @Override
     public void onResume() {
@@ -190,7 +217,7 @@ public class MainActivity extends FragmentActivity implements
                 }
                 break;
             case R.id.sync_groceries:
-                syncGroceries(null);
+                toggleGrocerySync(null);
                 break;
             case R.id.email_menu_button:
                 emailGroceries(null);
@@ -205,11 +232,16 @@ public class MainActivity extends FragmentActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    public void syncGroceries(View view) {
+    public void toggleGrocerySync(View view) {
 
         Intent intent = new Intent(this, WebSocketService.class);
-        intent.putExtra("channel", "/testing");
-        startService(intent);
+        if(Inventory.connectedToFaye) {
+            intent.putExtra("disconnect", true);
+            startService(intent);
+        } else {
+            intent.putExtra("channel", "/testing");
+            startService(intent);
+        }
     }
 
     public void shareShelf(View view) {

@@ -75,4 +75,5 @@
     <string name="info">Information</string>
     <string name="drop_info">Remove</string>
     <string name="sync_groceries">Sync groceries</string>
+    <string name="no_faye_connect">Sync service disconnected</string>
 </resources>

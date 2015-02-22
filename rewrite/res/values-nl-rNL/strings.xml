@@ -77,5 +77,7 @@
     <string name="info">Informatie</string>
     <string name="drop_info">Remove</string>
     <string name="sync_groceries">Boodschappen synchroniseren</string>
+    <string name="no_faye_connect">Verbinding met synchronisatieservice verbroken</string>
+
 
 </resources>
